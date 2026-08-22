@@ -13,14 +13,27 @@ Mira 専用リポジトリ。設計メモ・対話ログ・Project Instructions 
 ```
 Mira-project/
 ├── README.md                          # このファイル
+├── .cursor/rules/
+│   └── mira-workflow.mdc              # Cursor エージェント向け常時ルール
 ├── docs/
 │   ├── START_HERE.md                  # ChatGPT / 人間向け入口
+│   ├── CURSOR_START.md                # Cursor 実装セッション入口
+│   ├── handoff-template.md            # ChatGPT → Cursor 引き継ぎ
 │   └── chatgpt-project-instructions.md  # ChatGPT Project に貼る指示文
 ├── notes/                             # 自由メモ（Markdown）
 │   └── .gitkeep
 └── logs/                              # セッション記録・接続ログ
     └── .gitkeep
 ```
+
+## チャネル分担
+
+| チャネル | 役割 |
+|---------|------|
+| **ChatGPT Project「Mira」** | 設計・思考・方針（GitHub 読み取り） |
+| **Cursor** | 実装・ファイル編集・commit / push |
+
+Handoff: ChatGPT で設計 → `notes/` に `handoff-template.md` 形式で保存 → Cursor で実装。
 
 ## ChatGPT との連携（概要）
 
@@ -30,12 +43,15 @@ Mira-project/
 4. 新規リポジトリでインデックスが効かない場合、GitHub で次を検索して 5〜10 分待つ:
    `repo:kyo01kuni19-byte/Mira-project import`
 
-## ローカル clone
+## ローカル clone / Cursor で開く
 
 ```bash
 git clone https://github.com/kyo01kuni19-byte/Mira-project.git
 cd Mira-project
 ```
+
+Cursor: **File → Open Folder** → `/Users/kuni/Documents/GitHub/Mira-project`  
+実装セッション開始: `docs/CURSOR_START.md` を参照
 
 ## 更新の流れ
 
