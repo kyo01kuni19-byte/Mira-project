@@ -89,6 +89,21 @@ Evidenceと多様なUse CaseによってConfidenceとValidated Scopeを拡大し
 
 KuniとWisdomは区別する。
 
+### Opinion / Evidence / Understanding
+
+Humanの回答はTruthとして直接扱わず、まず **Opinion / Claim** として扱う。
+
+- **Opinion / Claim:** 人間が現時点でそう考えている、またはそう記憶している内容
+- **Evidence-supported Claim:** Document / Data / Test / concrete experience等のEvidenceが付いたClaim
+- **Validated Understanding:** 他Human、Document、Data、実運用等とのCross-validationを通じて一定範囲で支持された理解
+- **Generalized Knowledge / Principle Candidate:** 異質なUse Caseや反証機会を通じてValidated ScopeとConfidenceが広がった理解
+
+**Opinion + Evidence ≠ Fact / Truth.** Evidence自体の品質、Context、他Evidenceとの整合性、Boundary Conditionsを検証する。
+
+EvidenceのないOpinionも捨てない。暗黙知や経験に基づくOpinionは、HypothesisやEvidence探索を開始するSignalとして保持する。
+
+新しいEvidenceによりValidated Understandingも Challenged / Revised / Scope-limited / Rejected され得る。
+
 ## 4. Continuity
 
 MemoryとContinuityを区別する。
@@ -195,7 +210,43 @@ Minimumとは「可能な限り小さい」ことではなく、
 
 MVP / Minimum Viable Implementationの具体形は、そのPhaseで解決すべきUnknownと必要Evidenceによって変化する。
 
-## 8. Current Gate Position
+## 8. Human Evidence Acquisition / Adaptive Discovery
+
+MiraはHumanに複雑なFrameworkを操作させず、Humanが答えやすい具体的な一問一答からEvidenceを獲得する。
+
+基本仮説：
+
+**Human should provide simple, concrete evidence; Mira should bear the complexity of structural integration.**
+
+Humanに「正しいStructure」を直接説明させるのではなく、実際の経験・行動・判断に近い小さなQuestionを用いる。
+
+例：
+- このParameterを実際に使う場面はどこですか？
+- 最後に使ったとき何を確認しましたか？
+- 基準値はどこで確認しますか？
+- 変更したら何を再確認しますか？
+- 最終的に誰がOKを出しますか？
+- そう考える理由や確認できるDocument / Dataはありますか？
+
+Miraは回答をObject / Purpose / State / Relationship / Evidence / Owner / Rule等へ内部的に構造化する。
+
+Human回答は完璧とは仮定しない。本人が確信を示してもOpinion / Claimとして保持し、他Human、Document、Data、実運用等とCross-validationする。
+
+### Adaptive Discovery Loop
+
+**Simple Question → Human Statement → Contextualize → Compare → Detect Agreement / Gap / Contradiction / Unknown → Ask Next Minimum Question → Integrate → Human Confirmation → Repeat as needed**
+
+ContradictionはFailureではなく **high-information discovery trigger** として扱う。
+
+矛盾が見つかった場合、誰かを即座に誤りと判定せず、Hidden Condition / Different Object / Different Purpose / Different Lifecycle State / Local Rule / Outdated Knowledge / Governance Gap等の仮説を立て、追加の簡単なQuestionで解消を試みる。
+
+Question Selection Principle：
+
+**次の一問は、Material Unknownを最も減らしながらHuman Cognitive Costを最小化するものを優先する。**
+
+質問は低認知負荷かつ非誘導的にする。抽象的Framework用語より、具体的経験・行動・直近事例を聞く。
+
+## 9. Current Gate Position
 
 **G1 ✓ — Idea Formation Ready**
 
@@ -209,7 +260,7 @@ Mira Architecture v0.1は、Realityで意味ある検証を行える程度のStr
 
 G1通過はArchitectureが正しいことを意味せず、検証可能な状態になったことを意味する。
 
-## 9. Current Continuity Pilot
+## 10. Current Continuity Pilot
 
 GitHub repositoryをMira Project Memoryのgoverned source-of-truth候補として検証する。
 
@@ -219,14 +270,42 @@ GitHub repositoryをMira Project Memoryのgoverned source-of-truth候補とし�
 - Retrieval / context restoration / update effort / change rationale / version history / access & governanceの観点から評価する
 - Environmentごとに利用可能なCapability / Permission / Toolが異なり得ることもContinuity上のContextとして扱う
 
-## 10. Next Action
+## 11. Pilot A — Master Specification Governance
 
-Mira Architecture v0.1をIdea Validationへ投入する。
+Master Specification GovernanceをMira Architecture v0.1の最初の実務Validation Use Caseとして使用中。
 
-次に設計するもの：
+### Evidence observed
 
-**Mira Architecture v0.1のMaterial Unknownを最も効率よく検証し、Unknown Unknownにも遭遇できるPilot / Challenge Use Cases。**
+- Object × Purpose Matrixだけでは、Ownership / Evidence / Lifecycle impact / Change Control status等を十分にGovernできなかった
+- 実務上StateとRelationshipが必要になったことは、Object + Purpose + State + Relationship仮説を支持するEvidence
+- System LevelにはHierarchyがある一方、Parameterは複数Purpose / Lifecycle Event / Verification / Owner等と横断的に関係するためNetworkが必要
+- Master MatrixのPurposeはProduct Verification / Process / Supplier / Release / SAP / Quality System / Market / Regulatory等へ拡張中
+- Purpose proliferationにより、Purpose / Evidence / System Destination / Governance等が同じPurpose軸に混在していないかをChallengeする必要が出ている
+- Matrixを完成させること自体ではなく、実務上答えるべきQuestionに答えられるかをValidation Test Setとして利用できる
 
-Pilotでは本格Implementationを先取りせず、次のDecisionに必要なEvidenceを生み出すMinimum Viable Implementationを設計する。
+### Current architecture assessment
 
-同時に、今回形成した **Idea Formation → Idea Validation → Implementation Planning** という3段階モデル自体もUse Caseとして検証する。
+- **U1 Basic Model:** Supported within Master Specification Governance;第五のUniversal Elementを必須とするEvidenceは現時点で未確認
+- **U2 Hierarchy × Network:** Partially supported
+- **U3 Knowledge Movement:** Generalizationの実例が発生しておりsupported direction
+- **U4 Human Usability:** Human Evidence Acquisition / Adaptive DiscoveryとしてPilotを継続
+
+### Next Master Spec validation
+
+Human担当者にMatrix全体やFrameworkを直接レビューさせるのではなく、一つのParameter / Objectについて少数の簡単なAdaptive Questionsを行う。
+
+回答をOpinion / Evidence / Evidence-supported Claimとして保持し、他Role / Document / Dataと照合する。矛盾をDiscovery Triggerとして次のQuestionを生成し、MiraがObject + Purpose + State + Relationship等のLatent Structureを再構築できるか検証する。
+
+## 12. Next Action
+
+**Pilot A — Human Evidence Acquisition / Adaptive Discovery MVPを設計・実施する。**
+
+目的：
+
+1. Humanへの低認知負荷な一問一答から、MiraがMaster Specification GovernanceのLatent Structureを再構築できるか検証する
+2. Opinion / Evidence / Validated Understandingの区別が実務で機能するか検証する
+3. Contradictionから有益なUnknown / Governance Gapを発見できるか検証する
+4. Object + Purpose + State + Relationship仮説をHuman interactionという異なるEvidence SourceでもChallengeする
+5. HumanがFrameworkを操作せず、MiraがStructural Complexityを内部で処理できるか評価する
+
+Pilot AのEvidenceを反映した後、Mira Continuity / GitHub等の異質なUse CaseへValidated Scopeを広げる。
