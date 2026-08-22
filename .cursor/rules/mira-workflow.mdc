@@ -1,38 +1,33 @@
 ---
-description: Mira-project — ChatGPT 設計 / Cursor 実装の分担
+description: Mira-project — minimal workflow for Cursor sessions
 alwaysApply: true
 ---
 
 # Mira workflow
 
-## 役割分担
+## Role
 
-| チャネル | 役割 | できること |
-|---------|------|-----------|
-| **ChatGPT Project「Mira」** | 設計・思考・方針 | リポジトリ参照、メモ案、architecture（読み取りのみ） |
-| **Cursor（このセッション）** | 実装・編集・Git | ファイル作成/編集、commit、push、コード実行 |
+Cursorは、Mira-projectでローカル実装・編集・Git操作が必要なときの実装手段として利用する。
 
-## Cursor セッション開始時
+ChatGPT / Cursorの役割は固定的に分断しない。各Environmentで利用可能なCapability / Permissionを確認し、最も低コストで安全な手段を使う。
 
-1. `docs/CURSOR_START.md` を読む
-2. `notes/` と `logs/` の最新ファイルを確認
-3. Kuni の依頼が「実装」「編集」「commit」なら Cursor で実行する
-4. 設計のみの相談なら ChatGPT Project を案内する（必要ならメモを `notes/` に残す）
+## Start
 
-## 実装ルール
+1. `README.md` を読む
+2. `PROJECT_MEMORY.md` でCurrent StateとNext Actionを確認する
+3. 必要なら `docs/lineage.md` で継承関係を確認する
+4. 依頼に必要な範囲だけ変更する
 
-- 応答言語: **日本語**（Kuni が英語を指定しない限り）
-- 変更は最小限。依頼外のリファクタリングはしない
-- 新規メモ: `notes/YYYY-MM-DD_短いタイトル.md`
-- セッション記録: `logs/YYYY-MM-DD_session.md`
-- commit は Kuni が明示したときのみ作成
-- 秘密情報（`.env`、API キー）はリポジトリに入れない
+## Rules
 
-## ChatGPT からの引き継ぎ
+- 応答言語: 日本語（Kuniが英語を指定しない限り）
+- 変更は最小限。依頼外のリファクタリングや構造追加をしない
+- `PROJECT_MEMORY.md` はCurrent Stateの正本候補として扱い、重要な進展時のみ更新する
+- 新しいdirectory / taxonomy / log systemは、明確なUse CaseとPurposeが出るまで追加しない
+- 重要変更は可能ならbranch / PRで差分とRationaleを残す
+- `.env`、APIキー、Password、Company/Personal confidential informationをrepositoryへ保存しない
 
-`docs/handoff-template.md` 形式のメモが `notes/` にある場合、その内容を実装タスクの正本として扱う。
+## Lineage
 
-## 禁止
-
-- Civilization OS / Chappy / CGI の bootstrap をこのリポジトリに混在させない
-- ChatGPT Project 用 Instructions を Cursor ルールと矛盾させない
+Chappy / Civilization OS / CGIのLearningや歴史的Contextは尊重するが、旧bootstrapや旧repository structureをMira-projectへ複製しない。
+Miraは独立したproject / systemとして扱う。
