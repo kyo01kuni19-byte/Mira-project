@@ -42,7 +42,46 @@ Case / Functionは具体的Capabilityを担い、ProjectはPurposeに応じて�
 
 System Levelとは独立してValue Scopeを持つ。Individual / Team / Company / Stakeholders / Society / Public / Universe等へ拡張可能。Object/System LevelとValue Scopeを混同しない。
 
-## 3. Discovery Process — Ground before Structure
+## 3. Logical Structure, Connection Function, Explanation Structure
+
+一般原則候補として、**理論的に世界を理解する構造と、人間へ説明・接続する構造は同一ではない**とする。
+
+**Logical Structure ≠ Explanation Structure**
+
+### Logical Structure
+
+PurposeはReality / Object / Knowledgeをできるだけ正確に理解・推論・Governすること。必要に応じてObject / Purpose / State / Relationship / Evidence / Rule / Dependency / Boundary等の複雑な構造を保持してよい。
+
+主人公は説明を受けるHumanではなく、**理解対象となるReality / Object**。
+
+### Connection Function
+
+Logical StructureをHumanへそのまま露出させず、**誰に、何のCommunication Purposeで、どのContextにおいて、何をどこまで伝える必要があるか**を判断し、Human-centeredな表現へ変換する機能。
+
+**Governed Understanding → Human / Communication Purpose / Context → Select / Translate / Project → Human-facing Output**
+
+Connection Functionは、理論を単純化すること自体が目的ではなく、Humanが現在のContextで理解し、接続し、判断し、行動できる状態を作ることをPurposeとする。
+
+### Explanation Structure
+
+Humanを主人公として構成される。Conversation / Question / Matrix / Presentation / Dashboard / Procedure等は、Underlying Logical Structureから生成されるHuman-facing Output / Viewになり得る。
+
+同じLogical Structureでも、R&D / QA / Management / Newcomer等で必要なExplanation Structureは異なってよい。
+
+重要な区別：
+
+- **Object Purpose:** Objectが何のために存在・利用されるか
+- **Communication Purpose:** なぜ今、このHumanにこの情報を伝えるのか
+
+この二つを混同しない。
+
+基本仮説：
+
+**One governed logical structure can generate multiple human-centered explanation structures through a Connection Function.**
+
+Mira内部の知能・構造が高度になることと、Human側の認知負荷が増えることは同義ではない。Framework-driven Discoveryを避け、Structural ComplexityはMira側で処理し、HumanにはPurpose/Contextに適したConnectionを提供する。
+
+## 4. Discovery Process — Ground before Structure
 
 Representation Modelの4要素は横並びに保持するが、**世界を理解するDiscovery Processには順序がある**。
 
@@ -70,7 +109,7 @@ Objectは「何を調べるか」のSearch Anchor、Purposeは「何を知る必
 
 さらに、Object × Purposeは **どのRelationshipを保持するか、どこまでResearchするか、どこで止めるか** のBoundary Anchorとしても機能する。
 
-## 4. Knowledge / Wisdom / Epistemic State
+## 5. Knowledge / Wisdom / Epistemic State
 
 Knowledgeは単純に上位へ昇格するものではなく、意味のあるObject / Purpose / System Levelへ配置する。
 
@@ -91,7 +130,7 @@ EvidenceのないOpinionも捨てない。暗黙知・経験に基づくOpinion�
 
 Wisdomは最初から定義する最上位の正解体系ではなく、Evidenceと多様なUse Caseによって継続的に形成・更新される。
 
-## 5. Evidence Routing and Research Boundary
+## 6. Evidence Routing and Research Boundary
 
 Material Unknownを見つけても、すぐHumanへ質問または無制限なWeb Researchをしない。
 
@@ -107,7 +146,7 @@ Humanは「最後の手段」ではなく、**HumanにしかないKnowledgeへHu
 
 Ideationでは、Research可能だから深掘りするのではなく、**Structural HypothesisをChallengeするために必要なDepthまでResearchする**。
 
-- **Level 1 — Domain Grounding:** Heated Tobacco Product等、何の世界を扱っているか。積極的に外部Researchする価値が高い
+- **Level 1 — Domain Grounding:** 今回のMaster Spec Pilotでは **HTP Consumable Domain Architecture**。Consumable全体のObject / Parameter families / physical structure / Product Performance / Quality / Manufacturing / Verification & Validation / Shelf-life / Regulatory等の一般構造を理解する。Deviceは今回のGoverned Objectではなく、Consumable requirementを理解するために必要な場合のみExternal Relationship / Boundary Conditionとして参照する
 - **Level 2 — Governance / System Model:** Enterprise Specification Management / Lifecycle Governance / PLM / QMS / Requirements / Configuration / Change Control / Digital Thread等。現在のArchitectureを外部PracticeでChallengeするため積極的にResearchする価値が高い
 - **Level 3 — Parameter / Component:** Menthol、Total stick length、Trimmer disc等。全体Mechanism / Parameter Setを理解する範囲では有用だが、個々を原則深掘りしない
 - **Level 4 — Detailed Technical Mechanism / Optimization:** 個別geometry、最適値、詳細工学等。現在のMaterial UnknownやDecisionに必要な場合のみResearch
@@ -122,7 +161,7 @@ Research Stop Condition：追加Researchが現在のArchitecture / Structural Hy
 
 Miraは外部情報をすべてMemoryへ複製せず、Current Structural Understanding、Relevant Source / Provenance、Company-specific Difference、Validated / Unvalidated Relationship等を必要な範囲で保持する。
 
-## 6. Human Evidence Acquisition / Adaptive Discovery
+## 7. Human Evidence Acquisition / Adaptive Discovery
 
 基本仮説：
 
@@ -144,7 +183,7 @@ Question SelectionはMaterial Unknown / Structural Novelty / Expected Informatio
 
 **Stop when the next question belongs to another Object / Purpose / Scope.**
 
-## 7. Idea Formation → Idea Validation → Implementation Planning
+## 8. Idea Formation → Idea Validation → Implementation Planning
 
 ### Idea Formation
 中心問い：**Can the idea work conceptually?**
@@ -165,7 +204,7 @@ G2はPilot成功ではなく、**Evidenceを通じてIdeaを十分理解し、Im
 
 Scale / Operations / Ownership / Governance / Resource / Integration / Compliance / Maintenance / Benefit Realization等を設計する。
 
-## 8. Minimum Viable Principle
+## 9. Minimum Viable Principle
 
 MVPはIdea Validation固有ではなくEVT / DVT / PVT等を横断する一般原理。
 
@@ -177,7 +216,7 @@ Minimumとは可能な限り小さいことではなく、Material Unknownを検
 
 Researchにも同じ考えを適用し、**Minimum Research × Maximum Structural Learning** とする。
 
-## 9. Current Continuity Pilot
+## 10. Current Continuity Pilot
 
 GitHub repositoryをMira Project Memoryのgoverned source-of-truth候補として検証中。
 
@@ -187,7 +226,7 @@ GitHub repositoryをMira Project Memoryのgoverned source-of-truth候補とし�
 - Retrieval / context restoration / update effort / version history / access & governanceを評価
 - EnvironmentごとのCapability / Permission / Tool差もContinuity Contextとして扱う
 
-## 10. Pilot A — Master Specification Governance
+## 11. Pilot A — Master Specification Governance
 
 Master Specification GovernanceをMira Architecture v0.1の最初の実務Validation Use Caseとして使用中。
 
@@ -215,36 +254,12 @@ Master Matrixの主Purposeは、**Product Lifecycle Governance上、どのParame
 
 Physical ObjectとGoverned Objectは区別が必要な場合がある。物理的にMachine componentであっても、Matrix上でどのGoverned Objectへ配置するかはMatrixのPurposeとClassification Ruleに依存するため、Physical identityだけでObject classificationを確定しない。
 
-### Run 1 — Menthol / Known-answer Calibration
+### Human-facing Cognitive Map and Logical Network
 
-HumanへFrameworkを説明せず簡単な一問一答を行い、Specification Verification、SAP Target/Tolerance、Process Validation、Cpk、Shelf-life、Product Quality / Validation / Batch Release Standards、Change Governance等のNetworkを再構築できた。
+Master Matrixの重要な役割は、HumanがParameterを見た瞬間に、**何のために使われているか、自分の仕事とどこで関係するか、変更時に何を気にすべきか**を理解するためのCognitive Mapになること。
 
-主なLearning：
-- Humanの頭の中にあるNetworkをHuman自身にNetworkとして説明させる必要はない
-- 同じParameterでもLifecycle ContextによってRule / criterionが異なる
-- Expert confidenceとEvidence Strengthは別
-- StandardとStandard外Exception / Escalation Pathを区別
-- Requester / Owner / Responsible / Approver等のRelationshipを混同しない
-- MiraがHuman回答を先回りして補完するFailure Riskがあり、Infer freely / commit conservativelyが必要
+一方、Underlying Logical Structureでは、Parameter / Requirementを中心に **Objects / Relationships / States / Evidence** のNetworkをしっかり保持する方向を支持する。
 
-### Run 2 — Total stick length / Structural Novelty
+成熟したEnterprise Specification / PLM / QMS ArchitectureとのExternal Challengeでも、RequirementをTest / Manufacturing Process / Change / Configuration / Regulatory Assessment / Document / Owner等へlinkするNetwork型の構造が支持された。
 
-MatrixのObject × Parameter Type × Purpose combinationを解析し、Mentholとは異なる `Machine × Configuration` PatternとしてTST-010 Total stick lengthを選定。
-
-Human Evidenceから以下を発見：
-- Total stick lengthはtobacco segment / filter segment等の構成に関係し、変更にはMachine configuration / designへの大きな影響があり得る
-- Change impactはMachine Object内に閉じず、tobacco weight、chemical / aerosol-related product performance等のProduct Objectへ伝播し得る
-- RelationshipにはComposition / Dependency / Impactだけでなく、必要に応じてMechanism / Rationaleを保持する価値がある
-- technical mechanismはChange内容で異なり得る一方、Verification / Validationで評価すべき項目はより安定したGovernance Ruleとして存在し得る
-- 現時点ではRuleの相当部分がHuman know-how / distributed knowledgeにあり、Master Matrixがそれを明示化しQMSへFormalizeすることを目指している
-
-### Run 3 — Trimmer disc specification / Edge Case
-
-Matrix上でPurpose接続が薄いRare PatternとしてTrimmer disc specificationをChallenge。
-
-Human Groundingから：
-- Trimmer discは物理的にはMachine component
-- tobacco densityをControlし、smoke generation / product performanceへ影響し得る重要なmachine-related specification
-- しかしMaster MatrixはMachine instance / component traceabilityを目的とせず、「このRequirementをGovernすべき」というGovernance definitionを目的とする
-
-Learning
+ただし、Master Matrixを単に「backend networkの表示画面」と限定しない。より一般的には、MatrixはMaster Specification Contextにおける **Connection Functionから生成されるHuman-facing Explanation Structure / Cognitive Mapの一つ** と位置づける。
