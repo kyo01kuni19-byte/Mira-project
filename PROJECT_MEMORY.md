@@ -2,7 +2,7 @@
 
 **Status:** Active  
 **Current Phase:** Idea Validation  
-**Gate Status:** G1 ✓ → G2 ●  
+**Gate Status:** Mira Architecture G1 ✓ → G2 ● | Pilot A G2-ready candidate ✓  
 **Last Updated:** 2026-08-22  
 **Purpose:** Mira開発における現在の理解・重要な決定・構造仮説・Evidence・未解決事項・次の検討地点を保持し、会話・時間・環境を越えて思考と仕事を継続できるようにする。
 
@@ -26,7 +26,7 @@ Miraが世界・仕事・Knowledgeを扱う基本構造候補：
 
 - **Object:** 何についてなのか
 - **Purpose:** 何のために存在・活動するのか
-- **State:** 現在どのような状態なのか。KnowledgeではEvidence Strength / Confidence / Validated Scopeも重要
+- **State:** 現在どのような状態なのか。KnowledgeではHypothesis Strength / Evidence / Validated Scope等も重要
 - **Relationship:** 他Objectとどのような意味ある関係を持つのか。Dependency / Evidence / Ownership / Rights / Conditions / Governance / Composition / Impact / Mechanism / Rationale等を必要に応じて表す
 
 現時点で第五のUniversal Elementを必須とするEvidenceは確認されていない。
@@ -60,7 +60,7 @@ Logical StructureをHumanへそのまま露出させず、**誰に、何のCommu
 
 **Governed Understanding → Human / Communication Purpose / Context → Select / Translate / Project → Human-facing Output**
 
-Connection Functionは、理論を単純化すること自体が目的ではなく、Humanが現在のContextで理解し、接続し、判断し、行動できる状態を作ることをPurposeとする。
+Connection Functionは、Humanが現在のContextで理解し、接続し、判断し、行動できる状態を作ることをPurposeとする。
 
 ### Explanation Structure
 
@@ -69,25 +69,18 @@ Humanを主人公として構成される。Conversation / Question / Matrix / P
 同じLogical Structureでも、R&D / QA / Management / Newcomer等で必要なExplanation Structureは異なってよい。
 
 重要な区別：
-
 - **Object Purpose:** Objectが何のために存在・利用されるか
 - **Communication Purpose:** なぜ今、このHumanにこの情報を伝えるのか
-
-この二つを混同しない。
 
 基本仮説：
 
 **One governed logical structure can generate multiple human-centered explanation structures through a Connection Function.**
 
-Mira内部の知能・構造が高度になることと、Human側の認知負荷が増えることは同義ではない。Framework-driven Discoveryを避け、Structural ComplexityはMira側で処理し、HumanにはPurpose/Contextに適したConnectionを提供する。
+Mira内部の知能・構造が高度になることと、Human側の認知負荷が増えることは同義ではない。
 
 ## 4. Discovery Process — Ground before Structure
 
 Representation Modelの4要素は横並びに保持するが、**世界を理解するDiscovery Processには順序がある**。
-
-いきなりObject / Purpose / State / Relationshipをすべて埋めない。まず何について何のために話しているのかをGroundし、Mira自身のDomain Understandingを必要十分な水準まで上げてからState / Relationshipを探索する。
-
-### Current Discovery Sequence
 
 1. **Object Grounding** — 何について話しているのかを特定
 2. **Purpose Grounding** — なぜ扱うのか、何のValue / Function / Decisionに関係するかを特定
@@ -97,7 +90,7 @@ Representation Modelの4要素は横並びに保持するが、**世界を理解
 6. **State / Relationship Hypothesis** — State、Dependency、Ownership、Evidence、Impact、Governance、Mechanism等の仮説を作る
 7. **Targeted Evidence Acquisition** — Material Unknownだけを最適なEvidence SourceへRouting
 8. **Contradiction / Gap Detection** — Agreement / Gap / Contradiction / Unknownを検出
-9. **Refinement / Validation** — Structure、Confidence、Validated Scopeを更新
+9. **Refinement / Validation** — Structure、Hypothesis Strength、Validated Scopeを更新
 
 基本仮説：
 
@@ -105,30 +98,55 @@ Representation Modelの4要素は横並びに保持するが、**世界を理解
 Understanding guides evidence acquisition.  
 Evidence enables State and Relationship discovery.**
 
-Objectは「何を調べるか」のSearch Anchor、Purposeは「何を知る必要があるか」のSearch Directionとして機能する。
+Object × PurposeはSearch Anchor / Search Directionだけでなく、どのRelationshipを保持するか、どこまでResearchするか、どこで止めるかのBoundary Anchorとしても機能する。
 
-さらに、Object × Purposeは **どのRelationshipを保持するか、どこまでResearchするか、どこで止めるか** のBoundary Anchorとしても機能する。
+## 5. Knowledge / Wisdom / Hypothesis Strength
 
-## 5. Knowledge / Wisdom / Epistemic State
+### Truthを最終Stateとして置かない
 
-Knowledgeは単純に上位へ昇格するものではなく、意味のあるObject / Purpose / System Levelへ配置する。
+MiraはKnowledgeを **OpinionかTruthかの二値** で扱わない。
 
-Knowledge movement候補：**Stay / Propagate / Generalize / Specialize**。
+Humanが強く確信していること、Miraが合理的だと考えること、Documentに書かれていることも、それだけでTruthにはしない。
 
-HumanやWebの回答をTruthとして直接扱わない。
+基本仮説：
 
-- **Opinion / Claim:** HumanやSourceがそう主張している
-- **Evidence-supported Claim:** Document / Data / Test / concrete experience等が付いたClaim
-- **Validated Understanding:** 複数Evidence SourceとのCross-validationで一定Scopeにおいて支持された理解
-- **Generalized Knowledge / Principle Candidate:** 異質なUse Case / Challengeを通じてConfidenceとValidated Scopeが広がった理解
+**Knowledge is a hypothesis whose support strength and applicable scope evolve with evidence and challenge exposure.**
 
-**Opinion + Evidence ≠ Fact / Truth.** Evidence自体の品質、Context、Boundary、他Evidenceとの整合性を検証する。
+OpinionとTruthの間に固定境界を置くのではなく、HypothesisがどのEvidenceによって、どのScopeで、どの程度Challengeを生き残っているかを保持する。
 
-EvidenceのないOpinionも捨てない。暗黙知・経験に基づくOpinionはHypothesis / Evidence探索のSignalとして保持する。
+### Epistemic progression candidate
 
-新EvidenceによってValidated Understandingも Challenged / Revised / Scope-limited / Rejected され得る。
+**Opinion / Claim → Hypothesis → Evidence-supported Hypothesis → Validated Understanding → Generalized Principle Candidate → Wisdom Candidate**
 
-Wisdomは最初から定義する最上位の正解体系ではなく、Evidenceと多様なUse Caseによって継続的に形成・更新される。
+これはTruthへ向かう一本道ではない。新しいEvidenceによって、どのStateからでも **Challenged / Revised / Scope-limited / Rejected** され得る。
+
+### Hypothesis Strength dimensions
+
+単一Confidence scoreだけでなく、少なくとも次を分けて考える。
+
+- **Evidence Strength:** Evidence自体の直接性・品質・再現性等
+- **Evidence Diversity:** Human / Document / Data / Experiment / Internal Use Case / External Research等、独立したEvidence Sourceの多様性
+- **Challenge Exposure:** Novel / Edge / contradictory cases等によってどれだけ反証機会へ曝されたか
+- **Validated Scope:** 現時点でどのObject / Purpose / Context / System Levelまで成立を確認したか
+- **Contradiction Status:** Material contradictionが存在するか、未解決か、説明可能か
+
+Hypothesis Strengthはこれらの組合せとして扱い、単純な「正しい/間違い」や一つの数値へ早期に圧縮しない。
+
+### Principle / Wisdom
+
+Principleも絶対Truthとは定義しない。
+
+**Principle Candidate = 広いValidated Scopeを持ち、多様なEvidenceで支持され、多くのChallengeを生き残っている比較的強いHypothesis。**
+
+Wisdomも固定された最終Truthではなく、Evidence / Reality / Boundaryの変化に応じて更新可能なUnderstandingとして扱う。
+
+### Current major hypotheses
+
+- **H1:** Object + Purpose + State + Relationship
+- **H2:** Ground Object / Purpose before deeper research and State / Relationship structuring
+- **H3:** Logical Structure → Connection Function → Explanation Structure
+
+Human convictionはこれらを探索する重要なSignalだが、Hypothesis Strengthとは分離する。Pilot AではH1/H2を中心にHuman / Matrix / practical use cases / edge cases / external enterprise benchmark等のEvidenceが積み上がった。H3はMaster Matrix / Adaptive Discoveryから強いStructural Hypothesisとして生まれたが、Master Spec以外でのChallenge Exposureはまだ限定的。
 
 ## 6. Evidence Routing and Research Boundary
 
@@ -140,30 +158,20 @@ Material Unknownを見つけても、すぐHumanへ質問または無制限なWe
 4. Company-specific / tacit / unresolvedなら、最適なHumanへMinimum Questionを聞く
 5. Sourcesが矛盾する場合はContradictionとして追加EvidenceへRouting
 
-Humanは「最後の手段」ではなく、**HumanにしかないKnowledgeへHuman Costを集中させるEvidence Source**として扱う。Public KnowledgeもTruthではなく、一般Domain KnowledgeとCompany-specific Realityを区別する。
+HumanはHumanにしかないKnowledgeへHuman Costを集中させるEvidence Source。Public KnowledgeもTruthではなく、一般Domain KnowledgeとCompany-specific Realityを区別する。
 
 ### Research Depth Principle
 
-Ideationでは、Research可能だから深掘りするのではなく、**Structural HypothesisをChallengeするために必要なDepthまでResearchする**。
-
-- **Level 1 — Domain Grounding:** 今回のMaster Spec Pilotでは **HTP Consumable Domain Architecture**。Consumable全体のObject / Parameter families / physical structure / Product Performance / Quality / Manufacturing / Verification & Validation / Shelf-life / Regulatory等の一般構造を理解する。Deviceは今回のGoverned Objectではなく、Consumable requirementを理解するために必要な場合のみExternal Relationship / Boundary Conditionとして参照する
-- **Level 2 — Governance / System Model:** Enterprise Specification Management / Lifecycle Governance / PLM / QMS / Requirements / Configuration / Change Control / Digital Thread等。現在のArchitectureを外部PracticeでChallengeするため積極的にResearchする価値が高い
-- **Level 3 — Parameter / Component:** Menthol、Total stick length、Trimmer disc等。全体Mechanism / Parameter Setを理解する範囲では有用だが、個々を原則深掘りしない
-- **Level 4 — Detailed Technical Mechanism / Optimization:** 個別geometry、最適値、詳細工学等。現在のMaterial UnknownやDecisionに必要な場合のみResearch
-
-基本原則：
+- **Level 1 — Domain Grounding:** 今回のMaster Spec PilotではHTP Consumable Domain Architecture
+- **Level 2 — Governance / System Model:** Enterprise Specification Management / Lifecycle Governance / PLM / QMS / Requirements / Configuration / Change Control等
+- **Level 3 — Parameter / Component:** 全体Mechanism / Parameter Set理解には有用だが、個々を原則深掘りしない
+- **Level 4 — Detailed Technical Mechanism / Optimization:** Material Unknown / Decisionに必要な場合のみ
 
 **Research at the highest level sufficient to understand and challenge the current Object / Purpose. Drill down only when a material unknown cannot otherwise be resolved.**
 
 **Minimum Research × Maximum Structural Learning**
 
-Research Stop Condition：追加Researchが現在のArchitecture / Structural Hypothesis / Material Decisionを変える可能性が低くなったら止める。
-
-Miraは外部情報をすべてMemoryへ複製せず、Current Structural Understanding、Relevant Source / Provenance、Company-specific Difference、Validated / Unvalidated Relationship等を必要な範囲で保持する。
-
 ## 7. Human Evidence Acquisition / Adaptive Discovery
-
-基本仮説：
 
 **Human should provide simple, concrete evidence; Mira should bear the complexity of structural integration.**
 
@@ -171,15 +179,11 @@ HumanにFrameworkや正しいStructureを説明させず、具体的経験・行
 
 **Simple Question → Human Statement → Contextualize → Compare → Detect Agreement / Gap / Contradiction / Unknown → Ask Next Minimum Question → Integrate → Human Confirmation**
 
-ContradictionはFailureではなく **high-information discovery trigger** として扱う。
-
-質問は低認知負荷・非誘導的にする。Miraは内部では大胆にHypothesisを作ってよいが、Evidence以上に確定しない。
+ContradictionはFailureではなく **high-information discovery trigger**。
 
 **Infer freely, commit conservatively.**
 
 Question SelectionはMaterial Unknown / Structural Novelty / Expected Information Gain / Human Cognitive Costを考慮する。
-
-また、次の質問が別Object / Purpose / Scopeに属する場合は質問を止める。
 
 **Stop when the next question belongs to another Object / Purpose / Scope.**
 
@@ -188,78 +192,105 @@ Question SelectionはMaterial Unknown / Structural Novelty / Expected Informatio
 ### Idea Formation
 中心問い：**Can the idea work conceptually?**
 
-成果物候補：Value Intent / Intended Boundary / Structural Hypothesis / Challenge Use Cases / Evidence Contract / Known & Known Unknown / material falsification conditions。
-
 G1はIdeaが正しいことではなく、Realityで意味あるValidationが可能なStructural Hypothesisが成立したことを示す。
 
 ### Idea Validation
 中心問い：**Does the idea actually work sufficiently in reality, and where does it break?**
 
-Pilot / Prototype / ExperimentでKnown Unknownを検証し、Unknown Unknownを発見し、Structural Hypothesis / Validated Scope / Confidenceを更新する。
+Known Unknownを検証し、Unknown Unknownを発見し、Structural Hypothesis / Validated Scope / Hypothesis Strengthを更新する。
 
-G2はPilot成功ではなく、**Evidenceを通じてIdeaを十分理解し、Implementation Planningを責任を持って設計できる状態か**を判断する。
+### G2 as a Decision Threshold
+
+G2はTruth判定ではない。
+
+**G2 = Implementation Planningへ進むDecisionを正当化できるだけのHypothesis Strengthを得たか。**
+
+100% certaintyを待たない。Remaining uncertainty / contradiction / boundaryを理解した上で、Ideationで追加Evidenceを得るInformation Valueより、次PhaseでRealityへ触れるLearning Valueが高くなった地点で進む。
 
 ### Implementation Planning
-中心問い：**How can the validated idea work reliably, repeatedly and safely in reality?**
-
-Scale / Operations / Ownership / Governance / Resource / Integration / Compliance / Maintenance / Benefit Realization等を設計する。
+中心問い：**How can the sufficiently validated idea work reliably, repeatedly and safely in reality?**
 
 ## 9. Minimum Viable Principle
 
-MVPはIdea Validation固有ではなくEVT / DVT / PVT等を横断する一般原理。
-
 **次のMaterial Decisionに必要なEvidenceを得るためのMinimum Implementationを行う。**
-
-Minimumとは可能な限り小さいことではなく、Material Unknownを検証し必要なReality Exposureを得られる最小限。
 
 **Minimum Build × Maximum Material Learning**
 
-Researchにも同じ考えを適用し、**Minimum Research × Maximum Structural Learning** とする。
+Researchにも **Minimum Research × Maximum Structural Learning** を適用する。
 
 ## 10. Current Continuity Pilot
 
 GitHub repositoryをMira Project Memoryのgoverned source-of-truth候補として検証中。
 
 - `PROJECT_MEMORY.md` をCurrent Stateの正本候補とする
-- Git historyで過去State / change rationaleを保持する
+- Git historyで過去State / change rationaleを保持
 - Apple Notesは当面Human-side working/reference layer
 - Retrieval / context restoration / update effort / version history / access & governanceを評価
 - EnvironmentごとのCapability / Permission / Tool差もContinuity Contextとして扱う
 
 ## 11. Pilot A — Master Specification Governance
 
-Master Specification GovernanceをMira Architecture v0.1の最初の実務Validation Use Caseとして使用中。
+### Validated Scope
 
-### Existing structural evidence
+現時点のValidated Scopeは **Master Specification / HTP Consumable Product Lifecycle Governance context**。
 
-- Object × PurposeだけではOwnership / Evidence / Lifecycle impact / Change Control status等を十分にGovernできず、State + Relationshipの必要性が実務から発生
-- Parameterは複数Purpose / Lifecycle Event / Verification / Owner等と横断的に関係し、HierarchyだけでなくNetworkが必要
-- Purpose proliferationにより、Purpose / Evidence / System Destination / Governance等が同じPurpose軸に混在していないかChallengeが必要
-- Matrixの価値はColumn数ではなく、実務上答えるべきQuestionに答えられるかでValidationできる
+### Evidence base
+
+Pilot Aは少なくとも次の異なるEvidence Source / Challengeを経験した。
+
+- Existing Master Matrix / Presentation / internal structural work
+- Human adaptive interview: Menthol known-answer calibration
+- Structurally novel case: Total stick length
+- Edge / boundary case: Trimmer disc specification
+- HTP Consumable Level 1 domain grounding
+- Enterprise Specification / PLM / QMS / Requirements / Change Control Level 2 external benchmark
+
+### Main supported findings
+
+- Object × PurposeだけではOwnership / Evidence / Lifecycle impact / Change Control等に不足し、State + Relationshipが実務から必要になった
+- HierarchyだけでなくNetworkが必要
 - RelationshipはChange Impactを伝播させるKnowledgeとして機能し得る
-- **Relationship tells us what to assess; Assessment determines whether change is required.**
-- Master Matrixは分散したHuman Know-how / Existing Documents / Dataを抽出・検証し、将来Formal QMS Ruleへ変換する中間Governance Objectとして機能する可能性がある
+- Master MatrixはAsset TraceabilityではなくProduct Lifecycle Governance上のCognitive / Governance Map
+- Purposeはminimal / stableに保ち、Evidence / System Destination / Lifecycle usage / Change等をRelationshipとして分離する方向に内部・外部Evidenceがある
+- Underlying Logical StructureではParameter / Requirementを中心にObjects / Relationships / States / EvidenceのNetworkを保持する方向が支持される
+- Master MatrixはLogical Structureそのものではなく、Master Specification ContextにおけるHuman-facing Explanation Structure / Cognitive Mapとして位置づけられる
+- Humanへのsimple adaptive questionsからcomplex latent structureを再構築できる初期Evidenceがある
+- Ground-before-Structure / Evidence Routing / Research Boundaryの有効性をPilot中のscope correction自体から観測した
 
-### Master Matrix Boundary
+### Current Pilot A Hypothesis Strength
 
-Master MatrixはAsset Traceability Systemではない。
+- **H1 Object + Purpose + State + Relationship:** Strongly supported within Pilot A Validated Scope; diverse internal/human/external evidence; no material contradiction identified; cross-domain generalization not yet validated
+- **H2 Ground Object/Purpose before deeper structuring:** Strongly supported direction within Pilot A; several scope/research corrections demonstrated value; broader domain validation pending
+- **H3 Logical Structure → Connection Function → Explanation Structure:** Strong structural hypothesis; strongly coherent with Master Matrix / Adaptive Discovery evidence, but challenge exposure outside Master Spec remains limited
 
-例えば「Product AがMachine Bで作られ、そのMachineにTrimmer Disc Cが装着されている」という実物Instance Traceabilityを管理することが主Purposeではない。
+### Pilot A Gate
 
-Master Matrixの主Purposeは、**Product Lifecycle Governance上、どのParameter / Requirementを規定・管理し、どのPurposeで使い、変更時に何をAssessmentすべきかを明示すること**。
+**Pilot A = G2-ready candidate ✓**
 
-したがってRelationshipも「存在するから保持する」のではなく、Governance Purposeに必要なものを保持する。
+これはMaster Specificationが完成した、またはHypothesesがTruthになったことを意味しない。
 
-**Relationship scope is purpose-directed.**
+Pilot Aの追加Ideationを続けるより、異質なDomainへHypothesesを移しChallengeする方がInformation Valueが高いと暫定判断する。
 
-Physical ObjectとGoverned Objectは区別が必要な場合がある。物理的にMachine componentであっても、Matrix上でどのGoverned Objectへ配置するかはMatrixのPurposeとClassification Ruleに依存するため、Physical identityだけでObject classificationを確定しない。
+## 12. Mira Architecture Gate
 
-### Human-facing Cognitive Map and Logical Network
+**Mira Architecture v0.1 = G1 ✓ → G2 ●**
 
-Master Matrixの重要な役割は、HumanがParameterを見た瞬間に、**何のために使われているか、自分の仕事とどこで関係するか、変更時に何を気にすべきか**を理解するためのCognitive Mapになること。
+Mira全体のG2はまだ通過しない。
 
-一方、Underlying Logical Structureでは、Parameter / Requirementを中心に **Objects / Relationships / States / Evidence** のNetworkをしっかり保持する方向を支持する。
+Material Unknown：
+- H1がMaster Specification以外の異質Domainでも成立するか
+- H2のDiscovery Sequenceが異質DomainでもHuman Costを下げつつUnderstandingを改善するか
+- H3がMaster Spec以外でもLogical complexityとHuman-facing explanationを適切に分離できるか
+- Hypothesis Strength model自体が実際のLearning / Decisionを改善するか
 
-成熟したEnterprise Specification / PLM / QMS ArchitectureとのExternal Challengeでも、RequirementをTest / Manufacturing Process / Change / Configuration / Regulatory Assessment / Document / Owner等へlinkするNetwork型の構造が支持された。
+## 13. Next Action — Pilot B
 
-ただし、Master Matrixを単に「backend networkの表示画面」と限定しない。より一般的には、MatrixはMaster Specification Contextにおける **Connection Functionから生成されるHuman-facing Explanation Structure / Cognitive Mapの一つ** と位置づける。
+**Pilot B — Mira Continuity / Project Memory / GitHub**
+
+Master Specとは異質なKnowledge / Memory / Conversation / Environment / Provenance / Access domainを使い、H1/H2/H3とHypothesis Strength modelをChallengeする。
+
+Pilot Bでは「仮説が正しいことを証明する」のではなく、Pilot Aで高まったHypothesis Strengthが異質Domainへ移したときにどこまで維持され、どこで弱まり、どこで修正が必要になるかを観察する。
+
+初期Challenge Questions：
+1. Continuity domainのObject / Purposeは何か
+2. Object/Purpose Groundingを先
