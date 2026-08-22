@@ -1,9 +1,8 @@
 .DS_Store
 .env
 .env.*
-*.pem
 *.key
-__pycache__/
+*.pem
+
 node_modules/
-.idea/
-.vscode/
+__pycache__/
