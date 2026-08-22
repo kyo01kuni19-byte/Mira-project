@@ -14,7 +14,9 @@ Top-downではValue IntentとIntended Boundaryを持ち、Bottom-upではConcret
 
 **Intended Boundary − Validated Scope = Coverage Gap**
 
-Evidenceが許す範囲を越えて一般化しない。Representative / Novel / Edge Caseを選び、Hypothesisを意図的にChallengeする。
+Evidenceが許す範囲を越えて一般化しない。Representative / Novel / Edge Caseを選び、HypothesisをChallengeする。
+
+ただし、Uncertaintyが存在するだけで専用Validationを作らない。ValidationはDecision / Learning ValueとCostを比較して設計する。
 
 ## 2. Current Structural Hypothesis
 
@@ -42,7 +44,7 @@ Connection Functionは、**誰に、何のCommunication Purposeで、どのConte
 
 **Governed Understanding → Human / Communication Purpose / Context → Select / Translate / Project → Human-facing Output**
 
-Explanation StructureはHumanを主人公として構成され、Conversation / Question / Matrix / Presentation / Dashboard / Procedure等になり得る。
+Explanation StructureはHumanを主人公として構成され、Conversation / Question / Matrix / Presentation / Dashboard / Procedure / Phase / Gate等になり得る。
 
 - Object Purpose ≠ Communication Purpose
 - One governed logical structure can generate multiple human-centered explanation structures through a Connection Function.
@@ -83,15 +85,9 @@ Object × PurposeはSearch / Relationship / Research / Stop ConditionのBoundary
 
 下位Scopeで成立したHypothesisを上位へGeneralizeして成立しなくても、下位Knowledgeを削除しない。上位FailureはGeneralization Boundary / Missing Condition / New Variable / Missing Elementを発見するEvidence。
 
-Failure type candidate：
-- Local Failure
-- Generalization Failure
-- Condition Failure
-- Execution Failure
+Failure type candidate：Local Failure / Generalization Failure / Condition Failure / Execution Failure。
 
 **Generalization = 下位でStrengthを得たHypothesisを、より広いHierarchyへChallengeとして投入すること。**
-
-Knowledgeは上位HierarchyへGeneralization Candidateとして移動してもよいが、そのValidityは元Scopeに留まり得る。
 
 **Knowledge may move upward before its validity moves upward.**
 
@@ -106,63 +102,128 @@ Mira-level KnowledgeはUniversal Truth置き場ではなく、Cross-project / Cr
 - Success = そのContext / Conditions / ScopeでHypothesisを支持するEvidence
 - Failure = Hypothesis / Generalization / Condition / Execution等をChallengeするEvidence
 
-SuccessをUniversal Truthへ無条件Generalizeせず、Failureで元Knowledgeを無条件削除しない。
-
 Experienceは **Context + Scope + Hierarchy + Material Conditions + Evidence + Hypothesis + Outcome** と関連づけて保持し、矛盾をKnowledge deletionではなくDifferentiation / Boundary Discoveryへ変換する。
 
-## 8. Ethical / Normative Governance Hypothesis
+## 8. Validation Strategy Hypothesis
 
-Pilot Bで、Epistemic LearningとHuman/Societyへの作用を分離する必要性が発生した。
+### ValidationはUncertaintyを全部消す活動ではない
 
-### Descriptive / Normative separation
+Uncertaintyがあること自体は、今すぐValidationする理由にならない。
 
-Evidenceから強く支持されるDescriptive Claimがあっても、それだけから「Human / Societyをどう扱うべきか」というNormative Judgmentは自動的に導かれない。
+**Validation Strategy = どのUnknownを、いつ、どのEvidence / Reality Exposureで、どのCostまで払ってValidationする価値があるかを設計・更新すること。**
+
+Validation CostにはHuman Time / Research / Build / Delay / Complexity / Cognitive Load / Opportunity Cost等を含む。
+
+基本判断候補：
+- **Low-cost + decision-relevant uncertainty:** 今Validationする
+- **High-cost + decision-relevant uncertainty:** まず「今解く必要があるか」を判断。必要ならMinimum Viable Validationを探す
+- **Later phaseでEvidence quality / cost / reality exposureが改善する:** Unknown / Options / Risk / Validation Triggerを明示してCarry Forwardする
+- **Low-value uncertainty:** 未解決のまま保持する
+- **Natural evidence opportunity:** 専用Pilotを作らず、通常実践からEvidenceを取得する
+
+重要な比較：
+
+**Cost / Risk of validating now vs Cost / Risk of carrying uncertainty forward**
+
+### Validation & Validation Planning
+
+Idea Validation PhaseはすべてのValidationを完了するPhaseではない。
+
+**Idea Validation = RealityからLearningしながら、Remaining UnknownをどこでValidationするのが最も合理的かまで設計するPhase。**
+
+Exit Deliverable候補：
+- Validated Understanding
+- Remaining Material Unknowns
+- Open Options
+- Conditions / Risks
+- Validation Strategy / Timing
+- Carry-forward Unknowns
+- Next-phase Evidence Requirements / Validation Triggers
+
+**Validation ActivityはPhase横断Capability**であり、Idea Validation / Implementation Planning / EVT / DVT / PVT / Operation等のどこでも起こり得る。
+
+**Minimum Validation Cost × Maximum Material Learning**
+
+## 9. Continuous Learning Loop / Phase-Gate Relationship
+
+### Logical Structure candidate
+
+RealityとのInteractionはPhaseで終了せず、継続的Learning Loopとして捉える。
+
+**Hypothesis → Plan / Apply → Reality Exposure → Observe / Evidence → Validate → Learn → Update → Reapply**
+
+Idea / Pilot / Implementation / OperationのどのContextでもこのLoopは続く。
+
+**Implementation ≠ Completion.**
+
+Implementation後はReality Exposureが増え、Value realization / side effects / changing conditions / operational unknowns / generalization opportunities等の新Evidenceが生まれる。
+
+### Explanation / Governance Structure candidate
+
+Idea Formation → Idea Validation → Implementation Planning → Implementation → Operation等のPhaseは、Continuous Learning RealityをHuman / Organizationが理解・判断・GovernするためのExplanation / Governance Structureとして機能する可能性がある。
+
+したがって、
+
+**Underlying Logical Structure = Continuous Learning Loop**  
+**Human-facing / Governance Structure = Phase + Gate**
+
+というH3のcross-domain application candidateを置く。
+
+Phaseを不要とするのではない。Phaseは「現在何を主目的としているか」をHuman / Organizationへ接続する有用なConnection Structure。
+
+## 10. General Gate Architecture Candidate
+
+Gateを特定Phase固有の合否判定ではなく、一般的なTransition Decisionとして仮説化する。
+
+**Gate = Purpose-directed state-transition decision under uncertainty.**
+
+Gate Design candidate：
+
+**Object → Purpose → Current State → Intended Next State → Required Evidence → Material Unknowns → Carry-forward Strategy → Conditions / Risks → Decision Authority → Transition**
+
+Gate Reviewでは、
+- What is sufficiently known now?
+- What remains unknown?
+- Which unknown must be resolved before transition?
+- Which can safely move with the Object?
+- Where / when will carried uncertainty be validated?
+- What is the cost / risk of moving now vs waiting?
+
+を判断する。
+
+**Validation ≠ Gate.**
+
+ValidationはEvidenceを生みState / Hypothesis Strengthを更新する活動。GateはそのState / Evidence / Remaining Uncertaintyを見てTransitionを判断するConnection / Governance Function。
+
+GateはKnowledge completeness testではなく、**Responsible transition decision under uncertainty** と考える。
+
+このGate ModelはIdea / Pilot / Implementation / Release / Learning Generalization / Change Governance等で自然にChallengeし、専用Pilotで証明することを目的化しない。
+
+## 11. Ethical / Normative Governance Hypothesis
 
 **Understanding Reality ≠ Deciding what ought to be done about Reality.**
 
-価値語・倫理判断・権利・尊厳・harm / benefit trade-off等を含む結論は、Evidence StrengthだけでNormative Authorityを獲得しない。
-
 **Epistemic Strength ≠ Normative Authority.**
 
-### Authority separation
+- Epistemic Authority
+- Governance Authority
+- Normative Authority
 
-- **Epistemic Authority:** EvidenceがあるClaim / Hypothesisをどの程度支持するか
-- **Governance Authority:** Project / Organization / System上、誰がRule / Decision / Risk Acceptance等を正式決定するか
-- **Normative Authority:** Human / Societyに関わるValue / Rights / Duties / Harm trade-offを誰が判断・承認するか
+を分離する。
 
-これらを混同しない。
-
-HumanはTruth Authorityではない。Human ConfirmationだけでHypothesis Strengthを最大化しない。一方、Human / Societyへ重大に作用するNormative Decisionについては、Human Governanceが必要となる可能性が高い。
-
-### Connection / Action risk boundary candidate
-
-すべてのHuman connectionをHuman Approvalにしない。Humanへの作用可能性とImpactを考慮したrisk-based governanceを仮説として持つ。
-
-- Low impact: Learning / Evidenceを参考情報として提示 → Mira autonomous connection candidate
-- Medium impact: HumanへのRecommendation → Evidence / Scope / Uncertainty / Rationaleを説明可能にする
-- High impact: Rights / Health / Safety / Employment / Evaluation / Access /重大利益等へ作用するDecision / Rule → Human review / governanceを要求する方向
-
-具体的Boundaryは未検証であり、現時点では **Ethical Governance Hypothesis** として保持する。
-
-### Generalization governance
-
-Project LearningをMira-level Generalization Candidateとして上位へ保持すること自体はHuman Approvalを必須としない方向を仮説とする。
-
-ただし、CandidateをHuman / Societyへ作用するRule / Normative Principle / Action Policyとして使用する場合は別問題であり、必要に応じてEthical / Human Governanceを通す。
+HumanはTruth Authorityではない。一方、Human / Societyへ重大に作用するNormative DecisionにはHuman Governanceが必要となる可能性が高い。
 
 **Candidate creation ≠ Validation ≠ Normative authorization.**
 
-## 9. Principle / Wisdom
+具体的Boundaryは未検証であり、Ethical Governance Hypothesisとして保持する。
+
+## 12. Principle / Wisdom
 
 **Principle Candidate = 広いValidated Scope / Hierarchyを持ち、多様なEvidenceで支持され、多くのChallengeを生き残り、Material Conditions / Boundariesが比較的よく理解されている強いHypothesis。**
 
 Wisdomは固定Truthではなく、異なるHierarchy / Scope / ConditionsでのLearningを失わず統合し、Realityの変化に応じて更新可能なUnderstanding。
 
-Normative PrincipleはEpistemic Strengthだけで自動生成せず、Human / Societyへの作用に応じたEthical Governanceを別途考慮する。
-
-## 10. Evidence Routing / Research Boundary
-
-Material Unknownを見つけても、すぐHumanへ質問または無制限なWeb Researchをしない。
+## 13. Evidence Routing / Research Boundary
 
 **Mira Current Knowledge → Internal Source → Public/External Knowledge → Company-specific/tacit Human Evidence → Contradictionなら追加Evidence**
 
@@ -170,7 +231,7 @@ ResearchはStructural HypothesisをChallengeするために必要なDepthまで�
 
 **Minimum Research × Maximum Structural Learning**
 
-## 11. Human Evidence Acquisition / Adaptive Discovery
+## 14. Human Evidence Acquisition / Adaptive Discovery
 
 **Human should provide simple, concrete evidence; Mira should bear the complexity of structural integration.**
 
@@ -178,75 +239,59 @@ Contradictionは high-information discovery trigger。
 
 **Infer freely, commit conservatively.**
 
-## 12. Gate Model
+## 15. Gate Status
 
-G1はTruth判定ではなく、Realityで意味あるValidationが可能なStructural Hypothesisが成立したこと。
-
-**G2 = Implementation Planningへ進むDecisionを正当化できるだけのHypothesis Strengthを得たか。**
-
-100% certaintyを待たず、Remaining uncertainty / contradiction / boundary / conditionsを理解して進む。
-
-## 13. Pilot A — Master Specification Governance
+### Pilot A — Master Specification Governance
 
 **Validated Scope:** Master Specification / HTP Consumable Product Lifecycle Governance  
 **Gate:** G2-ready candidate ✓
 
 - H1 Object + Purpose + State + Relationship: Strongly supported within Pilot A scope
 - H2 Ground Object/Purpose before deeper structuring: Strongly supported direction within Pilot A
-- H3 Logical Structure → Connection Function → Explanation Structure: Strong structural hypothesis; cross-domain challenge exposure limited
+- H3 Logical Structure → Connection Function → Explanation Structure: Strong structural hypothesis; Pilot Bでcross-domain evidence増加中
 
-## 14. Mira Architecture Gate
+### Mira Architecture v0.1
 
-**Mira Architecture v0.1 = G1 ✓ → G2 ●**
+**G1 ✓ → G2 ●**
 
 Material Unknown：
-- H1/H2/H3のcross-domain transferability
+- H1/H2/H3 cross-domain transferability
 - Hierarchical validity / Generalization Boundary
-- Material Conditionsを保持するLearning modelの有効性
-- Hypothesis Strength modelのDecision value
+- Learning / Hypothesis Strength modelのDecision value
+- Validation Strategy / Gate Architectureのcross-context applicability
 - Ethical / Normative Governance Boundary
 
-## 15. Pilot B — Mira Continuity / Project Memory / GitHub
+## 16. Pilot B — Mira Continuity / Project Memory / GitHub
 
 **Status:** Active
 
-### Initial Object / Purpose grounding
+### Initial grounding
 
-Pilot Bの初期Human Evidenceから、Continuityさせたいものは単なるStored Memoryではない方向が出ている。
+Continuityさせたいものは単なるStored Memoryではない。
 
-**Mira Level candidate:** Identity / Personality、なぜそれが重要かという上位思想、Learning Architecture、Projectを越えてGeneralizeされたLearningを保持し、新しいProjectでも学び続けられるCapability。
+**Mira Level candidate:** Identity / Personality / upper-level values / Learning Architecture / Cross-project Generalized Learning / ability to learn again in new Projects。
 
 **Project Level candidate:** Project Intent / Current Understanding / Hypotheses / Evidence / Decisions / Current State / Next Action / Project-specific Learning。
 
 **Project Memory ≠ Mira Memory.**
 
-Project Aの詳細MemoryをProject Bへすべて持ち込む必要はない。Cross-projectで使える可能性があるLearningはMira-level Generalization Candidateとして保持できる。
+Knowledgeは上位へGeneralization Candidateとして移動しても、Validated Scopeは元Projectに留まり得る。
 
-その際、上位へ移動したKnowledgeのValidated ScopeはProject Aだけでもよい。
+### Continuity Hierarchy challenge
 
-例：
-- Origin: Project A
-- Validated Scope: Project A
-- Generalization Hypothesis: Other projects may benefit
-- Higher-level Status: Candidate / Unvalidated
-- Evidence / Challenge Exposure: Project A only
+Working Assumptionとして、少なくとも二軸を分けて扱う。
 
-Project BでChallengeし、Scope expansion / Boundary discovery / Specializationへつなげる。
+**Knowledge Hierarchy:** KnowledgeがどのScope / Levelで意味を持つか。  
+**Continuity Hierarchy:** 何をどの程度失ってはいけないか / 再構築可能でなければならないか。
 
-### Pilot B cross-domain evidence so far
+両軸が独立か強く連動するかを今証明することは目的化しない。Validation ValueがCostを上回るMaterial Decisionが生じた時点で検証する。それまでは二軸をWorking Assumptionとして実務適用し、自然なEvidenceを取得する。
 
-Master Specで観測した **Proposal / Approval / Authority / Evidence separation** に似た構造がLearning Governanceでも再出現した。
+### Cross-domain learning so far
 
 - Candidate creationとValidationは別
 - Human Governance AuthorityとEpistemic Strengthは別
 - Knowledge placement hierarchyとValidated hierarchyは別
+- H3がMaster MatrixだけでなくContinuous Learning Loop vs Phase/Gateにも再出現
+- Validation Strategy自体がIdea Validationの重要Capability候補として発生
 
-これはH1 / Hierarchy × Network仮説への初期cross-domain evidenceだが、まだPilot B初期段階のため確定しない。
-
-### New Ethical Challenge
-
-MiraがEvidenceを積み上げてGeneralized Knowledgeを形成できても、それをHuman / SocietyへのRule / Recommendation / Actionへ接続するときには別のNormative Governanceが必要となる可能性が発見された。
-
-これはConnection Function / Human-facing ActionのBoundaryをChallengeする重要なUnknownとしてPilot Bで保持する。
-
-**Next:** ContinuityのState / Relationshipを設計する前に、Mira-level / Project-levelで「何を保持すればContinuityが成立したと言えるか」をさらにChallengeし、Minimum Persistent CoreとHierarchy間Learning Movementを検証する。
+**Next Reality Challenge:** 現在の `PROJECT_MEMORY.md` を **Knowledge Hierarchy × Continuity Hierarchy** のWorking Assumptionで分類し、現在の1ファイルに異なるContinuity Levelがどう混在しているかを見る。分類結果からRepository / Memory Architectureを決めるのであって、先にStorage Structureを設計しない。
