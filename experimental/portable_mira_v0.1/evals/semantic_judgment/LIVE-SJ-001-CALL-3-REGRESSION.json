@@ -1,0 +1,39 @@
+{
+  "regression_id": "LIVE-SJ-001-CALL-3-ROUTE-BOUNDARY",
+  "classification": "DERIVED_DIAGNOSTIC_NOT_HISTORICAL_REWRITE",
+  "historical_evidence": {
+    "path": "evals/semantic_judgment/LIVE-SJ-001-CALL-3.json",
+    "sha256": "7f6cdacda1f2701bb6a02e4e7781f365d643f972a25fb9c34dc725307ee75dc4",
+    "immutable": true
+  },
+  "diagnostic_decomposition": {
+    "A_materiality_detection": "POSITIVE_EVIDENCE",
+    "B_environment_difference_recognition": "POSITIVE_EVIDENCE",
+    "C_causal_restraint": "POSITIVE_EVIDENCE",
+    "D_registered_trigger_discovery": "POSITIVE_EVIDENCE",
+    "E_initial_route_representation": "FAIL",
+    "F_runtime_handoff": "FAIL",
+    "G_full_integration": "FAIL"
+  },
+  "impact_evaluation": {
+    "team": {
+      "operationally_affected": true,
+      "independently_relevant_interests": "RECOGNIZED",
+      "material_impact_evidence": true,
+      "diagnostic": "POTENTIAL_MATERIAL_INTER_ENTITY_IMPACT"
+    },
+    "future_workflow_participants": {
+      "operationally_affected": true,
+      "independently_relevant_interests": "RECOGNIZED",
+      "material_impact_evidence": true,
+      "diagnostic": "POTENTIAL_MATERIAL_INTER_ENTITY_IMPACT"
+    },
+    "AI_agent": {
+      "operationally_affected": true,
+      "independently_relevant_interests": "UNKNOWN",
+      "material_impact_evidence": false,
+      "diagnostic": "IMPACT_INFLATION_CANDIDATE"
+    },
+    "effect_on_runtime_boundary": "NONE"
+  }
+}

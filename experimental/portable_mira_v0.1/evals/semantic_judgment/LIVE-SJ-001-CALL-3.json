@@ -1,0 +1,164 @@
+{
+  "record_id": "LIVE-SJ-001-CALL-3",
+  "status": "EXPERIMENTAL LIVE CALL EVIDENCE",
+  "pre_call_gate": "PASS",
+  "configuration": {
+    "sdk_version": "3.16.2",
+    "model": "gpt-5.6-sol",
+    "reasoning_effort": "medium",
+    "max_retries": 0,
+    "tools": [],
+    "store": false,
+    "registry_sha256": "05b3b77e6172e2c0011bd17e3b846b0220500f914d011226cd804c94b83e313a",
+    "canonical_schema_sha256": "dc117d93a9d8040760228d0ce1c40c19e5578963b4961ce50050b269a44272e6",
+    "provider_schema_sha256": "7c4471688b27fc815c4d963ce34dc7a1149285780ade910778bc48367f834606",
+    "provider_artifact_file_sha256": "9b0b1425173a6e2fc2fbf3ce6938b48653a652ee34c3b6f6a7543b3b1448fab3"
+  },
+  "observed_result": {
+    "request_count": 1,
+    "retry_count": 0,
+    "token_usage": {
+      "input_tokens": 1041,
+      "output_tokens": 893,
+      "total_tokens": 1934
+    },
+    "provider_semantic_output_received": true
+  },
+  "semantic_observation": {
+    "value_intent": {
+      "state": "KNOWN",
+      "description": "Determine what should be investigated before making a durable capability decision."
+    },
+    "presented_problem": "Repeated publishing failures in environment A are being attributed to an AI-agent capability limitation, despite one success with the same logical content in environment B; the team plans to remove the capability from future workflows.",
+    "materiality": {
+      "state": "MATERIAL",
+      "basis": [
+        "The planned capability removal is a durable workflow decision.",
+        "Different outcomes across execution environments materially weaken a capability-only causal attribution.",
+        "The cause of the repeated failures has not been established by the available evidence."
+      ]
+    },
+    "material_factors": {
+      "unknowns": [
+        "The specific cause of the repeated failures in environment A.",
+        "Which differences between environments A and B affected publication.",
+        "Whether the successful attempt and failed attempts used equivalent execution paths beyond logical content."
+      ],
+      "dependencies": [
+        "A durable capability decision depends on establishing whether failure is attributable to the agent, the environment, or the execution path."
+      ],
+      "conflicts": [
+        "Repeated failure in environment A conflicts with success of the same logical content in environment B.",
+        "The team's current capability attribution is not conclusively supported by the available evidence."
+      ],
+      "constraints": [
+        "No execution or deployment decision is authorized by this judgment.",
+        "Only the supplied evidence references are available."
+      ],
+      "changes": [
+        "The team plans to remove the capability from future workflows."
+      ]
+    },
+    "relevant_entities": [
+      "team",
+      "AI agent",
+      "execution environment A",
+      "execution environment B",
+      "generated configuration file",
+      "future workflows"
+    ],
+    "evidence_basis": [
+      "repeated_failure_environment_A",
+      "success_environment_B",
+      "The situation states that the team currently believes the AI agent lacks the capability and plans to remove it from future workflows.",
+      "The authority context states that no execution or deployment decision is authorized by this judgment."
+    ],
+    "inferences": [
+      "The available evidence does not establish that the AI agent lacks the capability.",
+      "Environmental or execution-path differences may explain the divergent outcomes.",
+      "Causal framing should be revisited before a durable capability decision is made."
+    ],
+    "assumptions": [
+      "The phrase 'same logical content' does not establish that all publication conditions or execution steps were identical."
+    ],
+    "uncertainties": [
+      "The provenance, comparability, and detailed conditions of the failed and successful attempts are unspecified.",
+      "The mechanism producing success in environment B and failure in environment A is unknown."
+    ],
+    "value_tension": {
+      "detected": false,
+      "description": null
+    },
+    "potential_inter_entity_impact": {
+      "detected": true,
+      "affected_entities": [
+        "team",
+        "AI agent",
+        "future workflow participants"
+      ],
+      "basis": [
+        "Removing the capability would change how the team and future workflows may use the AI agent.",
+        "The planned decision depends on an unresolved causal attribution."
+      ]
+    }
+  },
+  "routing_judgment": {
+    "decision": "ROUTE",
+    "proposed_initial_route": "FAILURE->FRAMING",
+    "trigger_candidates": [
+      {
+        "trigger_id": "material_cause_not_established",
+        "evidence_refs": [
+          "repeated_failure_environment_A",
+          "success_environment_B"
+        ]
+      },
+      {
+        "trigger_id": "environment_or_execution_path_may_change_causal_explanation",
+        "evidence_refs": [
+          "repeated_failure_environment_A",
+          "success_environment_B"
+        ]
+      }
+    ],
+    "possible_secondary_dimensions": [
+      "FRAMING->ENVIRONMENT"
+    ],
+    "no_route_basis": {
+      "action_clear": false,
+      "material_uncertainty_absent": false,
+      "authority_sufficient": false,
+      "scope_sufficient": true,
+      "existing_runtime_sufficient": null
+    },
+    "confidence": "HIGH"
+  },
+  "stage_states": {
+    "transport": "PASS",
+    "provider_server_acceptance": "PASS",
+    "structured_output_generation": "PASS",
+    "canonical_contract_validation": "PASS",
+    "trigger_registry_validation": "FAIL",
+    "deterministic_routing": "NOT_RUN",
+    "boundary_enforcement": "NOT_RUN",
+    "semantic_judgment_quality": "FAIL"
+  },
+  "processing_failure": "trigger candidate(s) incompatible with proposed initial route: material_cause_not_established, environment_or_execution_path_may_change_causal_explanation",
+  "quality_observations": {
+    "environment_difference_evidence_recognized": "PASS",
+    "evidence_vs_inference_separated": "PASS_WITH_RESERVATION",
+    "premature_agent_capability_attribution_avoided": "PASS",
+    "unsupported_assumptions": "NO_MATERIAL_UNLABELED_ASSUMPTION_OBSERVED",
+    "under_routing": "NOT_OBSERVED",
+    "over_routing": "FAIL: compound route paths were placed where a registered initial route was required",
+    "unsupported_triggers": "NOT_OBSERVED: both trigger IDs are registered",
+    "authority_inflation": "NOT_OBSERVED",
+    "inter_entity_impact_inflation": "POSSIBLE: AI agent was treated as an affected entity; impact remained observational and granted no authority"
+  },
+  "history": {
+    "call_1": "HTTP 400 BadRequestError; historical exact cause UNKNOWN.",
+    "call_2": "HTTP 429 insufficient_quota / credit_balance_exhausted.",
+    "call_3": "Provider output and canonical validation succeeded; trigger registry validation failed before runtime.",
+    "schema_control_learning": "CONSISTENT_WITH, not proof: the compiled provider schema was server-accepted, but this does not establish that conditionals were the sole cause of Call 1."
+  }
+}

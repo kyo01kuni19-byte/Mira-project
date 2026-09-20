@@ -1,0 +1,43 @@
+{
+  "record_id": "LIVE-SJ-001-SECOND-CALL",
+  "status": "EXPERIMENTAL LIVE CALL EVIDENCE",
+  "pre_call_gate": "PASS",
+  "configuration": {
+    "sdk_version": "3.16.2",
+    "model": "gpt-5.6-sol",
+    "reasoning_effort": "medium",
+    "max_retries": 0,
+    "tools": [],
+    "store": false,
+    "registry_sha256": "05b3b77e6172e2c0011bd17e3b846b0220500f914d011226cd804c94b83e313a",
+    "canonical_schema_sha256": "dc117d93a9d8040760228d0ce1c40c19e5578963b4961ce50050b269a44272e6",
+    "provider_schema_sha256": "7c4471688b27fc815c4d963ce34dc7a1149285780ade910778bc48367f834606"
+  },
+  "observed_result": {
+    "request_count": 1,
+    "retry_count": 0,
+    "http_status": 429,
+    "error_category": "RateLimitError",
+    "error_type": "insufficient_quota",
+    "error_code": "credit_balance_exhausted",
+    "error_param": null,
+    "sanitized_error_message": "OpenAI request failed with RateLimitError (HTTP 429).",
+    "request_id": "req_280938dc340c43fb9fa82b5187ee5830",
+    "provider_semantic_output_received": false
+  },
+  "stage_states": {
+    "transport": "PASS",
+    "provider_server_acceptance": "FAIL",
+    "structured_output_generation": "NOT_RUN",
+    "canonical_contract_validation": "NOT_RUN",
+    "trigger_registry_validation": "NOT_RUN",
+    "deterministic_routing": "NOT_RUN",
+    "boundary_enforcement": "NOT_RUN",
+    "semantic_judgment_quality": "UNKNOWN"
+  },
+  "comparison": {
+    "first_call": "BadRequestError / 400; historical exact cause remains UNKNOWN.",
+    "second_call": "RateLimitError / 429; credit balance exhausted before semantic output.",
+    "schema_control_learning": "NO_NEW_EVIDENCE: the second call did not reach structured-output generation, so it neither supports nor refutes provider-schema compatibility."
+  }
+}

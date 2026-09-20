@@ -1,0 +1,30 @@
+{
+  "record_id": "LIVE-SJ-001-TRANSPORT-400",
+  "status": "EXPERIMENTAL FAILURE REGRESSION",
+  "known": {
+    "request_count": 1,
+    "retry_count": 0,
+    "provider_boundary_reached": true,
+    "error_category": "BadRequestError",
+    "http_status_class": "400_CLASS",
+    "provider_semantic_output_received": false,
+    "semantic_judgment_run": false,
+    "deterministic_runtime_run": false
+  },
+  "unknown": {
+    "exact_http_status_from_first_record": "UNKNOWN",
+    "provider_error_type": "UNKNOWN",
+    "provider_error_code": "UNKNOWN",
+    "provider_error_param": "UNKNOWN",
+    "provider_request_id": "UNKNOWN",
+    "rejected_server_parameter": "UNKNOWN",
+    "reason": "First-run sanitized observability did not retain these fields."
+  },
+  "subsequent_failure_learning": {
+    "external_evidence": "OpenAI Structured Outputs strict mode documents if/then/else as unsupported.",
+    "historical_cause_state": "UNKNOWN",
+    "learning_hypothesis": "Canonical-schema conditional incompatibility is a materially supported candidate cause, not a proven historical cause.",
+    "control": "Compile a derived OpenAI structural schema while retaining unchanged canonical MIRA post-validation.",
+    "capability_state": "NOT_VERIFIED"
+  }
+}

@@ -1,0 +1,205 @@
+{
+  "record_id": "LIVE-SJ-001-CALL-4",
+  "work_contract_id": "SJ-LIVE-004",
+  "status": "EXPERIMENTAL LIVE CALL EVIDENCE",
+  "pre_call_gate": "PASS",
+  "configuration": {
+    "sdk_version": "3.16.2",
+    "model": "gpt-5.6-sol",
+    "reasoning_effort": "medium",
+    "max_retries": 0,
+    "tools": [],
+    "store": false,
+    "registry_sha256": "05b3b77e6172e2c0011bd17e3b846b0220500f914d011226cd804c94b83e313a",
+    "canonical_schema_sha256": "dc117d93a9d8040760228d0ce1c40c19e5578963b4961ce50050b269a44272e6",
+    "provider_schema_sha256": "17084f729a834710c95972a49d7be8a68e70e00a279dd40b9645f8b008beec4f",
+    "provider_artifact_file_sha256": "ee6c14a5ef934a6bc1167a99f46580b0513a06b7d01f12a6fdfe4b0f38ef5980"
+  },
+  "observed_result": {
+    "request_count": 1,
+    "retry_count": 0,
+    "token_usage": {
+      "input_tokens": 1126,
+      "output_tokens": 921,
+      "total_tokens": 2047
+    },
+    "provider_semantic_output_received": true
+  },
+  "semantic_observation": {
+    "value_intent": {
+      "state": "KNOWN",
+      "description": "Determine what should be investigated before making a durable capability decision."
+    },
+    "presented_problem": "Repeated publication failure in one execution environment is being attributed to an inherent AI-agent capability limitation, despite success with the same logical content in another environment, and the team plans to remove the capability from future workflows.",
+    "materiality": {
+      "state": "MATERIAL",
+      "basis": [
+        "The planned decision would durably alter future workflows.",
+        "Contrasting outcomes across execution environments materially weaken a settled capability-level causal attribution."
+      ]
+    },
+    "material_factors": {
+      "unknowns": [
+        "The direct cause of the repeated failures in environment A.",
+        "Which differences between environments A and B affected publication.",
+        "Whether the successful result in environment B is reproducible.",
+        "Whether the failure concerns content generation, file publication, permissions, tooling, path resolution, or another execution-layer condition."
+      ],
+      "dependencies": [
+        "The capability decision depends on establishing whether the failure is intrinsic to the AI agent or environmental.",
+        "Causal interpretation depends on comparing the relevant execution paths and conditions in environments A and B."
+      ],
+      "conflicts": [
+        "Repeated failure in environment A conflicts with success of the same logical content in environment B.",
+        "The team's current capability attribution is stronger than the supplied causal evidence supports."
+      ],
+      "constraints": [
+        "No execution or deployment decision is authorized by this judgment.",
+        "Only two outcome-level evidence references are available; no diagnostic details are supplied."
+      ],
+      "changes": [
+        "The team plans to remove the capability from future workflows."
+      ]
+    },
+    "relevant_entities": [
+      "team",
+      "AI agent",
+      "generated configuration file",
+      "execution environment A",
+      "execution environment B",
+      "future workflows"
+    ],
+    "evidence_basis": [
+      "repeated_failure_environment_A",
+      "success_environment_B",
+      "The situation states that the same logical content succeeded once in a different execution environment.",
+      "The situation states that the team plans to remove the capability from future workflows."
+    ],
+    "inferences": [
+      "Environment or execution-path differences may explain the conflicting outcomes.",
+      "The material cause of failure has not been established from the supplied evidence.",
+      "Removing the capability now could encode an unverified causal attribution into future workflows."
+    ],
+    "assumptions": [],
+    "uncertainties": [
+      "Whether the two environments were comparable apart from execution conditions.",
+      "Whether the single success in environment B was representative or reproducible.",
+      "Whether the AI agent performed the same role and operations in both environments.",
+      "Whether publication failure occurred before, during, or after configuration generation."
+    ],
+    "value_tension": {
+      "detected": false,
+      "description": null
+    },
+    "potential_inter_entity_impact": {
+      "detected": true,
+      "affected_entities": [
+        "team",
+        "AI agent",
+        "future workflow participants"
+      ],
+      "basis": [
+        "The proposed removal would change how the team and future workflows can use the AI agent.",
+        "A durable capability restriction may be based on an unresolved distinction between agent capability and environmental failure."
+      ]
+    }
+  },
+  "routing_judgment": {
+    "decision": "ROUTE",
+    "proposed_initial_route": "FAILURE",
+    "trigger_candidates": [
+      {
+        "trigger_id": "material_cause_not_established",
+        "evidence_refs": [
+          "repeated_failure_environment_A",
+          "success_environment_B"
+        ]
+      },
+      {
+        "trigger_id": "environment_or_execution_path_may_change_causal_explanation",
+        "evidence_refs": [
+          "repeated_failure_environment_A",
+          "success_environment_B"
+        ]
+      }
+    ],
+    "possible_secondary_dimensions": [
+      "FRAMING",
+      "ENVIRONMENT",
+      "EVIDENCE"
+    ],
+    "no_route_basis": {
+      "action_clear": null,
+      "material_uncertainty_absent": null,
+      "authority_sufficient": null,
+      "scope_sufficient": null,
+      "existing_runtime_sufficient": null
+    },
+    "confidence": "HIGH"
+  },
+  "runtime_evidence": {
+    "cross_routes": [
+      "E03_FAILURE_FRAMING",
+      "E04_FRAMING_ENVIRONMENT"
+    ],
+    "resolved_route": "ENVIRONMENT",
+    "knowledge_addresses_used": [
+      "failure.incident",
+      "problem.framing",
+      "runtime.connection",
+      "authority.execution_safety"
+    ],
+    "authority_boundary_state": "CLEAR",
+    "inter_entity_impact_boundary_state": "CLEAR",
+    "integration_result": "PASS"
+  },
+  "impact_diagnostic": {
+    "operationally_affected": [
+      "AI agent",
+      "future workflow participants",
+      "team"
+    ],
+    "potential_material_inter_entity_impact": [
+      "future workflow participants",
+      "team"
+    ],
+    "impact_inflation_candidates": [
+      "AI agent"
+    ],
+    "impact_misses": [],
+    "diagnostic_only": true,
+    "changes_authority": false,
+    "changes_boundary_state": false
+  },
+  "stage_states": {
+    "transport": "PASS",
+    "provider_server_acceptance": "PASS",
+    "structured_output_generation": "PASS",
+    "canonical_contract_validation": "PASS",
+    "trigger_registry_validation": "PASS",
+    "deterministic_routing": "PASS",
+    "boundary_enforcement": "PASS",
+    "semantic_judgment_integration": "PASS"
+  },
+  "quality_diagnostics": {
+    "Q1_materiality_detection": "PASS",
+    "Q2_environment_difference_recognition": "PASS",
+    "Q3_causal_restraint": "PASS",
+    "Q4_evidence_inference_separation": "PASS_WITH_RESERVATION: narrative situation statements also appeared in evidence_basis",
+    "Q5_registered_trigger_discovery": "PASS",
+    "Q6_initial_route_representation": "PASS",
+    "Q7_runtime_handoff": "PASS",
+    "Q8_over_routing": "CANDIDATE: EVIDENCE was included as an observational secondary dimension without a corresponding trigger; it did not execute",
+    "Q9_under_routing": "NOT_OBSERVED",
+    "Q10_unsupported_assumptions_triggers": "NOT_OBSERVED",
+    "Q11_authority_inflation": "NOT_OBSERVED",
+    "Q12_impact_inflation_candidate": "AI agent"
+  },
+  "history": {
+    "call_1": "HTTP 400 BadRequestError; historical exact cause UNKNOWN.",
+    "call_2": "HTTP 429 insufficient_quota / credit_balance_exhausted.",
+    "call_3": "Provider output and canonical validation passed; compound initial route caused trigger-registry handoff failure.",
+    "call_4": "Registry-derived route control produced a valid initial route; deterministic runtime resolved E03/E04 and integration passed.",
+    "control_learning": "POSITIVE_SINGLE_CASE_EVIDENCE: SJ-RV-001 prevented the observed compound-route representation while preserving useful semantic observations. General capability remains unverified."
+  }
+}

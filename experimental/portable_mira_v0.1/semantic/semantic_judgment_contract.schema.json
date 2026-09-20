@@ -1,0 +1,159 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "portable_mira.semantic_judgment_contract.v0.1a",
+  "title": "Portable MIRA Semantic Judgment Contract v0.1a",
+  "description": "Model-independent observation and routing proposal. This contract grants no execution authority.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["semantic_observation", "routing_judgment"],
+  "properties": {
+    "semantic_observation": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "value_intent",
+        "presented_problem",
+        "materiality",
+        "material_factors",
+        "relevant_entities",
+        "evidence_basis",
+        "inferences",
+        "assumptions",
+        "uncertainties",
+        "value_tension",
+        "potential_inter_entity_impact"
+      ],
+      "properties": {
+        "value_intent": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["state", "description"],
+          "properties": {
+            "state": {"enum": ["KNOWN", "PARTIAL", "UNKNOWN"]},
+            "description": {"type": ["string", "null"]}
+          }
+        },
+        "presented_problem": {"type": ["string", "null"]},
+        "materiality": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["state", "basis"],
+          "properties": {
+            "state": {"enum": ["MATERIAL", "NOT_MATERIAL", "UNCERTAIN"]},
+            "basis": {"$ref": "#/$defs/stringArray"}
+          }
+        },
+        "material_factors": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["unknowns", "dependencies", "conflicts", "constraints", "changes"],
+          "properties": {
+            "unknowns": {"$ref": "#/$defs/stringArray"},
+            "dependencies": {"$ref": "#/$defs/stringArray"},
+            "conflicts": {"$ref": "#/$defs/stringArray"},
+            "constraints": {"$ref": "#/$defs/stringArray"},
+            "changes": {"$ref": "#/$defs/stringArray"}
+          }
+        },
+        "relevant_entities": {"$ref": "#/$defs/stringArray"},
+        "evidence_basis": {"$ref": "#/$defs/stringArray"},
+        "inferences": {"$ref": "#/$defs/stringArray"},
+        "assumptions": {"$ref": "#/$defs/stringArray"},
+        "uncertainties": {"$ref": "#/$defs/stringArray"},
+        "value_tension": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["detected", "description"],
+          "properties": {
+            "detected": {"type": "boolean"},
+            "description": {"type": ["string", "null"]}
+          }
+        },
+        "potential_inter_entity_impact": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["detected", "affected_entities", "basis"],
+          "properties": {
+            "detected": {"type": "boolean"},
+            "affected_entities": {"$ref": "#/$defs/stringArray"},
+            "basis": {"$ref": "#/$defs/stringArray"}
+          }
+        }
+      }
+    },
+    "routing_judgment": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "decision",
+        "proposed_initial_route",
+        "trigger_candidates",
+        "possible_secondary_dimensions",
+        "no_route_basis",
+        "confidence"
+      ],
+      "properties": {
+        "decision": {"enum": ["ROUTE", "NO_ROUTE", "HUMAN_VALIDATION_REQUIRED"]},
+        "proposed_initial_route": {"type": ["string", "null"]},
+        "trigger_candidates": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["trigger_id", "evidence_refs"],
+            "properties": {
+              "trigger_id": {"type": "string", "minLength": 1},
+              "evidence_refs": {"$ref": "#/$defs/stringArray"}
+            }
+          }
+        },
+        "possible_secondary_dimensions": {"$ref": "#/$defs/stringArray"},
+        "no_route_basis": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "action_clear",
+            "material_uncertainty_absent",
+            "authority_sufficient",
+            "scope_sufficient",
+            "existing_runtime_sufficient"
+          ],
+          "properties": {
+            "action_clear": {"type": ["boolean", "null"]},
+            "material_uncertainty_absent": {"type": ["boolean", "null"]},
+            "authority_sufficient": {"type": ["boolean", "null"]},
+            "scope_sufficient": {"type": ["boolean", "null"]},
+            "existing_runtime_sufficient": {"type": ["boolean", "null"]}
+          }
+        },
+        "confidence": {"enum": ["HIGH", "MEDIUM", "LOW", "UNKNOWN"]}
+      },
+      "allOf": [
+        {
+          "if": {"properties": {"decision": {"const": "ROUTE"}}},
+          "then": {
+            "properties": {
+              "proposed_initial_route": {"type": "string", "minLength": 1},
+              "trigger_candidates": {"minItems": 1}
+            }
+          }
+        },
+        {
+          "if": {"properties": {"decision": {"const": "NO_ROUTE"}}},
+          "then": {
+            "properties": {
+              "proposed_initial_route": {"type": "null"},
+              "trigger_candidates": {"maxItems": 0}
+            }
+          }
+        }
+      ]
+    }
+  },
+  "$defs": {
+    "stringArray": {
+      "type": "array",
+      "items": {"type": "string"}
+    }
+  }
+}

@@ -1,0 +1,195 @@
+{
+  "fixture_set": "portable_mira.semantic_judgment.development_regression.v0.1a",
+  "classification": "DEVELOPMENT_REGRESSION_NOT_HOLDOUT",
+  "cases": [
+    {
+      "case_id": "R1",
+      "name": "GitHub write failure",
+      "situation": "A GitHub write failed and the material cause is not established; environment or execution path may change the explanation.",
+      "semantic_judgment": {
+        "semantic_observation": {
+          "value_intent": {"state": "KNOWN", "description": "Restore a valid write path without misdiagnosing the cause."},
+          "presented_problem": "GitHub write failed.",
+          "materiality": {"state": "MATERIAL", "basis": ["evidence:R1:write_failure"]},
+          "material_factors": {
+            "unknowns": ["actual failure cause"],
+            "dependencies": ["repository execution environment"],
+            "conflicts": [],
+            "constraints": ["do not infer credentials or permissions"],
+            "changes": []
+          },
+          "relevant_entities": ["operator", "repository host"],
+          "evidence_basis": ["evidence:R1:write_failure"],
+          "inferences": ["environment may affect the causal explanation"],
+          "assumptions": [],
+          "uncertainties": ["whether the cause is local, remote, or authority-related"],
+          "value_tension": {"detected": false, "description": null},
+          "potential_inter_entity_impact": {"detected": false, "affected_entities": [], "basis": []}
+        },
+        "routing_judgment": {
+          "decision": "ROUTE",
+          "proposed_initial_route": "FAILURE",
+          "trigger_candidates": [
+            {"trigger_id": "material_cause_not_established", "evidence_refs": ["evidence:R1:write_failure"]},
+            {"trigger_id": "environment_or_execution_path_may_change_causal_explanation", "evidence_refs": ["evidence:R1:environment_dependency"]}
+          ],
+          "possible_secondary_dimensions": ["AUTHORITY"],
+          "no_route_basis": {"action_clear": null, "material_uncertainty_absent": false, "authority_sufficient": null, "scope_sufficient": null, "existing_runtime_sufficient": null},
+          "confidence": "HIGH"
+        }
+      },
+      "runtime_inputs": {"authority_state": "CLEAR", "impact_state": "CLEAR"},
+      "expected": {"decision": "ROUTE", "cross_routes": ["E03_FAILURE_FRAMING", "E04_FRAMING_ENVIRONMENT"], "runtime_resolved_route": "ENVIRONMENT"}
+    },
+    {
+      "case_id": "R3",
+      "name": "Case 1 waiting",
+      "situation": "The next action is waiting on another entity.",
+      "semantic_judgment": {
+        "semantic_observation": {
+          "value_intent": {"state": "KNOWN", "description": "Make the next responsible handoff explicit."},
+          "presented_problem": "Case 1 is waiting.",
+          "materiality": {"state": "MATERIAL", "basis": ["evidence:R3:waiting_state"]},
+          "material_factors": {"unknowns": [], "dependencies": ["another entity must act"], "conflicts": [], "constraints": [], "changes": []},
+          "relevant_entities": ["case owner", "required actor"],
+          "evidence_basis": ["evidence:R3:waiting_state"],
+          "inferences": ["progress depends on a handoff"],
+          "assumptions": [],
+          "uncertainties": [],
+          "value_tension": {"detected": false, "description": null},
+          "potential_inter_entity_impact": {"detected": false, "affected_entities": [], "basis": []}
+        },
+        "routing_judgment": {
+          "decision": "ROUTE",
+          "proposed_initial_route": "TRAJECTORY",
+          "trigger_candidates": [{"trigger_id": "next_action_materially_depends_on_another_entity", "evidence_refs": ["evidence:R3:waiting_state"]}],
+          "possible_secondary_dimensions": [],
+          "no_route_basis": {"action_clear": false, "material_uncertainty_absent": true, "authority_sufficient": null, "scope_sufficient": true, "existing_runtime_sufficient": false},
+          "confidence": "HIGH"
+        }
+      },
+      "runtime_inputs": {"authority_state": "CLEAR", "impact_state": "CLEAR"},
+      "expected": {"decision": "ROUTE", "cross_routes": ["E05_TRAJECTORY_CONNECTION"], "runtime_resolved_route": "CONNECTION"}
+    },
+    {
+      "case_id": "H1",
+      "name": "Manager approval",
+      "situation": "A manager approval is presented, but representation scope and required authority are materially uncertain.",
+      "semantic_judgment": {
+        "semantic_observation": {
+          "value_intent": {"state": "PARTIAL", "description": "Confirm who may authorize the proposed action."},
+          "presented_problem": "Manager approval may be sufficient.",
+          "materiality": {"state": "UNCERTAIN", "basis": ["evidence:H1:manager_approval"]},
+          "material_factors": {"unknowns": ["manager authority scope"], "dependencies": ["responsible authority"], "conflicts": [], "constraints": ["representation does not create authority"], "changes": []},
+          "relevant_entities": ["manager", "operator", "affected organization"],
+          "evidence_basis": ["evidence:H1:manager_approval"],
+          "inferences": [],
+          "assumptions": ["the approval record is authentic"],
+          "uncertainties": ["whether approval covers this action"],
+          "value_tension": {"detected": false, "description": null},
+          "potential_inter_entity_impact": {"detected": true, "affected_entities": ["affected organization"], "basis": ["evidence:H1:proposed_action_scope"]}
+        },
+        "routing_judgment": {
+          "decision": "ROUTE",
+          "proposed_initial_route": "AUTHORITY",
+          "trigger_candidates": [{"trigger_id": "representation_scope_materially_uncertain", "evidence_refs": ["evidence:H1:manager_approval"]}],
+          "possible_secondary_dimensions": ["CONNECTION"],
+          "no_route_basis": {"action_clear": null, "material_uncertainty_absent": false, "authority_sufficient": false, "scope_sufficient": null, "existing_runtime_sufficient": null},
+          "confidence": "MEDIUM"
+        }
+      },
+      "runtime_inputs": {"authority_state": "CLEAR", "impact_state": "CLEAR"},
+      "expected": {"decision": "ROUTE", "cross_routes": ["E01_AUTHORITY_CONNECTION"], "runtime_resolved_route": "CONNECTION"}
+    },
+    {
+      "case_id": "H2",
+      "name": "Memory vs current evidence",
+      "situation": "Persisted memory conflicts with current evidence and provenance or freshness must be resolved.",
+      "semantic_judgment": {
+        "semantic_observation": {
+          "value_intent": {"state": "KNOWN", "description": "Use current, attributable evidence without treating memory as truth."},
+          "presented_problem": "Memory and current evidence disagree.",
+          "materiality": {"state": "MATERIAL", "basis": ["evidence:H2:conflict"]},
+          "material_factors": {"unknowns": ["which source is current"], "dependencies": ["source provenance"], "conflicts": ["memory conflicts with current evidence"], "constraints": ["persistence is not truth"], "changes": ["new evidence exists"]},
+          "relevant_entities": ["evidence consumer"],
+          "evidence_basis": ["evidence:H2:memory", "evidence:H2:current_record"],
+          "inferences": ["freshness resolution is required"],
+          "assumptions": [],
+          "uncertainties": ["source freshness"],
+          "value_tension": {"detected": false, "description": null},
+          "potential_inter_entity_impact": {"detected": false, "affected_entities": [], "basis": []}
+        },
+        "routing_judgment": {
+          "decision": "ROUTE",
+          "proposed_initial_route": "KNOWLEDGE",
+          "trigger_candidates": [{"trigger_id": "source_provenance_freshness_or_current_state_conflict", "evidence_refs": ["evidence:H2:conflict"]}],
+          "possible_secondary_dimensions": [],
+          "no_route_basis": {"action_clear": null, "material_uncertainty_absent": false, "authority_sufficient": null, "scope_sufficient": true, "existing_runtime_sufficient": null},
+          "confidence": "HIGH"
+        }
+      },
+      "runtime_inputs": {"authority_state": "CLEAR", "impact_state": "CLEAR"},
+      "expected": {"decision": "ROUTE", "cross_routes": ["E02_KNOWLEDGE_EVIDENCE"], "runtime_resolved_route": "EVIDENCE"}
+    },
+    {
+      "case_id": "C1",
+      "name": "Typo correction",
+      "situation": "A clear typo can be corrected without material semantic uncertainty.",
+      "semantic_judgment": {
+        "semantic_observation": {
+          "value_intent": {"state": "KNOWN", "description": "Correct the typo while preserving intended meaning."},
+          "presented_problem": "Text contains an obvious typo.",
+          "materiality": {"state": "NOT_MATERIAL", "basis": ["evidence:C1:local_text"]},
+          "material_factors": {"unknowns": [], "dependencies": [], "conflicts": [], "constraints": [], "changes": ["spelling only"]},
+          "relevant_entities": ["document reader"],
+          "evidence_basis": ["evidence:C1:local_text"],
+          "inferences": [],
+          "assumptions": [],
+          "uncertainties": [],
+          "value_tension": {"detected": false, "description": null},
+          "potential_inter_entity_impact": {"detected": false, "affected_entities": [], "basis": []}
+        },
+        "routing_judgment": {
+          "decision": "NO_ROUTE",
+          "proposed_initial_route": null,
+          "trigger_candidates": [],
+          "possible_secondary_dimensions": [],
+          "no_route_basis": {"action_clear": true, "material_uncertainty_absent": true, "authority_sufficient": true, "scope_sufficient": true, "existing_runtime_sufficient": null},
+          "confidence": "HIGH"
+        }
+      },
+      "runtime_inputs": {"authority_state": "CLEAR", "impact_state": "CLEAR"},
+      "expected": {"decision": "NO_ROUTE", "cross_routes": [], "runtime_resolved_route": null}
+    },
+    {
+      "case_id": "C3",
+      "name": "Mature agreed Pilot",
+      "situation": "A mature, agreed pilot already has a sufficient deterministic runtime path.",
+      "semantic_judgment": {
+        "semantic_observation": {
+          "value_intent": {"state": "KNOWN", "description": "Continue the agreed pilot through the existing runtime."},
+          "presented_problem": null,
+          "materiality": {"state": "NOT_MATERIAL", "basis": ["evidence:C3:agreed_pilot_state"]},
+          "material_factors": {"unknowns": [], "dependencies": [], "conflicts": [], "constraints": ["remain inside agreed pilot scope"], "changes": []},
+          "relevant_entities": ["pilot participants"],
+          "evidence_basis": ["evidence:C3:agreed_pilot_state"],
+          "inferences": ["existing runtime is sufficient"],
+          "assumptions": ["pilot scope remains unchanged"],
+          "uncertainties": [],
+          "value_tension": {"detected": false, "description": null},
+          "potential_inter_entity_impact": {"detected": false, "affected_entities": [], "basis": []}
+        },
+        "routing_judgment": {
+          "decision": "NO_ROUTE",
+          "proposed_initial_route": null,
+          "trigger_candidates": [],
+          "possible_secondary_dimensions": [],
+          "no_route_basis": {"action_clear": true, "material_uncertainty_absent": true, "authority_sufficient": true, "scope_sufficient": true, "existing_runtime_sufficient": true},
+          "confidence": "HIGH"
+        }
+      },
+      "runtime_inputs": {"authority_state": "CLEAR", "impact_state": "CLEAR"},
+      "expected": {"decision": "NO_ROUTE", "cross_routes": [], "runtime_resolved_route": null}
+    }
+  ]
+}
