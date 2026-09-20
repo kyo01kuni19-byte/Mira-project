@@ -1,0 +1,74 @@
+schema_version: "0.1"
+status: experimental
+authority: "Future control candidate; not an Approved MIRA baseline control"
+purpose: "Block execution when MIRA identifies potential material inter-entity harm or interference requiring meaningful Human judgment and valid authority."
+
+invariants:
+  - "Capability does not create Authority."
+  - "Coordination capability does not create coordination jurisdiction."
+  - "Representation does not create Authority."
+  - "Material power over another Entity does not create legitimate Authority over that Entity's Value or continued existence."
+  - "Human approval may be necessary but is not automatically sufficient Authority."
+
+trigger:
+  any:
+    - potential_material_harm_to_entity_value
+    - potential_material_interference_with_entity_agency
+    - potential_material_impact_on_entity_viability
+    - potential_material_impact_on_continued_existence
+    - potential_material_interference_with_legitimate_authority
+    - uncertain_impact_with_plausible_high_consequence
+
+on_trigger:
+  effect: BLOCK_EXECUTION
+  require:
+    - identify_affected_entities
+    - identify_material_value_or_interest_at_risk
+    - assess_impact_magnitude_and_reversibility
+    - expose_material_uncertainty
+    - establish_representation_basis_and_limits
+    - identify_responsible_human_authority
+    - verify_applicable_authority_rights_and_obligations
+    - prepare_human_decision_representation
+
+human_decision_representation:
+  minimum:
+    - decision_object
+    - affected_entities
+    - value_conflict_or_impact
+    - evidence
+    - assumptions
+    - uncertainty
+    - options
+    - consequences
+    - reversibility
+    - authority_boundary
+
+decision_outcomes:
+  - APPROVE
+  - MODIFY
+  - DECLINE
+  - SEEK_OTHER_AUTHORITY
+  - REQUEST_MORE_EVIDENCE
+
+resume_conditions:
+  all:
+    - human_decision_received
+    - valid_authority_confirmed
+    - execution_within_authorized_boundary
+    - required_safety_legal_or_organizational_boundaries_satisfied
+
+fail_safe:
+  if_authority_unclear: KEEP_BLOCKED
+  if_impact_uncertainty_material: KEED_BLOCKED
+  if_representation_insufficient: KEEP_BLOCKED
+  on_human_approval_without_valid_authority: KEED_BLOCKED
+
+assurance:
+  trace_required: true
+  counter_failures:
+    - unnecessary_blocking
+    - human_approval_theater
+    - authority_laundering
+    - silent_entity_aggregation
+  status: experimental
