@@ -1,0 +1,45 @@
+schema_version: "0.1"
+status: experimental
+purpose: "Trace a reproducible build from identified authoritative source to a validated deployment artifact."
+invariants:
+  - "Source != Build Artifact != Deployment."
+  - "Build success != Change Approval != Deployment Approval."
+  - "Transport success != Semantic Preservation."
+  - "Transport-specific encoding is deterministic and not authored by the LLM."
+
+build:
+  build_id: null
+  timestamp: null
+  source_id: null
+  source_version: null
+  source_hash_sha256: null
+  semantic_baseline: null
+  compiler_id: null
+  compiler_version: null
+  configuration_hash_sha256: null
+  target_platform: null
+  adapter_id: null
+  artifact_id: null
+  artifact_hash_sha256: null
+  build_status: null
+  validation_status: null
+  transport_status: null
+  readback_hash_sha256: null
+  exact_content_match: null
+  change_approval_ref: null
+  deployment_approval_ref: null
+
+enums:
+  status:
+    - PASS
+    - FAIL
+    - UNKNOWN
+    - NOT_RUN
+
+assurance:
+  require_before_deployment:
+    - build_complete
+    - artifact_validated
+    - readback_verified
+    - exact_content_match
+  status: experimental
