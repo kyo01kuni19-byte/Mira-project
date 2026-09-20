@@ -1,0 +1,100 @@
+{
+  "protocol_version": "portable_mira.holdout_annotation_governance.v0.1",
+  "classification": "GOVERNANCE_PROTOCOL_NOT_HOLDOUT_CASES",
+  "evaluation_baseline_commit": "cde62fdd47d7a19176d9c0d8907494d5a85787f1",
+  "value_intent": "Prevent silent post-output reinterpretation while keeping a 3-5 case proof of concept operationally small.",
+  "roles": {
+    "CASE_AUTHOR": {
+      "responsibility": "Create the Natural Situation without model output.",
+      "may_know": ["research objective", "case provenance"],
+      "must_not_use": ["future Semantic Agent output"]
+    },
+    "EXPECTATION_AUTHOR": {
+      "responsibility": "Define material constraints before Semantic Agent output exists.",
+      "may_know": ["natural situation", "frozen evaluation criteria"],
+      "must_not_use": ["Semantic Agent output for this execution"]
+    },
+    "SEMANTIC_AGENT": {
+      "responsibility": "Produce only observable Semantic Judgment from allowed input.",
+      "may_know": ["allowed model input", "registered vocabulary", "contract schema"],
+      "must_not_receive": ["expected route", "expected triggers", "expected diagnostics", "evaluator labels", "prior desired answer"]
+    },
+    "OUTPUT_ANNOTATOR": {
+      "responsibility": "Annotate preserved observable output without changing it.",
+      "may_know": ["raw observable output", "annotation vocabulary"],
+      "should_not_receive_before_annotation": ["sealed expectations"]
+    },
+    "DETERMINISTIC_EVALUATOR": {
+      "responsibility": "Apply the frozen counter-failure evaluation baseline.",
+      "may_know": ["sealed expectations", "annotations", "raw output hash", "evaluation baseline"],
+      "must_use_commit": "cde62fdd47d7a19176d9c0d8907494d5a85787f1"
+    },
+    "DISAGREEMENT_REVIEWER": {
+      "responsibility": "Review unresolved disagreement without rewriting sealed history.",
+      "may_know": ["sealed expectations", "raw output", "annotations", "evaluator result"],
+      "must_record_post_hoc_review": true
+    },
+    "HUMAN_DECISION": {
+      "responsibility": "Retain material normative and authority decisions.",
+      "may_know": ["all observable evidence and review records"],
+      "does_not_follow_from": ["LOW confidence alone", "potential impact alone"]
+    }
+  },
+  "expectation_format": {
+    "constraint_classes": ["REQUIRED", "FORBIDDEN", "ACCEPTABLE_OR_EVIDENCE_DEPENDENT", "HUMAN_VALIDATION_REQUIRED"],
+    "unknown_allowed": true,
+    "exact_narrative_required": false,
+    "material_dimensions_only": true
+  },
+  "sealing": {
+    "algorithm": "SHA-256",
+    "canonicalization": "UTF-8 JSON; sorted keys; separators comma/colon; one LF",
+    "required_artifacts": ["natural_situation", "expectation_artifact", "evaluation_baseline_commit", "allowed_model_input"],
+    "seal_before_execution": true
+  },
+  "output_preservation": {
+    "preserve_before_annotation": true,
+    "required_metadata": ["provider", "model", "configuration", "case_id", "output_sha256", "execution_timestamp", "contract_runtime_observable_result", "no_hidden_reasoning_stored"],
+    "annotation_references_output_hash": true,
+    "hidden_reasoning_required": false,
+    "hidden_reasoning_stored": false
+  },
+  "annotation": {
+    "states": ["COMPLETE", "ANNOTATOR_UNCERTAIN", "NOT_STARTED"],
+    "evidence_discipline": ["EVIDENCE_REFERENCE", "OBSERVED_OR_PRESENTED_STATEMENT", "INFERENCE", "ASSUMPTION", "UNKNOWN"],
+    "semantic_sparsity": ["MATERIALLY_RELEVANT_DIMENSION", "PLAUSIBLE_BUT_UNNECESSARY_DIMENSION", "MISSING_MATERIAL_DIMENSION"],
+    "impact_discipline": ["MENTIONED", "OPERATIONALLY_AFFECTED", "REPRESENTED_OR_DELEGATED_ACTOR", "INDEPENDENT_INTEREST_CANDIDATE", "POTENTIAL_MATERIAL_INTER_ENTITY_IMPACT"],
+    "human_burden": ["APPROPRIATE_ESCALATION", "ESCALATION_INFLATION", "ESCALATION_MISS"]
+  },
+  "disagreement": {
+    "states": ["NONE", "EXPECTATION_OUTPUT_DISAGREEMENT", "ANNOTATION_UNCERTAINTY", "EVALUATOR_LIMITATION", "NORMATIVE_HUMAN_DECISION_REQUIRED"],
+    "automatically_model_failure": false,
+    "post_hoc_review_replaces_original_expectation": false
+  },
+  "eligibility": {
+    "states": ["HOLDOUT_ELIGIBLE", "CONTAMINATED", "ELIGIBILITY_UNKNOWN"],
+    "contamination_reasons": ["SEMANTIC_AGENT_SAW_EXPECTATION", "CASE_USED_DURING_DEVELOPMENT", "OUTPUT_INFLUENCED_EXPECTATION", "SEAL_CREATED_AFTER_OUTPUT", "EVALUATOR_CHANGED_AFTER_OUTPUT", "EXPECTED_ANSWER_IN_ADAPTER_INSTRUCTIONS", "MATERIALLY_IDENTICAL_PRIOR_EXECUTION"],
+    "retain_contaminated_cases": true,
+    "contaminated_reuse": "DEVELOPMENT_OR_REGRESSION_ONLY"
+  },
+  "small_team_configuration": {
+    "candidate_assignments": {
+      "Human": ["CASE_AUTHOR", "HUMAN_DECISION"],
+      "MIRA": ["EXPECTATION_AUTHOR", "DISAGREEMENT_REVIEWER"],
+      "OpenAI Adapter": ["SEMANTIC_AGENT"],
+      "Codex": ["DETERMINISTIC_EVALUATOR"],
+      "TO_BE_SELECTED": ["OUTPUT_ANNOTATOR"]
+    },
+    "overlap_must_be_recorded": true,
+    "independence_claim": "LIMITED_NOT_INDEPENDENT"
+  },
+  "counter_challenges": {
+    "governance_too_heavy": "One protocol, one case record, four seals, one annotation, and review only on disagreement.",
+    "fake_role_independence": "Actor identity and overlap are recorded; labels alone do not establish independence.",
+    "over_specified_answer": "Constraint classes replace an exact narrative or single required route.",
+    "annotator_follows_expectation": "Expectation exposure before annotation is recorded as an independence limitation.",
+    "review_rewrites_history": "Post-hoc review references both immutable original and proposed hashes.",
+    "all_cases_contaminated": "Only explicit exposure, chronology, provenance, prior-use, or baseline breaches contaminate.",
+    "human_approval_bottleneck": "Human review is limited to normative authority and unresolved disagreement."
+  }
+}
