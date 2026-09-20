@@ -13,7 +13,7 @@ def test_reproducible_hash():
 
 
 def test_base64_round_trip():
-    source = bytes([0, 1, 2, 3, 10, 13, 31, 32, 65, 127]) + b"byte-exact"
+    source = "Portable MIRA — 日本語 — café — 🚀".encode("utf-8")
     result, artifact, _ = deterministic_build("t2", source)
     assert artifact == source
     assert result.round_trip_match is True
