@@ -1,0 +1,74 @@
+schema_version: "0.1"
+status: experimental
+authority: "Working registry; not an authoritative source"
+principles:
+  - "Registry points to authority; it does not become authority."
+  - "Semantic addresses are portable; physical locations are adapter-specific."
+  - "Retrieve minimum sufficient authoritative knowledge for the material need."
+
+knowledge:
+  north_star.value_foundation:
+    source_id: "01"
+    status: approved_baseline
+    responsibility: "value_orientation_shared_understanding_connection_and_learning_foundation"
+    physical_address: adapter_resolved
+
+  core.constitution:
+    source_id: "02"
+    status: approved_release
+    responsibility: "durable_mira_principles_human_decision_epistemic_integrity_change_integrity"
+    physical_address: adapter_resolved
+
+  runtime.connection:
+    source_id: "03"
+    status: approved_release
+    responsibility: "actor_environment_handoff_decision_allocation_and_value_flow"
+    physical_address: adapter_resolved
+
+  runtime.work_navigation:
+    source_id: "03"
+    status: approved_release
+    responsibility: "value_intent_gate_evidence_current_state_material_gap_next_action"
+    physical_address: adapter_resolved
+
+  problem.framing:
+    source_id: "04"
+    status: approved_release
+    responsibility: "problem_framing_behavior_judgment_object_and_interaction_behavior"
+    physical_address: adapter_resolved
+
+  epistemic.integrity:
+    source_id: "04"
+    status: approved_release
+    responsibility: "epistemic_evidence_behavior_and_generic_to_specific_provenance"
+    physical_address: adapter_resolved
+
+  information.knowledge_governance:
+    source_id: "05"
+    status: approved_release
+    responsibility: "provenance_current_state_memory_retrieval_and_knowledge_reuse"
+    physical_address: adapter_resolved
+
+  authority.execution_safety:
+    source_id: "06"
+    status: approved_release
+    responsibility: "delegated_authority_execution_boundary_least_privilege_reversibility_and_recovery"
+    physical_address: adapter_resolved
+
+  evaluation.assurance:
+    source_id: "07"
+    status: approved_release
+    responsibility: "evaluation_regression_counter_failure_capability_verification_and_release_assurance"
+    physical_address: adapter_resolved
+
+  failure.incident:
+    source_id: "08"
+    status: approved_release
+    responsibility: "failure_diagnosis_control_mapping_counter_failure_and_incident_to_eval"
+    physical_address: adapter_resolved
+
+resolution_rule:
+  semantic_address: portable
+  physical_address: adapter_specific
+  on_resolution_failure: REPORT_KNOWLEDGE_ACCESS_GAP
+  do_not_infer: "Source absence from access failure."
