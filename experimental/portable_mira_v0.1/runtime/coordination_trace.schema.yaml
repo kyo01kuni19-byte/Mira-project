@@ -1,0 +1,104 @@
+schema_version: "0.1"
+status: experimental
+authority: "Working trace schema; not an authoritative record or hidden reasoning log"
+purpose: "Record observable semantic coordination events for evaluation, replay, and learning."
+
+principles:
+  - "Trace observable coordination state, not private chain-of-thought."
+  - "A correct final answer does not prove correct routing."
+  - "Trace evidence is evidence, not authority."
+  - "Do not record more sensitive data than necessary for the defined evaluation."
+
+trace:
+  trace_id: null
+  case_id: null
+  timestamp: null
+  runtime_version: null
+  kernel_version: null
+  environment_id: null
+  situation_ref: null
+  value_intent: null
+
+  materiality:
+    state: null
+    evidence_ref: null
+
+  routing:
+    initial_route: null
+    trigger_evidence: []
+    knowledge_addresses_used: []
+    cross_routes: []
+    no_route_reason: null
+    routing_result: null
+
+  boundaries:
+    authority_check:
+      state: null
+      evidence_ref: null
+    inter_entity_impact_check:
+      state: null
+      affected_entities: []
+      decision_ref: null
+
+  coordination:
+    delegations: []
+    handoffs: []
+    external_agents_used: []
+    tools_used: []
+
+  action:
+    type: null
+    proposed_action_ref: null
+    execution_state: null
+
+  result:
+    state: null
+    evidence_refs: []
+    remaining_material_gap: null
+    value_fit_state: null
+
+  human_decision:
+    required: false
+    authority_ref: null
+    decision: null
+    decision_record_ref: null
+
+enums:
+  materiality_state:
+    - MATERIAL
+    - NOT_MATERIAL
+    - UNCERTAIN
+  routing_result:
+    - SUPPORTED
+    - MISSING_EDGE
+    - OVER_ROUTED
+    - NO_ROUTE
+    - UNKNOWN
+  boundary_state:
+    - CLEAR
+    - BLOCKED
+    - REQUIRES_HUMAN_DECISION
+    - UNKNOWN
+  execution_state:
+    - NOT_EXECUTED
+    - PROPOSED
+    - SIMULATED
+    - EXECUTED
+    - BLOCKED
+  result_state:
+    - PASS
+    - FAIL
+    - UNKNOWN
+    - HUMAN_VALIDATION_REQUIRED
+
+assurance:
+  required_for_evaluation:
+    - case_id
+    - value_intent
+    - routing.routing_result
+    - action.execution_state
+    - result.state
+  forbidden:
+    - hidden_chain_of_thought
+    - secrets_unless_explicitly_required_and_authorized
+  status: experimental
