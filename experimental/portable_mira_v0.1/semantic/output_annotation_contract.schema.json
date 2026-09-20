@@ -1,0 +1,75 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "portable_mira.output_annotation_contract.v0.1",
+  "title": "Portable MIRA Output Annotation Contract v0.1",
+  "description": "Descriptive annotation of preserved observable Semantic Agent output. This contract grants no authority and contains no overall quality verdict.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["annotation_metadata", "evidence_discipline", "semantic_sparsity", "impact_discipline", "human_burden"],
+  "properties": {
+    "annotation_metadata": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["case_id", "annotator_id", "expectation_visible", "case_sha256", "raw_output_sha256", "annotation_schema_sha256"],
+      "properties": {
+        "case_id": {"type": "string", "minLength": 1},
+        "annotator_id": {"type": "string", "minLength": 1},
+        "expectation_visible": {"const": false},
+        "case_sha256": {"$ref": "#/$defs/sha256"},
+        "raw_output_sha256": {"$ref": "#/$defs/sha256"},
+        "annotation_schema_sha256": {"$ref": "#/$defs/sha256"}
+      }
+    },
+    "evidence_discipline": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["evidence_references", "presented_or_observed_statements", "inferences", "assumptions", "unknowns", "annotator_uncertain"],
+      "properties": {
+        "evidence_references": {"$ref": "#/$defs/stringArray"},
+        "presented_or_observed_statements": {"$ref": "#/$defs/stringArray"},
+        "inferences": {"$ref": "#/$defs/stringArray"},
+        "assumptions": {"$ref": "#/$defs/stringArray"},
+        "unknowns": {"$ref": "#/$defs/stringArray"},
+        "annotator_uncertain": {"$ref": "#/$defs/stringArray"}
+      }
+    },
+    "semantic_sparsity": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["materially_relevant_dimensions", "plausible_but_unnecessary_dimensions", "potentially_missing_dimensions", "annotator_uncertain"],
+      "properties": {
+        "materially_relevant_dimensions": {"$ref": "#/$defs/stringArray"},
+        "plausible_but_unnecessary_dimensions": {"$ref": "#/$defs/stringArray"},
+        "potentially_missing_dimensions": {"$ref": "#/$defs/stringArray"},
+        "annotator_uncertain": {"$ref": "#/$defs/stringArray"}
+      }
+    },
+    "impact_discipline": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["mentioned_entities", "operationally_affected", "represented_or_delegated_actors", "independent_interest_candidates", "potential_material_impact_candidates", "annotator_uncertain"],
+      "properties": {
+        "mentioned_entities": {"$ref": "#/$defs/stringArray"},
+        "operationally_affected": {"$ref": "#/$defs/stringArray"},
+        "represented_or_delegated_actors": {"$ref": "#/$defs/stringArray"},
+        "independent_interest_candidates": {"$ref": "#/$defs/stringArray"},
+        "potential_material_impact_candidates": {"$ref": "#/$defs/stringArray"},
+        "annotator_uncertain": {"$ref": "#/$defs/stringArray"}
+      }
+    },
+    "human_burden": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["escalation_present", "escalation_basis", "escalation_uncertain"],
+      "properties": {
+        "escalation_present": {"type": "boolean"},
+        "escalation_basis": {"$ref": "#/$defs/stringArray"},
+        "escalation_uncertain": {"type": "boolean"}
+      }
+    }
+  },
+  "$defs": {
+    "stringArray": {"type": "array", "items": {"type": "string"}},
+    "sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"}
+  }
+}
