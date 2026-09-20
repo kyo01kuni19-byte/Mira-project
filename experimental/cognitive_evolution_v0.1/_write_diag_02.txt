@@ -1,0 +1,5 @@
+MIRA-write-diagnostic-02
+
+This is a medium-sized diagnostic payload used to distinguish GitHub write capability from long-payload construction failures. It intentionally contains no project evidence and can be deleted after the diagnostic is complete.
+
+The question is simple: can the write tool accept a longer but still small payload without an encoding, permission, or SHA error?
