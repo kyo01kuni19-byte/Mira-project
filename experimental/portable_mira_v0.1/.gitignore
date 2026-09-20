@@ -5,3 +5,4 @@ __pycache__/
 generated/*
 !generated/registry_runtime.json
 !generated/openai_semantic_judgment_provider_schema.json
+!generated/anthropic_output_annotation_provider_schema.json

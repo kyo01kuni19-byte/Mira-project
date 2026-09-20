@@ -281,12 +281,14 @@ def test_aa13_anthropic_candidate_exposes_no_prohibited_capability():
     adapter = candidate()
     dry = adapter.build_dry_run(annotation_input())
     metadata = dry.observable_configuration
-    assert dry.request["tools"] == []
+    assert "tools" not in dry.request
+    assert dry.request["output_config"]["format"]["type"] == "json_schema"
     assert metadata["tools_enabled"] is False
     assert metadata["web_enabled"] is False
     assert metadata["retrieval_enabled"] is False
     assert metadata["external_actions_enabled"] is False
     assert metadata["hidden_reasoning_requested"] is False
+    assert metadata["canonical_post_validation_required"] is True
     assert dry.network_call_performed is False
     assert dry.credential_accessed is False
     validate_blind_input_fields(dry.request)

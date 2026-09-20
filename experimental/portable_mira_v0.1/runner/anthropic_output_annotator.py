@@ -1,11 +1,19 @@
 from __future__ import annotations
 
 import copy
+import hashlib
 import importlib.util
 import json
 from dataclasses import asdict, dataclass
 from pathlib import Path
 from typing import Any
+
+from anthropic_provider_schema import (
+    SDK_LOCAL_ACCEPTANCE_PRINCIPLE,
+    bind_provider_schema,
+    canonical_json_bytes,
+    load_provider_schema_artifact,
+)
 
 from output_annotator import (
     OutputAnnotationError,
@@ -19,7 +27,8 @@ from output_annotator import (
 
 ANTHROPIC_ANNOTATION_KERNEL = """You are an Output Annotator. Describe only the supplied Natural Situation and preserved observable Semantic Agent output using the supplied Annotation Contract.
 Keep evidence references, presented statements, inferences, assumptions, and unknowns distinct. Mark uncertainty rather than forcing certainty.
-Describe semantic dimensions, impact categories, and whether escalation is present. Do not decide overall quality or PASS/FAIL, create authority, approve or block execution, alter the source output, retrieve facts, use tools, or provide hidden reasoning."""
+Describe semantic dimensions, impact categories, and whether escalation is present. Return every contract field, but keep values concise: use existing reference identifiers and short labels or clauses, do not restate the full input, and do not duplicate the same explanation across categories. Use empty lists when no supported item exists and uncertainty fields for concise uncertainty.
+Do not decide overall quality or PASS/FAIL, create authority, approve or block execution, alter the source output, retrieve facts, use tools, or provide hidden reasoning."""
 
 
 class AnthropicAnnotatorError(Exception):
@@ -33,22 +42,19 @@ class AnthropicAnnotatorError(Exception):
 class AnthropicAnnotatorConfig:
     model_id: str
     max_tokens: int = 2048
-    temperature: float = 0.0
 
     def __post_init__(self) -> None:
         if not isinstance(self.model_id, str) or not self.model_id:
             raise ValueError("model_id must be a non-empty string")
         if not isinstance(self.max_tokens, int) or self.max_tokens <= 0:
             raise ValueError("max_tokens must be a positive integer")
-        if not isinstance(self.temperature, (int, float)) or not 0 <= self.temperature <= 1:
-            raise ValueError("temperature must be between 0 and 1")
 
     def observable_identity(self) -> dict[str, Any]:
         return {
             "provider": "anthropic",
             "model_id": self.model_id,
             "max_tokens": self.max_tokens,
-            "temperature": self.temperature,
+            "temperature_supported_by_installed_sdk": False,
             "tools_enabled": False,
             "web_enabled": False,
             "retrieval_enabled": False,
@@ -74,9 +80,19 @@ class AnthropicDryRunResult:
 class AnthropicOutputAnnotator:
     annotator_id = "anthropic.output_annotator.candidate.v0.1"
 
-    def __init__(self, config: AnthropicAnnotatorConfig, schema_path: Path):
+    def __init__(
+        self,
+        config: AnthropicAnnotatorConfig,
+        schema_path: Path,
+        provider_artifact_path: Path | None = None,
+    ):
         self.config = config
         self.schema_path = schema_path
+        self.provider_artifact_path = provider_artifact_path or (
+            schema_path.parents[1]
+            / "generated"
+            / "anthropic_output_annotation_provider_schema.json"
+        )
 
     def observable_metadata(self) -> dict[str, Any]:
         metadata = self.config.observable_identity()
@@ -86,27 +102,38 @@ class AnthropicOutputAnnotator:
                 "annotation_contract": "portable_mira.output_annotation_contract.v0.1",
                 "annotation_schema_sha256": file_sha256(self.schema_path),
                 "independence_claim": "DIFFERENT_PROVIDER_NOT_INDEPENDENT_GROUND_TRUTH",
+                "sdk_acceptance_principle": SDK_LOCAL_ACCEPTANCE_PRINCIPLE,
+                "canonical_post_validation_required": True,
             }
         )
         return metadata
 
     def build_dry_run(self, annotation_input: OutputAnnotationInput) -> AnthropicDryRunResult:
         validate_annotation_input(annotation_input, self.schema_path)
-        schema = json.loads(self.schema_path.read_text(encoding="utf-8"))
-        provider_payload = annotation_input.to_provider_payload()
+        compilation = load_provider_schema_artifact(
+            self.provider_artifact_path, self.schema_path
+        )
+        provider_schema = bind_provider_schema(
+            compilation.provider_schema,
+            case_id=annotation_input.case_id,
+            annotator_id=self.annotator_id,
+            case_sha256=annotation_input.case_sha256,
+            raw_output_sha256=annotation_input.raw_output_sha256,
+            annotation_schema_sha256=annotation_input.annotation_schema_sha256,
+        )
         request = {
             "model": self.config.model_id,
             "max_tokens": self.config.max_tokens,
-            "temperature": self.config.temperature,
             "system": ANTHROPIC_ANNOTATION_KERNEL,
             "messages": [
                 {
                     "role": "user",
                     "content": json.dumps(
                         {
-                            "annotation_input": provider_payload,
-                            "output_contract_schema": schema,
-                            "output_requirement": "Return only canonical Output Annotation Contract JSON.",
+                            "natural_situation": annotation_input.natural_situation,
+                            "preserved_semantic_agent_output": (
+                                annotation_input.preserved_semantic_agent_output
+                            ),
                         },
                         ensure_ascii=False,
                         sort_keys=True,
@@ -114,7 +141,12 @@ class AnthropicOutputAnnotator:
                     ),
                 }
             ],
-            "tools": [],
+            "output_config": {
+                "format": {
+                    "type": "json_schema",
+                    "schema": provider_schema,
+                }
+            },
         }
         validate_blind_input_fields(request)
         return AnthropicDryRunResult(
@@ -123,7 +155,14 @@ class AnthropicOutputAnnotator:
             network_call_performed=False,
             credential_accessed=False,
             request=request,
-            observable_configuration=self.observable_metadata(),
+            observable_configuration={
+                **self.observable_metadata(),
+                "anthropic_sdk_version": compilation.sdk_version,
+                "provider_schema_sha256": compilation.provider_schema_sha256,
+                "bound_provider_schema_sha256": hashlib.sha256(
+                    canonical_json_bytes(provider_schema)
+                ).hexdigest(),
+            },
         )
 
     def annotate(self, annotation_input: OutputAnnotationInput) -> dict[str, Any]:
@@ -162,3 +201,28 @@ class AnthropicOutputAnnotator:
 
 def anthropic_sdk_state() -> str:
     return "CONFIGURED" if importlib.util.find_spec("anthropic") else "NOT_CONFIGURED"
+
+
+def parse_provider_annotation_text(raw_text: str, *, stop_reason: str) -> dict[str, Any]:
+    if stop_reason == "max_tokens":
+        raise AnthropicAnnotatorError(
+            "TRUNCATED_OUTPUT",
+            "provider output reached max_tokens; partial output is rejected",
+        )
+    if stop_reason != "end_turn":
+        raise AnthropicAnnotatorError(
+            "INCOMPLETE_OUTPUT",
+            f"provider output did not complete normally: {stop_reason}",
+        )
+    try:
+        parsed = json.loads(raw_text)
+    except json.JSONDecodeError as exc:
+        raise AnthropicAnnotatorError(
+            "STRUCTURED_OUTPUT_INVALID",
+            "provider output is not complete JSON; repair is forbidden",
+        ) from exc
+    if not isinstance(parsed, dict):
+        raise AnthropicAnnotatorError(
+            "STRUCTURED_OUTPUT_INVALID", "provider output must be a JSON object"
+        )
+    return parsed
