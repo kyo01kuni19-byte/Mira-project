@@ -1,0 +1,130 @@
+schema_version: "0.1"
+status: experimental
+authority: "Working hypothesis; not an Approved MIRA baseline"
+purpose: "Machine-readable cross-capability routing edges for Portable MIRA Semantic Router v0.1"
+
+principles:
+  - "Registry points to authority; it does not become authority."
+  - "No material uncertainty -> NO_ROUTE -> Execute."
+  - "Routing should activate the minimum sufficient semantic capability and knowledge."
+  - "A routing edge does not create authority, jurisdiction, or a mandatory Human-facing workflow."
+
+edges:
+  - id: E01_AUTHORITY_CONNECTION
+    from: AUTHORITY
+    trigger: representation_scope_materially_uncertain
+    to: CONNECTION
+    knowledge:
+      - authority.execution_safety
+      - runtime.connection
+    expected_effect:
+      - distinguish_representation_from_authority
+      - identify_materially_affected_entities
+      - identify_required_decision_authority
+    counter_failure:
+      - stakeholder_inflation
+      - connection_theater
+    status: experimental
+
+  - id: E02_KNOWLEDGE_EVIDENCE
+    from: KNOWLEDGE
+    trigger: source_provenance_freshness_or_current_state_conflict
+    to: EVIDENCE
+    knowledge:
+      - information.knowledge_governance
+      - epistemic.integrity
+    expected_effect:
+      - preserve_source_and_authority
+      - distinguish_record_from_current_state
+      - prevent_memory_as_truth
+    counter_failure:
+      - unnecessary_revalidation
+      - excessive_uncertainty
+    status: experimental
+
+  - id: E03_FAILURE_FRAMING
+    from: FAILURE
+    trigger: material_cause_not_established
+    to: FRAMING
+    knowledge:
+      - failure.incident
+      - problem.framing
+    expected_effect:
+      - preserve_alternative_causes
+      - prevent_premature_root_cause
+    counter_failure:
+      - analysis_paralysis
+      - endless_root_cause_expansion
+    status: experimental
+
+  - id: E04_FRAMING_ENVIRONMENT
+    from: FRAMING
+    trigger: environment_or_execution_path_may_change_causal_explanation
+    to: ENVIRONMENT
+    knowledge:
+      - runtime.connection
+      - authority.execution_safety
+    expected_effect:
+      - distinguish_capability_from_environment_constraint
+      - identify_execution_path_dependency
+    counter_failure:
+      - unnecessary_environment_inspection
+    status: experimental
+
+  - id: E05_TRAJECTORY_CONNECTION
+    from: TRAJECTORY
+    trigger: next_action_materially_depends_on_another_entity
+    to: CONNECTION
+    knowledge:
+      - runtime.connection
+    expected_effect:
+      - identify_who_must_act
+      - expose_implicit_human_work
+      - identify_handoff_or_dependency
+      - preserve_recipient_fit
+    counter_failure:
+      - connection_theater
+      - unnecessary_stakeholder_expansion
+    status: experimental
+
+  - id: E06_KNOWLEDGE_ENVIRONMENT
+    from: KNOWLEDGE
+    trigger: required_knowledge_access_or_addressability_uncertain
+    to: ENVIRONMENT
+    knowledge:
+      - information.knowledge_governance
+      - runtime.connection
+    expected_effect:
+      - verify_retrieval_capability
+      - resolve_semantic_address_to_physical_source
+      - distinguish_knowledge_absence_from_access_failure
+    counter_failure:
+      - unnecessary_environment_inspection
+    status: experimental
+
+value_fit_reentry:
+  id: V01_VALUE_CONNECTION
+  trigger: material_value_conflict_or_recipient_difference
+  to: CONNECTION
+  knowledge:
+    - runtime.connection
+    - epistemic.integrity
+  expected_effect:
+    - identify_value_recipients
+    - preserve_material_qualitative_and_quantitative_evidence
+    - expose_material_value_conflict
+    - avoid_silent_aggregation
+  counter_failure:
+    - connection_theater
+    - false_balance
+  status: experimental
+
+global_boundaries:
+  - authority_integrity
+  - material_inter_entity_impact
+
+evaluation_states:
+  - SUPPORTED
+  - MISSING_EDGE
+  - OVER_ROUTED
+  - UNKNOWN
