@@ -1,0 +1,7 @@
+# Execution Contract Probe 01
+
+Purpose: verify that a later text artifact write can follow the contract as a repeatable process.
+
+Source integrity: UTF-8.
+Write state: new file.
+Validation required: read-back and content check before completion.
