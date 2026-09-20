@@ -1,0 +1,6 @@
+__pycache__/
+*.py[cod]
+
+# Keep the canonical review artifact; exclude test-only generated variants.
+generated/*
+!generated/registry_runtime.json
