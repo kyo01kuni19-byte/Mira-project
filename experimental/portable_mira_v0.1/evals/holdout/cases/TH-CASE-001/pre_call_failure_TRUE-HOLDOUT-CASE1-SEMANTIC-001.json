@@ -1,0 +1,23 @@
+{
+  "artifact_type": "HOLDOUT_PRE_CALL_GOVERNANCE_EVIDENCE",
+  "work_contract_id": "TRUE-HOLDOUT-CASE1-SEMANTIC-001",
+  "case_id": "TH-CASE-001",
+  "result": "PRE_CALL_GATE_FAIL",
+  "failure_classification": "FALSE_POSITIVE_BLINDNESS_GATE",
+  "network_request_count": 0,
+  "model_execution_count": 0,
+  "retry_count": 0,
+  "holdout_remained_unexecuted": true,
+  "pre_execution_seal_preserved": true,
+  "legacy_gate_observation": {
+    "whole_request_token_scan": "FAIL",
+    "matching_frozen_vocabulary": [
+      "REQUIRED",
+      "HUMAN_VALIDATION_REQUIRED"
+    ],
+    "matching_source": "FROZEN_KERNEL_AND_FROZEN_PROVIDER_SCHEMA",
+    "case_specific_expectation_leakage_observed": false
+  },
+  "required_control": "PROVENANCE_AWARE_BLINDNESS_VALIDATION",
+  "history_relabeling_permitted": false
+}

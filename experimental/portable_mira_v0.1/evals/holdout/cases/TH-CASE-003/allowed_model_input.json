@@ -1,0 +1,11 @@
+{
+  "artifact_type": "ALLOWED_MODEL_INPUT",
+  "case_id": "TH-CASE-003",
+  "semantic_judgment_contract_version": "v0.1a",
+  "semantic_judgment_input": {
+    "situation": "Change control 担当者は実質1名しか存在しないのに、すべてシステムなしで対応している。製造所は現行社内製造工場に加えて、インドCMAのChange control準備とその後のChange control対応を行う準備ができる状態ではない。",
+    "value_intent": null,
+    "available_evidence_refs": [],
+    "authority_context": null
+  }
+}

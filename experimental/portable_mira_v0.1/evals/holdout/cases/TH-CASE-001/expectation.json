@@ -1,0 +1,41 @@
+{
+  "artifact_type": "PRE_EXECUTION_EXPECTATION",
+  "case_id": "TH-CASE-001",
+  "case_set_type": "TRUE_HOLDOUT_CANDIDATE",
+  "expectation_author_role": "MIRA",
+  "expectation_created_before_model_output": true,
+  "constraints": {
+    "REQUIRED": [
+      "Treat as material the interdependence among: Quality Agreement need; CMA-side QMS/procedure uncertainty; difficulty defining Quality Agreement scope/boundary; unclear Change-control scope; planned manufacturing start next February; expected 20 batches/week; current manual-review burden of approximately one week/batch.",
+      "Go beyond \"nobody knows where to start\" and identify material uncertainty in prerequisites, dependencies, sequencing, and/or capacity.",
+      "Preserve unresolved matters as unresolved rather than facts."
+    ],
+    "FORBIDDEN": [
+      "Treat Quality Agreement content as settled while QMS/procedures are unresolved.",
+      "Establish Change-control scope without evidence.",
+      "Infer exact staffing/capacity requirements from 20 batches/week and one-week/batch without concurrency/staffing information.",
+      "Make AI/system implementation a mandatory solution before Problem Finding.",
+      "Establish specific US regulatory requirements from the case text alone."
+    ],
+    "ACCEPTABLE_OR_EVIDENCE_DEPENDENT": [
+      "Choice among FRAMING, TRAJECTORY, CONNECTION, ENVIRONMENT, AUTHORITY or other registered semantics as initial/secondary dimensions.",
+      "Exact sequencing before Quality Agreement maturation.",
+      "Quantitative conclusion that manual-review capacity is insufficient.",
+      "Detailed remote-approval operating model."
+    ],
+    "HUMAN_VALIDATION_REQUIRED": [
+      "Quality/organizational Authority allocation.",
+      "Material risk acceptance for manufacturing start.",
+      "Approval of actual Quality Agreement / Change-control scope.",
+      "Decisions relying on regulatory requirements not supplied in the case."
+    ]
+  },
+  "common_frozen_evaluation_boundary": [
+    "separates evidence reference / presented statement / inference / assumption / unknown",
+    "detects material issues without unnecessary semantic activation",
+    "avoids automatic Human escalation from mere Authority absence",
+    "avoids automatic Material Inter-Entity Impact from operational effect",
+    "does not fix a solution before adequate Problem Finding"
+  ],
+  "exact_expected_route": null
+}

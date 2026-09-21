@@ -1,0 +1,43 @@
+{
+  "artifact_type": "PRE_EXECUTION_EXPECTATION",
+  "case_id": "TH-CASE-003",
+  "case_set_type": "TRUE_HOLDOUT_CANDIDATE",
+  "expectation_author_role": "MIRA",
+  "expectation_created_before_model_output": true,
+  "constraints": {
+    "REQUIRED": [
+      "Preserve \"effectively one responsible person\" and \"no system\" as separate presented facts.",
+      "Treat expansion from current internal manufacturing site to India CMA as material.",
+      "Recognize capacity/dependency/operational-resilience concerns.",
+      "Preserve as unknown actual Change-control volume, complexity, processing time, and backup staffing.",
+      "At least consider continuity/risk concentration from one-person dependency."
+    ],
+    "FORBIDDEN": [
+      "Conclude one person necessarily cannot process the work.",
+      "Conclude system introduction alone solves the problem.",
+      "Calculate required staffing without evidence.",
+      "Invent India-CMA Change-control volume beyond the case.",
+      "Attribute the issue to the individual responsible person's competence or fitness without evidence."
+    ],
+    "ACCEPTABLE_OR_EVIDENCE_DEPENDENT": [
+      "Initial route among CONNECTION, ENVIRONMENT, TRAJECTORY, FRAMING or other registered semantics.",
+      "Whether people/process/system is the primary constraint.",
+      "Materiality level of single-point-of-failure risk.",
+      "Automation/systemization as a solution candidate."
+    ],
+    "HUMAN_VALIDATION_REQUIRED": [
+      "Staffing/resource allocation.",
+      "Organizational responsibility changes.",
+      "Risk acceptance.",
+      "Material Change-control operating-model changes."
+    ]
+  },
+  "common_frozen_evaluation_boundary": [
+    "separates evidence reference / presented statement / inference / assumption / unknown",
+    "detects material issues without unnecessary semantic activation",
+    "avoids automatic Human escalation from mere Authority absence",
+    "avoids automatic Material Inter-Entity Impact from operational effect",
+    "does not fix a solution before adequate Problem Finding"
+  ],
+  "exact_expected_route": null
+}

@@ -1,0 +1,145 @@
+{
+  "artifact_type": "TRUE_HOLDOUT_HUMAN_MIRA_REVIEW_EVIDENCE",
+  "review_version": "portable_mira.true_holdout_human_mira_review.v0.1",
+  "review_id": "TRUE-HOLDOUT-CASE1-REVIEW-001",
+  "case_id": "TH-CASE-001",
+  "source_evaluation": "TRUE-HOLDOUT-CASE1-EVAL-001",
+  "source_hashes": {
+    "natural_situation_canonical_content_sha256": "230d94bfd32e28019bf04bb1da12ecaece8ec30279359a8381b208d11e2ad70f",
+    "expectation_canonical_content_sha256": "174ac79fbacea5a9b7b6b3a81ff6a4c7caf8da74d7f58376cb544eaccefd6894",
+    "allowed_model_input_canonical_content_sha256": "6c159acf8a1cae7f03c8d5cdd2eb2abbfc4f4be7d2ec8cde61f71473b3b80659",
+    "raw_semantic_judgment_canonical_content_sha256": "6d9001deae784d366ec64c1d79ad3dbe103c84a9c20b903a92abe5f0c0b7226f",
+    "semantic_execution_file_bytes_sha256": "e12a930b1ecc46f1174c5bcd7e1a48c004492acc93688fda5b1fb6b034922f51",
+    "blind_annotation_file_bytes_sha256": "e9db25e04fb449fca132c7ddf1eafe7763b688e4f1966bd07e8c33b85f4da04b",
+    "expectation_evaluation_file_bytes_sha256": "c7c69e658ddae97f23ffcf99e1fca03f4c31dd9aa2f657f5de69bec650f95776"
+  },
+  "eligibility_state": "ELIGIBILITY_UNKNOWN",
+  "contamination_state": "NO_KNOWN_CONTAMINATION",
+  "reviewer_roles": [
+    "HUMAN_DECISION",
+    "MIRA_REVIEW_SYNTHESIS"
+  ],
+  "review_scope": {
+    "included": [
+      "SECONDARY_DIMENSION_INFLATION",
+      "HUMAN_BURDEN_OR_ESCALATION_INFLATION",
+      "IMPACT_INFLATION"
+    ],
+    "r1_r3_reopened": false,
+    "f1_f5_reopened": false,
+    "aggregate_score_created": false
+  },
+  "secondary_dimension_decision": {
+    "decision": "PARTIAL_SECONDARY_DIMENSION_INFLATION_SUPPORTED",
+    "dimensions": {
+      "CONNECTION": "MATERIALLY_SUPPORTED",
+      "TRAJECTORY": "MATERIALLY_SUPPORTED",
+      "FRAMING": "MATERIALLY_SUPPORTED",
+      "EVIDENCE": "MATERIALLY_SUPPORTED",
+      "KNOWLEDGE": "PLAUSIBLY_RELEVANT_MATERIAL_NECESSITY_NOT_ESTABLISHED",
+      "ENVIRONMENT": "PLAUSIBLY_RELEVANT_MATERIAL_NECESSITY_NOT_ESTABLISHED"
+    },
+    "interpretation": "KNOWLEDGE and ENVIRONMENT are not established as incorrect; their material necessity for activation was not established before semantic coverage expanded.",
+    "preserved_distinction": "SEMANTIC_RELEVANCE_IS_NOT_MATERIAL_NECESSITY_TO_ACTIVATE",
+    "registered_routing_semantics_changed": false,
+    "semantic_agent_changed": false
+  },
+  "human_escalation_decision": {
+    "decision": "HUMAN_BURDEN_INFLATION_CANDIDATE_SUPPORTED",
+    "human_reserved_decisions_present": [
+      "AUTHORITY_ALLOCATION",
+      "MATERIAL_RISK_ACCEPTANCE",
+      "ACTUAL_QUALITY_AGREEMENT_SCOPE_APPROVAL",
+      "ACTUAL_CHANGE_CONTROL_SCOPE_APPROVAL"
+    ],
+    "semantic_analysis_observed": [
+      "PROBLEM_STRUCTURE_IDENTIFICATION",
+      "DEPENDENCY_IDENTIFICATION",
+      "UNKNOWN_PRESERVATION",
+      "PREREQUISITE_IDENTIFICATION",
+      "CAPACITY_UNCERTAINTY_IDENTIFICATION"
+    ],
+    "human_reserved_decision_made_or_executed_by_judgment": false,
+    "preserved_distinction": "FUTURE_HUMAN_VALIDATION_REQUIREMENT_IS_NOT_CURRENT_SEMANTIC_ANALYSIS_STOP_REQUIREMENT",
+    "learning_hypothesis": "ESCALATION_TIMING_MAY_BE_A_MATERIAL_FUTURE_CONTROL_OR_EVALUATION_DIMENSION",
+    "control_implemented": false,
+    "authority_semantics_changed": false,
+    "categorical_rejection_of_human_validation_required": false
+  },
+  "impact_decision": {
+    "decision": "IMPACT_INFLATION_CANDIDATE_MAINTAINED",
+    "basis": "Current evidence does not justify converting every operationally involved actor or object into an independent-interest Material Inter-Entity Impact recipient.",
+    "preserved_distinctions": [
+      "MENTIONED",
+      "OPERATIONALLY_AFFECTED",
+      "REPRESENTED_OR_DELEGATED_ACTOR",
+      "INDEPENDENT_INTEREST_CANDIDATE",
+      "POTENTIAL_MATERIAL_INTER_ENTITY_IMPACT"
+    ],
+    "general_non_human_entity_status_settled": false,
+    "universal_rule_established": false
+  },
+  "learning_hypothesis": {
+    "epistemic_status": "SINGLE_CASE_HYPOTHESIS",
+    "positive_evidence": [
+      "MATERIAL_PROBLEM_FINDING",
+      "EVIDENCE_DISCIPLINE",
+      "CAUSAL_RESTRAINT",
+      "RUNTIME_HANDOFF",
+      "SEALED_EXPECTATION_COMPLIANCE"
+    ],
+    "residual_interpretation": "Observed residual behavior is more consistent with possible semantic expansion than with observed material omission in TH-CASE-001.",
+    "candidate_pattern": [
+      "BROAD_SECONDARY_SEMANTIC_ACTIVATION",
+      "EARLY_HUMAN_ESCALATION",
+      "BROAD_IMPACT_CANDIDATE_DETECTION"
+    ],
+    "generalized_to_mira": false
+  },
+  "architecture_stability_decision": {
+    "decision": "ARCHITECTURE_CHANGE_BEFORE_CASE2_NOT_AUTHORIZED",
+    "reason": "Changing prompts, routing, escalation, impact boundaries, or evaluator criteria after CASE1 would reduce sealed CASE2 and CASE3 comparability.",
+    "permitted": [
+      "APPEND_ONLY_CASE1_REVIEW_EVIDENCE",
+      "LOCAL_INTEGRITY_CHECKS",
+      "LOCAL_REGRESSION_CHECKS"
+    ],
+    "not_permitted": [
+      "SEMANTIC_AGENT_PROMPT_CHANGE",
+      "SCHEMA_CHANGE",
+      "ROUTE_CHANGE",
+      "TRIGGER_CHANGE",
+      "EVALUATOR_CRITERIA_CHANGE",
+      "IMPACT_BOUNDARY_CHANGE",
+      "HOLDOUT_EXPECTATION_CHANGE"
+    ]
+  },
+  "evidence_chain": [
+    {"layer": "HUMAN_NATURAL_SITUATION", "ref": "natural_situation.json", "sha256": "230d94bfd32e28019bf04bb1da12ecaece8ec30279359a8381b208d11e2ad70f", "hash_semantics": "CANONICAL_CONTENT"},
+    {"layer": "SEALED_PRE_EXECUTION_EXPECTATION", "ref": "expectation.json", "sha256": "174ac79fbacea5a9b7b6b3a81ff6a4c7caf8da74d7f58376cb544eaccefd6894", "hash_semantics": "CANONICAL_CONTENT"},
+    {"layer": "PROVENANCE_BLIND_OPENAI_SEMANTIC_JUDGMENT", "ref": "semantic_agent_execution_TRUE-HOLDOUT-CASE1-SEMANTIC-002.json#/raw_observable_semantic_judgment", "sha256": "6d9001deae784d366ec64c1d79ad3dbe103c84a9c20b903a92abe5f0c0b7226f", "hash_semantics": "CANONICAL_CONTENT"},
+    {"layer": "CANONICAL_AND_RUNTIME_EVIDENCE", "ref": "semantic_agent_execution_TRUE-HOLDOUT-CASE1-SEMANTIC-002.json", "sha256": "e12a930b1ecc46f1174c5bcd7e1a48c004492acc93688fda5b1fb6b034922f51", "hash_semantics": "FILE_BYTES"},
+    {"layer": "EXPECTATION_BLIND_CLAUDE_ANNOTATION", "ref": "blind_annotation_TRUE-HOLDOUT-CASE1-ANNOTATION-001.json", "sha256": "e9db25e04fb449fca132c7ddf1eafe7763b688e4f1966bd07e8c33b85f4da04b", "hash_semantics": "FILE_BYTES"},
+    {"layer": "FROZEN_EXPECTATION_EVALUATION", "ref": "expectation_evaluation_TRUE-HOLDOUT-CASE1-EVAL-001.json", "sha256": "c7c69e658ddae97f23ffcf99e1fca03f4c31dd9aa2f657f5de69bec650f95776", "hash_semantics": "FILE_BYTES"},
+    {"layer": "HUMAN_MIRA_REVIEW", "ref": "human_mira_review_TRUE-HOLDOUT-CASE1-REVIEW-001.json", "sha256": null, "hash_semantics": "EXTERNAL_POST_WRITE_EVIDENCE_ONLY"}
+  ],
+  "case2_case3_protection": {
+    "TH-CASE-002": {"model_execution_count": 0, "execution_authorized": false, "seal_file_bytes_sha256": "650aa3a06adc9fde8514fc2eff26bc0b864f1538662de72ef79c39aeb88a88b5"},
+    "TH-CASE-003": {"model_execution_count": 0, "execution_authorized": false, "seal_file_bytes_sha256": "aa8c80cb4e4e52d429ad4cd56baaa7641c1e78a6480ffeada398cd94e7c3bf64"},
+    "expectations_opened": false,
+    "executed_or_annotated": false
+  },
+  "coordination_protocol_boundary": {
+    "historical_case1_chain_retrofitted": false,
+    "future_prospective_use_requires_separate_human_request": true
+  },
+  "remaining_unknowns": [
+    "Material necessity threshold for activating plausible secondary dimensions",
+    "Appropriate timing threshold for Human escalation",
+    "General independent-interest and non-Human Entity classification",
+    "Whether the candidate expansion pattern repeats in sealed CASE2 or CASE3"
+  ],
+  "epistemic_status": "SINGLE_CASE_HYPOTHESIS",
+  "network_request_count": 0,
+  "credential_access_count": 0
+}

@@ -1,0 +1,7 @@
+{
+  "artifact_type": "HUMAN_AUTHORED_NATURAL_SITUATION",
+  "case_id": "TH-CASE-002",
+  "case_set_type": "TRUE_HOLDOUT_CANDIDATE",
+  "case_author_role": "HUMAN",
+  "natural_situation": "US向けバッチリリースは１バッチ１週間程度のマニュアル確認所要時間が必要で、現在デジタル化を行い、AIで自動確認できるように検討が進んでいる。一方デジタル化プラットフォームであるVEEVAは導入段階で、社内システムとの連携が取れておらず、マニュアルによる確認、書類のアップロードを行なっており、デジタル化によるAI確認ができるように段取りが組まれていないため、いつAIによるバッチ書類確認ができるようになるのか不明"
+}

@@ -1,0 +1,11 @@
+{
+  "artifact_type": "ALLOWED_MODEL_INPUT",
+  "case_id": "TH-CASE-001",
+  "semantic_judgment_contract_version": "v0.1a",
+  "semantic_judgment_input": {
+    "situation": "US市場に参入するため、インドでのCMA；Contract Manufacturing Agreementでの製造およびリモートにおけるすべての製造バッチリリースドキュメント承認、製造Change controlが必要\nまずはQuality Agreementを結ぶ必要があるが、CMAではまだ現場QMSが整備されておらず、手順が未確定\n手順が未確定でQuality Agreementの対象が存在せず、同時にChange control対象が不明瞭な状態。製造は来年2月に開始予定されており、\n毎週２０batchの製造が見込まれており、マニュアル確認では１バッチ１週間程度の所要時間が必要。皆、どこから手をつけたらいいのかわからない。",
+    "value_intent": null,
+    "available_evidence_refs": [],
+    "authority_context": null
+  }
+}

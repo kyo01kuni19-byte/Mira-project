@@ -1,0 +1,21 @@
+{
+  "artifact_type": "TRUE_HOLDOUT_SEMANTIC_INTEGRITY_REPORT",
+  "work_contract_id": "TRUE-HOLDOUT-SEAL-001",
+  "result": "STRUCTURAL_AND_LITERAL_INTEGRITY_PASS",
+  "human_semantic_review": "REQUIRED",
+  "checks": {
+    "human_case_text_preserved_exactly": true,
+    "expectation_constraints_preserved_without_silent_omission": true,
+    "expectation_and_allowed_model_input_separated": true,
+    "translation_performed": false,
+    "external_regulatory_knowledge_added": false,
+    "solution_content_added_to_allowed_model_input": false,
+    "exact_expected_route_introduced": false
+  },
+  "case_results": {
+    "TH-CASE-001": "PASS",
+    "TH-CASE-002": "PASS",
+    "TH-CASE-003": "PASS"
+  },
+  "evidence_boundary": "Automated checks establish literal and structural preservation; they do not replace Human review of semantic equivalence."
+}

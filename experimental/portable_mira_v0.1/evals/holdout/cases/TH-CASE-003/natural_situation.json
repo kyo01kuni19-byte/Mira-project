@@ -1,0 +1,7 @@
+{
+  "artifact_type": "HUMAN_AUTHORED_NATURAL_SITUATION",
+  "case_id": "TH-CASE-003",
+  "case_set_type": "TRUE_HOLDOUT_CANDIDATE",
+  "case_author_role": "HUMAN",
+  "natural_situation": "Change control 担当者は実質1名しか存在しないのに、すべてシステムなしで対応している。製造所は現行社内製造工場に加えて、インドCMAのChange control準備とその後のChange control対応を行う準備ができる状態ではない。"
+}

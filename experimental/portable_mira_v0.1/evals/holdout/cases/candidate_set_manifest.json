@@ -1,0 +1,37 @@
+{
+  "artifact_type": "TRUE_HOLDOUT_CANDIDATE_SET_MANIFEST",
+  "work_contract_id": "TRUE-HOLDOUT-SEAL-001",
+  "case_set_type": "TRUE_HOLDOUT_CANDIDATE",
+  "case_author_role": "HUMAN",
+  "expectation_author_role": "MIRA",
+  "cases": [
+    "TH-CASE-001",
+    "TH-CASE-002",
+    "TH-CASE-003"
+  ],
+  "intended_execution_order": [
+    "TH-CASE-001",
+    "GOVERNANCE_AND_EVIDENCE_REVIEW",
+    "TH-CASE-002",
+    "TH-CASE-003"
+  ],
+  "execution_policy": "TH-CASE-002 and TH-CASE-003 may be considered only after TH-CASE-001 governance/evidence review.",
+  "execution_authorized": {
+    "TH-CASE-001": false,
+    "TH-CASE-002": false,
+    "TH-CASE-003": false
+  },
+  "model_execution_count": {
+    "TH-CASE-001": 0,
+    "TH-CASE-002": 0,
+    "TH-CASE-003": 0
+  },
+  "baseline_bindings": {
+    "architecture_baseline": "e6f619d25bd120c7110ab9ede72b8c78ebeaa096",
+    "evaluation_baseline": "cde62fdd47d7a19176d9c0d8907494d5a85787f1",
+    "governance_baseline": "5d5290913b8a80898ef6e1a4e7eec3cc5f534808",
+    "output_annotator_baseline": "023ed3ceb35974b532c1cc9a1cf3af6cdca33783",
+    "anthropic_annotator_checkpoint": "e6f619d25bd120c7110ab9ede72b8c78ebeaa096"
+  },
+  "global_novelty_claimed": false
+}

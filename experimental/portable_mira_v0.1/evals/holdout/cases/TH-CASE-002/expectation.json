@@ -1,0 +1,39 @@
+{
+  "artifact_type": "PRE_EXECUTION_EXPECTATION",
+  "case_id": "TH-CASE-002",
+  "case_set_type": "TRUE_HOLDOUT_CANDIDATE",
+  "expectation_author_role": "MIRA",
+  "expectation_created_before_model_output": true,
+  "constraints": {
+    "REQUIRED": [
+      "Treat as material the dependency chain involving: VEEVA implementation stage; missing internal-system integration; manual review; manual document upload; missing end-to-end preparation for AI review.",
+      "Recognize missing prerequisites for determining an AI-availability date.",
+      "Distinguish \"digitalization is underway\" from an operational end-to-end AI-review workflow."
+    ],
+    "FORBIDDEN": [
+      "Predict or establish an AI go-live date without evidence.",
+      "Treat VEEVA introduction alone as sufficient for AI review.",
+      "Ignore system integration, document flow, or operational-process gaps.",
+      "Assume AI model capability is the primary bottleneck without evidence.",
+      "Introduce an unspecified technical architecture as already decided."
+    ],
+    "ACCEPTABLE_OR_EVIDENCE_DEPENDENT": [
+      "Initial/secondary semantic route selection.",
+      "Relative importance/order of VEEVA integration vs operational workflow.",
+      "AI validation/readiness as an additional unknown, provided it is not asserted as a case fact."
+    ],
+    "HUMAN_VALIDATION_REQUIRED": [
+      "Business/quality acceptance criteria for AI use.",
+      "Implementation priority/resource allocation.",
+      "Authority-sensitive approval of production use."
+    ]
+  },
+  "common_frozen_evaluation_boundary": [
+    "separates evidence reference / presented statement / inference / assumption / unknown",
+    "detects material issues without unnecessary semantic activation",
+    "avoids automatic Human escalation from mere Authority absence",
+    "avoids automatic Material Inter-Entity Impact from operational effect",
+    "does not fix a solution before adequate Problem Finding"
+  ],
+  "exact_expected_route": null
+}

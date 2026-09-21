@@ -1,0 +1,11 @@
+{
+  "artifact_type": "ALLOWED_MODEL_INPUT",
+  "case_id": "TH-CASE-002",
+  "semantic_judgment_contract_version": "v0.1a",
+  "semantic_judgment_input": {
+    "situation": "US向けバッチリリースは１バッチ１週間程度のマニュアル確認所要時間が必要で、現在デジタル化を行い、AIで自動確認できるように検討が進んでいる。一方デジタル化プラットフォームであるVEEVAは導入段階で、社内システムとの連携が取れておらず、マニュアルによる確認、書類のアップロードを行なっており、デジタル化によるAI確認ができるように段取りが組まれていないため、いつAIによるバッチ書類確認ができるようになるのか不明",
+    "value_intent": null,
+    "available_evidence_refs": [],
+    "authority_context": null
+  }
+}
