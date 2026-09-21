@@ -1,0 +1,90 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "portable_mira.coordination.pre_action_decision.v0.1",
+  "title": "Portable MIRA Coordination PRE_ACTION Decision v0.1",
+  "description": "Immutable validation evidence. It executes no action and creates no Human authority.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "artifact_type",
+    "protocol_version",
+    "decision_id",
+    "work_contract_id",
+    "work_contract_canonical_content_sha256",
+    "authorization_ref",
+    "validator_id",
+    "decision",
+    "action_class",
+    "requested_action",
+    "access_mode",
+    "baseline_validation",
+    "scope_validation",
+    "authorization_validation",
+    "budget_validation",
+    "diagnostics",
+    "decision_timestamp_or_sequence",
+    "action_executed",
+    "self_hash_rule"
+  ],
+  "properties": {
+    "artifact_type": {"const": "PRE_ACTION_DECISION"},
+    "protocol_version": {"const": "portable_mira.coordination.v0.1"},
+    "decision_id": {"type": "string", "minLength": 1},
+    "work_contract_id": {"type": "string", "minLength": 1},
+    "work_contract_canonical_content_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "authorization_ref": {"type": ["string", "null"]},
+    "validator_id": {"const": "portable_mira.coordination.validator.v0.1"},
+    "decision": {"enum": ["AUTHORIZED", "BLOCKED", "HUMAN_VALIDATION_REQUIRED", "UNKNOWN"]},
+    "action_class": {
+      "enum": [
+        "CLASS_0_READ_ANALYZE",
+        "CLASS_1_LOCAL_REVERSIBLE_CHANGE",
+        "CLASS_2_EXTERNAL_BOUNDED_ACTION",
+        "CLASS_3_PERSISTENT_REPOSITORY_ACTION",
+        "CLASS_4_EXTERNAL_PERSISTENT_ACTION"
+      ]
+    },
+    "requested_action": {"$ref": "#/$defs/action"},
+    "access_mode": {"enum": ["METADATA_ONLY", "CONTENT_READ", "CONTENT_WRITE"]},
+    "baseline_validation": {"$ref": "#/$defs/validationState"},
+    "scope_validation": {"$ref": "#/$defs/validationState"},
+    "authorization_validation": {"$ref": "#/$defs/validationState"},
+    "budget_validation": {"$ref": "#/$defs/validationState"},
+    "diagnostics": {"$ref": "#/$defs/stringArray"},
+    "decision_timestamp_or_sequence": {"type": ["string", "integer"]},
+    "action_executed": {"const": false},
+    "self_hash_rule": {"const": "NO_SELF_REFERENTIAL_FILE_HASH"}
+  },
+  "$defs": {
+    "stringArray": {
+      "type": "array",
+      "items": {"type": "string", "minLength": 1},
+      "uniqueItems": true
+    },
+    "validationState": {
+      "enum": ["PASS", "FAIL", "NOT_REQUIRED", "UNKNOWN", "HUMAN_VALIDATION_REQUIRED"]
+    },
+    "action": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["action_id", "action_class", "operation", "provider", "access_mode", "paths", "resources"],
+      "properties": {
+        "action_id": {"type": "string", "minLength": 1},
+        "action_class": {
+          "enum": [
+            "CLASS_0_READ_ANALYZE",
+            "CLASS_1_LOCAL_REVERSIBLE_CHANGE",
+            "CLASS_2_EXTERNAL_BOUNDED_ACTION",
+            "CLASS_3_PERSISTENT_REPOSITORY_ACTION",
+            "CLASS_4_EXTERNAL_PERSISTENT_ACTION"
+          ]
+        },
+        "operation": {"type": "string", "minLength": 1},
+        "provider": {"type": ["string", "null"]},
+        "access_mode": {"enum": ["METADATA_ONLY", "CONTENT_READ", "CONTENT_WRITE"]},
+        "paths": {"$ref": "#/$defs/stringArray"},
+        "resources": {"$ref": "#/$defs/stringArray"}
+      }
+    }
+  }
+}

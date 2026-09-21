@@ -1,0 +1,201 @@
+{
+  "artifact_type": "EXECUTION_EVIDENCE",
+  "protocol_version": "portable_mira.coordination.v0.1",
+  "evidence_id": "MIRA-CODEX-DOGFOOD-001-EVIDENCE-001",
+  "work_contract_id": "MIRA-CODEX-DOGFOOD-001",
+  "work_contract_sha256": "29a0c7d2bc33adb75ba7d262d8b13e4d196a0709dfad4b01465d0622474b0cc5",
+  "authorization_ref": null,
+  "executor": "CODEX",
+  "concurrency_mode": "SINGLE_EXECUTOR_SINGLE_PROCESS",
+  "attempt_index": 1,
+  "previous_evidence_ref": null,
+  "expected_baseline": "7806f9230b68a76ce81c9d6bdcf8c933ae7829c6",
+  "observed_baseline": "7806f9230b68a76ce81c9d6bdcf8c933ae7829c6",
+  "actions_performed": [
+    {
+      "action_id": "portable-mira-read-only-inspection",
+      "action_class": "CLASS_0_READ_ANALYZE",
+      "operation": "read_only_repository_inspection",
+      "provider": null,
+      "paths": [
+        "experimental/portable_mira_v0.1"
+      ],
+      "resources": [
+        "git:diff",
+        "git:history",
+        "git:status"
+      ],
+      "claim_state": "OBSERVABLY_SUPPORTED",
+      "evidence_refs": [
+        "git:diff-e6f619d-to-head-empty",
+        "git:history-portable-mira",
+        "git:status-portable-mira"
+      ]
+    }
+  ],
+  "actions_not_performed": [
+    "Human Authorization artifact creation",
+    "API or model request",
+    "credential access or presence check",
+    "holdout execution",
+    "project-source modification",
+    "staging",
+    "commit",
+    "push",
+    ".cursor/mcp.json content access"
+  ],
+  "request_counts": [],
+  "files_changed": [
+    {
+      "path": "experimental/portable_mira_v0.1/coordination/examples/MIRA-CODEX-DOGFOOD-001.work_contract.json",
+      "sha256_before": null,
+      "sha256_after": "9d32274f0a776ddc911095b8f013b6c1e6a23178be2d3072af4eba68c381f87c"
+    },
+    {
+      "path": "experimental/portable_mira_v0.1/coordination/examples/MIRA-CODEX-DOGFOOD-001.execution_evidence.json",
+      "sha256_before": null,
+      "sha256_after": null
+    }
+  ],
+  "tests_checks": [
+    {
+      "name": "Work Contract schema validation",
+      "state": "PASS",
+      "evidence_refs": [
+        "local:validate_work_contract"
+      ]
+    },
+    {
+      "name": "Class 0 PRE_ACTION validation",
+      "state": "PASS",
+      "evidence_refs": [
+        "local:pre-action-authorized-validation-only"
+      ]
+    },
+    {
+      "name": "Latest-checkpoint-to-HEAD Portable MIRA diff",
+      "state": "PASS",
+      "evidence_refs": [
+        "git:diff-e6f619d-to-head-empty"
+      ]
+    },
+    {
+      "name": "Portable MIRA tracked tree identity",
+      "state": "PASS",
+      "evidence_refs": [
+        "git:tree-85d87f8fb2bec815980b8b82458e11151bf0fae5"
+      ]
+    }
+  ],
+  "observed_results": [
+    {
+      "claim": "The latest Portable MIRA experimental checkpoint visible in Git history is e6f619d25bd120c7110ab9ede72b8c78ebeaa096, Portable MIRA v0.1 Anthropic output annotator experimental checkpoint.",
+      "claim_state": "OBSERVABLY_SUPPORTED",
+      "evidence_refs": [
+        "git:log-portable-mira-latest"
+      ]
+    },
+    {
+      "claim": "The tracked frozen sequence includes deterministic runtime, semantic judgment adapter, counter-failure evaluation, holdout annotation governance, output annotator infrastructure, and Anthropic output annotator checkpoints or baselines.",
+      "claim_state": "OBSERVABLY_SUPPORTED",
+      "evidence_refs": [
+        "git:log-portable-mira-baseline-sequence"
+      ]
+    },
+    {
+      "claim": "The Portable MIRA tracked tree at e6f619d and current HEAD is the same tree object, and there is no tracked Portable MIRA diff between them.",
+      "claim_state": "OBSERVABLY_SUPPORTED",
+      "evidence_refs": [
+        "git:tree-85d87f8fb2bec815980b8b82458e11151bf0fae5",
+        "git:diff-e6f619d-to-head-empty"
+      ]
+    },
+    {
+      "claim": "Current True Holdout case artifacts, holdout execution/annotation/evaluation runners, and Coordination Protocol design, schemas, validator, tests, and dogfood artifacts are untracked and outside the latest frozen checkpoint.",
+      "claim_state": "OBSERVABLY_SUPPORTED",
+      "evidence_refs": [
+        "git:status-portable-mira-untracked"
+      ]
+    },
+    {
+      "claim": ".cursor/mcp.json remains untracked and outside Portable MIRA governed work; its content was not accessed.",
+      "claim_state": "OBSERVABLY_SUPPORTED",
+      "evidence_refs": [
+        "git:status-filename-only-cursor-mcp"
+      ]
+    }
+  ],
+  "failures": [],
+  "assumptions": [
+    "Latest frozen experimental checkpoint is interpreted as the most recent Git commit affecting experimental/portable_mira_v0.1 whose commit message records an experimental checkpoint or baseline.",
+    "Git tracking and immutable commit history establish frozen repository state but do not by themselves establish Approved MIRA status.",
+    "The Execution Evidence artifact cannot include its own file SHA-256 without a recursive self-reference; that hash is reported externally after creation."
+  ],
+  "unknowns": [
+    "No Git tag names the latest Portable MIRA checkpoint.",
+    "Untracked artifacts are not part of an immutable Git checkpoint and their future freeze disposition remains a Human decision.",
+    "This inspection does not establish production readiness or general capability."
+  ],
+  "artifact_hashes": [
+    {
+      "path": "experimental/portable_mira_v0.1/coordination/examples/MIRA-CODEX-DOGFOOD-001.work_contract.json",
+      "sha256": "9d32274f0a776ddc911095b8f013b6c1e6a23178be2d3072af4eba68c381f87c"
+    },
+    {
+      "path": "experimental/portable_mira_v0.1/coordination/protocol/coordination_protocol_v0.1.design.json",
+      "sha256": "6b01c1c0b4614ffed951bf16ed0928419b46af3de90ac35e25b5a34fc399b538"
+    },
+    {
+      "path": "experimental/portable_mira_v0.1/runner/coordination_protocol.py",
+      "sha256": "f60ae8436a3b5e4e583dbd38b241cda847abcbfc271885302544649dfbad7797"
+    }
+  ],
+  "git_state": {
+    "head": "7806f9230b68a76ce81c9d6bdcf8c933ae7829c6",
+    "branch": "main",
+    "staged_paths": [],
+    "unstaged_paths": [
+      "README.md"
+    ],
+    "untracked_paths": [
+      ".cursor/mcp.json",
+      "experimental/portable_mira_v0.1/coordination/examples/MIRA-CODEX-DOGFOOD-001.execution_evidence.json",
+      "experimental/portable_mira_v0.1/coordination/examples/MIRA-CODEX-DOGFOOD-001.work_contract.json",
+      "experimental/portable_mira_v0.1/coordination/protocol/coordination_protocol_v0.1.design.json",
+      "experimental/portable_mira_v0.1/coordination/schemas/execution_evidence.schema.json",
+      "experimental/portable_mira_v0.1/coordination/schemas/human_authorization.schema.json",
+      "experimental/portable_mira_v0.1/coordination/schemas/work_contract.schema.json",
+      "experimental/portable_mira_v0.1/evals/holdout/cases/TH-CASE-001/allowed_model_input.json",
+      "experimental/portable_mira_v0.1/evals/holdout/cases/TH-CASE-001/annotation_request_provenance_manifest.json",
+      "experimental/portable_mira_v0.1/evals/holdout/cases/TH-CASE-001/blind_annotation_TRUE-HOLDOUT-CASE1-ANNOTATION-001.json",
+      "experimental/portable_mira_v0.1/evals/holdout/cases/TH-CASE-001/execution_state_TRUE-HOLDOUT-CASE1-SEMANTIC-002.json",
+      "experimental/portable_mira_v0.1/evals/holdout/cases/TH-CASE-001/expectation.json",
+      "experimental/portable_mira_v0.1/evals/holdout/cases/TH-CASE-001/expectation_evaluation_TRUE-HOLDOUT-CASE1-EVAL-001.json",
+      "experimental/portable_mira_v0.1/evals/holdout/cases/TH-CASE-001/natural_situation.json",
+      "experimental/portable_mira_v0.1/evals/holdout/cases/TH-CASE-001/pre_call_failure_TRUE-HOLDOUT-CASE1-SEMANTIC-001.json",
+      "experimental/portable_mira_v0.1/evals/holdout/cases/TH-CASE-001/request_provenance_manifest.json",
+      "experimental/portable_mira_v0.1/evals/holdout/cases/TH-CASE-001/seal.json",
+      "experimental/portable_mira_v0.1/evals/holdout/cases/TH-CASE-001/semantic_agent_execution_TRUE-HOLDOUT-CASE1-SEMANTIC-002.json",
+      "experimental/portable_mira_v0.1/evals/holdout/cases/TH-CASE-002/allowed_model_input.json",
+      "experimental/portable_mira_v0.1/evals/holdout/cases/TH-CASE-002/expectation.json",
+      "experimental/portable_mira_v0.1/evals/holdout/cases/TH-CASE-002/natural_situation.json",
+      "experimental/portable_mira_v0.1/evals/holdout/cases/TH-CASE-002/seal.json",
+      "experimental/portable_mira_v0.1/evals/holdout/cases/TH-CASE-003/allowed_model_input.json",
+      "experimental/portable_mira_v0.1/evals/holdout/cases/TH-CASE-003/expectation.json",
+      "experimental/portable_mira_v0.1/evals/holdout/cases/TH-CASE-003/natural_situation.json",
+      "experimental/portable_mira_v0.1/evals/holdout/cases/TH-CASE-003/seal.json",
+      "experimental/portable_mira_v0.1/evals/holdout/cases/candidate_set_manifest.json",
+      "experimental/portable_mira_v0.1/evals/holdout/cases/semantic_integrity_report.json",
+      "experimental/portable_mira_v0.1/runner/coordination_protocol.py",
+      "experimental/portable_mira_v0.1/runner/holdout_blindness.py",
+      "experimental/portable_mira_v0.1/runner/test_coordination_protocol.py",
+      "experimental/portable_mira_v0.1/runner/test_holdout_blindness.py",
+      "experimental/portable_mira_v0.1/runner/test_true_holdout_seal.py",
+      "experimental/portable_mira_v0.1/runner/true_holdout_case1_annotation.py",
+      "experimental/portable_mira_v0.1/runner/true_holdout_case1_evaluation.py",
+      "experimental/portable_mira_v0.1/runner/true_holdout_case1_live.py",
+      "experimental/portable_mira_v0.1/runner/true_holdout_seal.py"
+    ]
+  },
+  "execution_state": "EXECUTION_COMPLETE"
+}

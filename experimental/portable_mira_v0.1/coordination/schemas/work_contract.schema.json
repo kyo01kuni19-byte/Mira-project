@@ -1,0 +1,152 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "portable_mira.coordination.work_contract.v0.1",
+  "title": "Portable MIRA Coordination Work Contract v0.1",
+  "description": "Requested work boundary. This artifact is distinct from Human Authorization and Execution Evidence.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "artifact_type",
+    "protocol_version",
+    "work_contract_id",
+    "created_by",
+    "objective",
+    "value_intent",
+    "baseline_refs",
+    "scope",
+    "allowed_actions",
+    "forbidden_actions",
+    "network_budget",
+    "credential_policy",
+    "execution_mode",
+    "concurrency_mode",
+    "expected_evidence",
+    "stop_conditions",
+    "status"
+  ],
+  "properties": {
+    "artifact_type": {"const": "WORK_CONTRACT"},
+    "protocol_version": {"const": "portable_mira.coordination.v0.1"},
+    "work_contract_id": {"type": "string", "minLength": 1},
+    "created_by": {"enum": ["HUMAN", "MIRA", "CODEX"]},
+    "objective": {"type": "string", "minLength": 1},
+    "value_intent": {"type": "string", "minLength": 1},
+    "baseline_refs": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["expected_baseline", "immutable_artifacts", "baseline_mismatch_policy"],
+      "properties": {
+        "expected_baseline": {"type": "string", "minLength": 1},
+        "immutable_artifacts": {
+          "type": "array",
+          "items": {"$ref": "#/$defs/artifactIntegrityRef"}
+        },
+        "baseline_mismatch_policy": {"enum": ["BLOCKED", "HUMAN_VALIDATION_REQUIRED"]}
+      }
+    },
+    "scope": {"$ref": "#/$defs/resourceScope"},
+    "allowed_actions": {
+      "type": "array",
+      "minItems": 1,
+      "items": {"$ref": "#/$defs/action"}
+    },
+    "forbidden_actions": {
+      "type": "array",
+      "items": {"$ref": "#/$defs/action"}
+    },
+    "network_budget": {"type": "integer", "minimum": 0},
+    "credential_policy": {"enum": ["FORBIDDEN", "PRESENCE_ONLY", "BOUNDED_USE"]},
+    "execution_mode": {"type": "string", "minLength": 1},
+    "concurrency_mode": {"const": "SINGLE_EXECUTOR_SINGLE_PROCESS"},
+    "expected_evidence": {"$ref": "#/$defs/stringArray"},
+    "stop_conditions": {"$ref": "#/$defs/stringArray"},
+    "status": {
+      "enum": [
+        "DRAFT",
+        "READY_FOR_HUMAN_REVIEW",
+        "AUTHORIZED",
+        "EXECUTING",
+        "EXECUTION_COMPLETE",
+        "BLOCKED",
+        "FAILED",
+        "HUMAN_VALIDATION_REQUIRED",
+        "SUPERSEDED"
+      ]
+    }
+  },
+  "$defs": {
+    "stringArray": {
+      "type": "array",
+      "items": {"type": "string", "minLength": 1},
+      "uniqueItems": true
+    },
+    "artifactIntegrityRef": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["path", "canonical_content_sha256", "file_bytes_sha256"],
+      "properties": {
+        "path": {"type": "string", "minLength": 1},
+        "canonical_content_sha256": {"type": ["string", "null"], "pattern": "^[0-9a-f]{64}$"},
+        "file_bytes_sha256": {"type": ["string", "null"], "pattern": "^[0-9a-f]{64}$"}
+      },
+      "anyOf": [
+        {"properties": {"canonical_content_sha256": {"type": "string"}}},
+        {"properties": {"file_bytes_sha256": {"type": "string"}}}
+      ]
+    },
+    "resourceScope": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "path_permissions",
+        "forbidden_paths",
+        "permitted_resources",
+        "forbidden_resources",
+        "permitted_providers",
+        "forbidden_providers"
+      ],
+      "properties": {
+        "path_permissions": {
+          "type": "array",
+          "items": {"$ref": "#/$defs/pathPermission"}
+        },
+        "forbidden_paths": {"$ref": "#/$defs/stringArray"},
+        "permitted_resources": {"$ref": "#/$defs/stringArray"},
+        "forbidden_resources": {"$ref": "#/$defs/stringArray"},
+        "permitted_providers": {"$ref": "#/$defs/stringArray"},
+        "forbidden_providers": {"$ref": "#/$defs/stringArray"}
+      }
+    },
+    "pathPermission": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["path", "access_mode"],
+      "properties": {
+        "path": {"type": "string", "minLength": 1},
+        "access_mode": {"enum": ["METADATA_ONLY", "CONTENT_READ", "CONTENT_WRITE"]}
+      }
+    },
+    "action": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["action_id", "action_class", "operation", "provider", "access_mode", "paths", "resources"],
+      "properties": {
+        "action_id": {"type": "string", "minLength": 1},
+        "action_class": {
+          "enum": [
+            "CLASS_0_READ_ANALYZE",
+            "CLASS_1_LOCAL_REVERSIBLE_CHANGE",
+            "CLASS_2_EXTERNAL_BOUNDED_ACTION",
+            "CLASS_3_PERSISTENT_REPOSITORY_ACTION",
+            "CLASS_4_EXTERNAL_PERSISTENT_ACTION"
+          ]
+        },
+        "operation": {"type": "string", "minLength": 1},
+        "provider": {"type": ["string", "null"]},
+        "access_mode": {"enum": ["METADATA_ONLY", "CONTENT_READ", "CONTENT_WRITE"]},
+        "paths": {"$ref": "#/$defs/stringArray"},
+        "resources": {"$ref": "#/$defs/stringArray"}
+      }
+    }
+  }
+}

@@ -1,0 +1,125 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "portable_mira.coordination.human_authorization.v0.1",
+  "title": "Portable MIRA Coordination Human Authorization v0.1",
+  "description": "Out-of-band Human confirmation bound to the exact canonical Work Contract hash.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "artifact_type",
+    "protocol_version",
+    "authorization_id",
+    "work_contract_id",
+    "work_contract_canonical_content_sha256",
+    "authorized_by",
+    "human_confirmation_state",
+    "confirmation_reference",
+    "cryptographic_human_identity_verification",
+    "authorized_actions",
+    "explicitly_not_authorized",
+    "action_budget",
+    "resource_scope",
+    "concurrency_mode",
+    "authorization_state",
+    "supersedes"
+  ],
+  "properties": {
+    "artifact_type": {"const": "HUMAN_AUTHORIZATION"},
+    "protocol_version": {"const": "portable_mira.coordination.v0.1"},
+    "authorization_id": {"type": "string", "minLength": 1},
+    "work_contract_id": {"type": "string", "minLength": 1},
+    "work_contract_canonical_content_sha256": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$",
+      "description": "SHA-256 over canonical Work Contract JSON content, not persisted file bytes."
+    },
+    "authorized_by": {"const": "HUMAN"},
+    "human_confirmation_state": {"const": "HUMAN_CONFIRMATION_RECORDED"},
+    "confirmation_reference": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["method", "reference_id"],
+      "properties": {
+        "method": {"const": "OUT_OF_BAND_EXPLICIT_CONFIRMATION"},
+        "reference_id": {"type": "string", "minLength": 1}
+      }
+    },
+    "cryptographic_human_identity_verification": {"const": "NOT_IMPLEMENTED"},
+    "authorized_actions": {
+      "type": "array",
+      "minItems": 1,
+      "items": {"$ref": "#/$defs/action"}
+    },
+    "explicitly_not_authorized": {
+      "type": "array",
+      "items": {"$ref": "#/$defs/action"}
+    },
+    "action_budget": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["action_id", "limit"],
+        "properties": {
+          "action_id": {"type": "string", "minLength": 1},
+          "limit": {"type": "integer", "minimum": 0}
+        }
+      }
+    },
+    "resource_scope": {"$ref": "#/$defs/resourceScope"},
+    "concurrency_mode": {"const": "SINGLE_EXECUTOR_SINGLE_PROCESS"},
+    "authorization_state": {"enum": ["ACTIVE", "CONSUMED", "REVOKED", "SUPERSEDED", "INVALIDATED"]},
+    "supersedes": {"type": ["string", "null"]}
+  },
+  "$defs": {
+    "stringArray": {
+      "type": "array",
+      "items": {"type": "string", "minLength": 1},
+      "uniqueItems": true
+    },
+    "resourceScope": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["path_permissions", "resources", "providers"],
+      "properties": {
+        "path_permissions": {
+          "type": "array",
+          "items": {"$ref": "#/$defs/pathPermission"}
+        },
+        "resources": {"$ref": "#/$defs/stringArray"},
+        "providers": {"$ref": "#/$defs/stringArray"}
+      }
+    },
+    "pathPermission": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["path", "access_mode"],
+      "properties": {
+        "path": {"type": "string", "minLength": 1},
+        "access_mode": {"enum": ["METADATA_ONLY", "CONTENT_READ", "CONTENT_WRITE"]}
+      }
+    },
+    "action": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["action_id", "action_class", "operation", "provider", "access_mode", "paths", "resources"],
+      "properties": {
+        "action_id": {"type": "string", "minLength": 1},
+        "action_class": {
+          "enum": [
+            "CLASS_0_READ_ANALYZE",
+            "CLASS_1_LOCAL_REVERSIBLE_CHANGE",
+            "CLASS_2_EXTERNAL_BOUNDED_ACTION",
+            "CLASS_3_PERSISTENT_REPOSITORY_ACTION",
+            "CLASS_4_EXTERNAL_PERSISTENT_ACTION"
+          ]
+        },
+        "operation": {"type": "string", "minLength": 1},
+        "provider": {"type": ["string", "null"]},
+        "access_mode": {"enum": ["METADATA_ONLY", "CONTENT_READ", "CONTENT_WRITE"]},
+        "paths": {"$ref": "#/$defs/stringArray"},
+        "resources": {"$ref": "#/$defs/stringArray"}
+      }
+    }
+  }
+}

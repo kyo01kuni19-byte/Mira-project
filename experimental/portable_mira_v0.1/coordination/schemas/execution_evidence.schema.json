@@ -1,0 +1,189 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "portable_mira.coordination.execution_evidence.v0.1",
+  "title": "Portable MIRA Coordination Execution Evidence v0.1",
+  "description": "Append-only observable execution evidence. This artifact grants no authority.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "artifact_type",
+    "protocol_version",
+    "evidence_id",
+    "work_contract_id",
+    "work_contract_canonical_content_sha256",
+    "authorization_ref",
+    "pre_action_decision_ref",
+    "pre_action_decision_canonical_content_sha256",
+    "executor",
+    "concurrency_mode",
+    "attempt_index",
+    "previous_evidence_ref",
+    "expected_baseline",
+    "observed_baseline",
+    "actions_performed",
+    "actions_not_performed",
+    "request_counts",
+    "files_changed",
+    "tests_checks",
+    "observed_results",
+    "failures",
+    "assumptions",
+    "unknowns",
+    "artifact_integrity",
+    "git_state",
+    "self_hash_rule",
+    "execution_state"
+  ],
+  "properties": {
+    "artifact_type": {"const": "EXECUTION_EVIDENCE"},
+    "protocol_version": {"const": "portable_mira.coordination.v0.1"},
+    "evidence_id": {"type": "string", "minLength": 1},
+    "work_contract_id": {"type": "string", "minLength": 1},
+    "work_contract_canonical_content_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "authorization_ref": {"type": ["string", "null"]},
+    "pre_action_decision_ref": {"type": "string", "minLength": 1},
+    "pre_action_decision_canonical_content_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "executor": {"type": "string", "minLength": 1},
+    "concurrency_mode": {"const": "SINGLE_EXECUTOR_SINGLE_PROCESS"},
+    "attempt_index": {"type": "integer", "minimum": 1},
+    "previous_evidence_ref": {"type": ["string", "null"]},
+    "expected_baseline": {"type": "string", "minLength": 1},
+    "observed_baseline": {"type": "string", "minLength": 1},
+    "actions_performed": {
+      "type": "array",
+      "items": {"$ref": "#/$defs/actionEvidence"}
+    },
+    "actions_not_performed": {"$ref": "#/$defs/stringArray"},
+    "request_counts": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["action_id", "completed", "unknown_dispatch"],
+        "properties": {
+          "action_id": {"type": "string", "minLength": 1},
+          "completed": {"type": "integer", "minimum": 0},
+          "unknown_dispatch": {"type": "integer", "minimum": 0}
+        }
+      }
+    },
+    "files_changed": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["path", "file_bytes_sha256_before", "file_bytes_sha256_after"],
+        "properties": {
+          "path": {"type": "string", "minLength": 1},
+          "file_bytes_sha256_before": {"type": ["string", "null"], "pattern": "^[0-9a-f]{64}$"},
+          "file_bytes_sha256_after": {"type": ["string", "null"], "pattern": "^[0-9a-f]{64}$"}
+        }
+      }
+    },
+    "tests_checks": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["name", "state", "evidence_refs"],
+        "properties": {
+          "name": {"type": "string", "minLength": 1},
+          "state": {"enum": ["PASS", "FAIL", "UNKNOWN"]},
+          "evidence_refs": {"$ref": "#/$defs/stringArray"}
+        }
+      }
+    },
+    "observed_results": {
+      "type": "array",
+      "items": {"$ref": "#/$defs/claim"}
+    },
+    "failures": {
+      "type": "array",
+      "items": {"$ref": "#/$defs/claim"}
+    },
+    "assumptions": {"$ref": "#/$defs/stringArray"},
+    "unknowns": {"$ref": "#/$defs/stringArray"},
+    "artifact_integrity": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["path", "canonical_content_sha256", "file_bytes_sha256"],
+        "properties": {
+          "path": {"type": "string", "minLength": 1},
+          "canonical_content_sha256": {"type": ["string", "null"], "pattern": "^[0-9a-f]{64}$"},
+          "file_bytes_sha256": {"type": ["string", "null"], "pattern": "^[0-9a-f]{64}$"}
+        },
+        "anyOf": [
+          {"properties": {"canonical_content_sha256": {"type": "string"}}},
+          {"properties": {"file_bytes_sha256": {"type": "string"}}}
+        ]
+      }
+    },
+    "self_hash_rule": {"const": "NO_SELF_REFERENTIAL_FILE_HASH"},
+    "git_state": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["head", "branch", "staged_paths", "unstaged_paths", "untracked_paths"],
+      "properties": {
+        "head": {"type": "string", "minLength": 1},
+        "branch": {"type": "string", "minLength": 1},
+        "staged_paths": {"$ref": "#/$defs/stringArray"},
+        "unstaged_paths": {"$ref": "#/$defs/stringArray"},
+        "untracked_paths": {"$ref": "#/$defs/stringArray"}
+      }
+    },
+    "execution_state": {
+      "enum": [
+        "PRE_ACTION_GATE_FAILED",
+        "EXECUTING",
+        "PARTIAL",
+        "EXECUTION_COMPLETE",
+        "BLOCKED",
+        "FAILED",
+        "HUMAN_VALIDATION_REQUIRED"
+      ]
+    }
+  },
+  "$defs": {
+    "stringArray": {
+      "type": "array",
+      "items": {"type": "string", "minLength": 1},
+      "uniqueItems": true
+    },
+    "claim": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["claim", "claim_state", "evidence_refs"],
+      "properties": {
+        "claim": {"type": "string", "minLength": 1},
+        "claim_state": {"enum": ["CLAIMED", "OBSERVABLY_SUPPORTED", "UNKNOWN", "HUMAN_VALIDATION_REQUIRED"]},
+        "evidence_refs": {"$ref": "#/$defs/stringArray"}
+      }
+    },
+    "actionEvidence": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["action_id", "action_class", "operation", "provider", "access_mode", "paths", "resources", "claim_state", "evidence_refs"],
+      "properties": {
+        "action_id": {"type": "string", "minLength": 1},
+        "action_class": {
+          "enum": [
+            "CLASS_0_READ_ANALYZE",
+            "CLASS_1_LOCAL_REVERSIBLE_CHANGE",
+            "CLASS_2_EXTERNAL_BOUNDED_ACTION",
+            "CLASS_3_PERSISTENT_REPOSITORY_ACTION",
+            "CLASS_4_EXTERNAL_PERSISTENT_ACTION"
+          ]
+        },
+        "operation": {"type": "string", "minLength": 1},
+        "provider": {"type": ["string", "null"]},
+        "access_mode": {"enum": ["METADATA_ONLY", "CONTENT_READ", "CONTENT_WRITE"]},
+        "paths": {"$ref": "#/$defs/stringArray"},
+        "resources": {"$ref": "#/$defs/stringArray"},
+        "claim_state": {"enum": ["CLAIMED", "OBSERVABLY_SUPPORTED", "UNKNOWN", "HUMAN_VALIDATION_REQUIRED"]},
+        "evidence_refs": {"$ref": "#/$defs/stringArray"}
+      }
+    }
+  }
+}

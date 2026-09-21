@@ -1,0 +1,111 @@
+{
+  "artifact_type": "WORK_CONTRACT",
+  "protocol_version": "portable_mira.coordination.v0.1",
+  "work_contract_id": "MIRA-CODEX-DOGFOOD-001",
+  "created_by": "HUMAN",
+  "objective": "Read-only inspect the Portable MIRA repository to distinguish the latest frozen experimental checkpoint, tracked frozen work, current unfrozen work, baseline integrity, and excluded local configuration.",
+  "value_intent": "Dogfood Coordination Protocol v0.1 while preserving Human authority, frozen baselines, holdout isolation, and the source/artifact boundary.",
+  "baseline_refs": {
+    "expected_baseline": "7806f9230b68a76ce81c9d6bdcf8c933ae7829c6",
+    "immutable_artifacts": [
+      {
+        "path": "experimental/portable_mira_v0.1/coordination/protocol/coordination_protocol_v0.1.design.json",
+        "sha256": "6b01c1c0b4614ffed951bf16ed0928419b46af3de90ac35e25b5a34fc399b538"
+      }
+    ],
+    "baseline_mismatch_policy": "BLOCKED"
+  },
+  "scope": {
+    "permitted_paths": [
+      "experimental/portable_mira_v0.1"
+    ],
+    "forbidden_paths": [
+      ".cursor/mcp.json"
+    ],
+    "permitted_resources": [
+      "git:diff",
+      "git:history",
+      "git:status"
+    ],
+    "forbidden_resources": [
+      "credentials",
+      "external_api",
+      "holdout_execution"
+    ],
+    "permitted_providers": [],
+    "forbidden_providers": [
+      "anthropic",
+      "openai"
+    ]
+  },
+  "allowed_actions": [
+    {
+      "action_id": "portable-mira-read-only-inspection",
+      "action_class": "CLASS_0_READ_ANALYZE",
+      "operation": "read_only_repository_inspection",
+      "provider": null,
+      "paths": [
+        "experimental/portable_mira_v0.1"
+      ],
+      "resources": [
+        "git:diff",
+        "git:history",
+        "git:status"
+      ]
+    }
+  ],
+  "forbidden_actions": [
+    {
+      "action_id": "external-api-call",
+      "action_class": "CLASS_2_EXTERNAL_BOUNDED_ACTION",
+      "operation": "external_api_request",
+      "provider": "openai",
+      "paths": [],
+      "resources": [
+        "external_api"
+      ]
+    },
+    {
+      "action_id": "persistent-repository-change",
+      "action_class": "CLASS_3_PERSISTENT_REPOSITORY_ACTION",
+      "operation": "stage_or_commit",
+      "provider": null,
+      "paths": [
+        "experimental/portable_mira_v0.1"
+      ],
+      "resources": [
+        "git:history"
+      ]
+    },
+    {
+      "action_id": "external-persistent-action",
+      "action_class": "CLASS_4_EXTERNAL_PERSISTENT_ACTION",
+      "operation": "push_or_publish",
+      "provider": null,
+      "paths": [],
+      "resources": [
+        "external_api"
+      ]
+    }
+  ],
+  "network_budget": 0,
+  "credential_policy": "FORBIDDEN",
+  "execution_mode": "LOCAL_ONLY_READ_ANALYZE",
+  "concurrency_mode": "SINGLE_EXECUTOR_SINGLE_PROCESS",
+  "expected_evidence": [
+    "Work Contract canonical SHA-256",
+    "PRE_ACTION decision",
+    "latest frozen experimental checkpoint",
+    "tracked and untracked Portable MIRA classification",
+    "frozen baseline integrity observation",
+    "append-only Execution Evidence artifact and validation result"
+  ],
+  "stop_conditions": [
+    "PRE_ACTION decision is not AUTHORIZED",
+    "requested action class is not CLASS_0_READ_ANALYZE",
+    "PRE_ACTION result indicates action execution",
+    "observed Git baseline differs from expected baseline",
+    "inspection would require credential or .cursor/mcp.json content access"
+  ],
+  "status": "AUTHORIZED"
+}

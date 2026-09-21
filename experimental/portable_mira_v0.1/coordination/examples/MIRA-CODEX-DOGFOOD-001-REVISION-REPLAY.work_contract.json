@@ -1,0 +1,63 @@
+{
+  "artifact_type": "WORK_CONTRACT",
+  "protocol_version": "portable_mira.coordination.v0.1",
+  "work_contract_id": "MIRA-CODEX-DOGFOOD-001-REVISION-REPLAY",
+  "created_by": "HUMAN",
+  "objective": "Replay the first Class-0 dogfood with explicit metadata and content-read boundaries.",
+  "value_intent": "Verify revised coordination evidence without rewriting historical dogfood artifacts.",
+  "baseline_refs": {
+    "expected_baseline": "7806f9230b68a76ce81c9d6bdcf8c933ae7829c6",
+    "immutable_artifacts": [
+      {
+        "path": "experimental/portable_mira_v0.1/coordination/examples/MIRA-CODEX-DOGFOOD-001.work_contract.json",
+        "canonical_content_sha256": "29a0c7d2bc33adb75ba7d262d8b13e4d196a0709dfad4b01465d0622474b0cc5",
+        "file_bytes_sha256": "9d32274f0a776ddc911095b8f013b6c1e6a23178be2d3072af4eba68c381f87c"
+      },
+      {
+        "path": "experimental/portable_mira_v0.1/coordination/examples/MIRA-CODEX-DOGFOOD-001.execution_evidence.json",
+        "canonical_content_sha256": null,
+        "file_bytes_sha256": "608d3e810a8436053d0734fc075b886087a35d1d9fadf3a68c41aef6571f53fc"
+      }
+    ],
+    "baseline_mismatch_policy": "BLOCKED"
+  },
+  "scope": {
+    "path_permissions": [
+      {"path": ".cursor/mcp.json", "access_mode": "METADATA_ONLY"},
+      {"path": "experimental/portable_mira_v0.1", "access_mode": "CONTENT_READ"}
+    ],
+    "forbidden_paths": [],
+    "permitted_resources": ["git:diff", "git:history", "git:status"],
+    "forbidden_resources": [],
+    "permitted_providers": [],
+    "forbidden_providers": []
+  },
+  "allowed_actions": [
+    {
+      "action_id": "inspect-repository-content",
+      "action_class": "CLASS_0_READ_ANALYZE",
+      "operation": "read_repository_content",
+      "provider": null,
+      "access_mode": "CONTENT_READ",
+      "paths": ["experimental/portable_mira_v0.1"],
+      "resources": ["git:diff", "git:history"]
+    },
+    {
+      "action_id": "inspect-cursor-metadata",
+      "action_class": "CLASS_0_READ_ANALYZE",
+      "operation": "inspect_path_metadata",
+      "provider": null,
+      "access_mode": "METADATA_ONLY",
+      "paths": [".cursor/mcp.json"],
+      "resources": ["git:status"]
+    }
+  ],
+  "forbidden_actions": [],
+  "network_budget": 0,
+  "credential_policy": "FORBIDDEN",
+  "execution_mode": "LOCAL_ONLY_DOGFOOD_REPLAY",
+  "concurrency_mode": "SINGLE_EXECUTOR_SINGLE_PROCESS",
+  "expected_evidence": ["PRE_ACTION decisions", "read-only repository observations", "explicit cursor metadata boundary"],
+  "stop_conditions": ["baseline mismatch", "scope mismatch", "credential access", "network request"],
+  "status": "AUTHORIZED"
+}

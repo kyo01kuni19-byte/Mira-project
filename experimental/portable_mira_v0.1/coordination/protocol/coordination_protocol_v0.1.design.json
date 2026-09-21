@@ -1,0 +1,512 @@
+{
+  "artifact_type": "MIRA_CODEX_COORDINATION_PROTOCOL_DESIGN",
+  "protocol_version": "portable_mira.coordination.v0.1-design",
+  "status": "DESIGN_CANDIDATE_NOT_AUTHORIZED_FOR_EXECUTION",
+  "epistemic_status": "DESIGN_HYPOTHESIS_NOT_OPERATIONAL_CONTROL",
+  "work_contract_id": "MIRA-CODEX-COORDINATION-001",
+  "value_intent": "Enable repository-mediated MIRA and Codex coordination without converting capability, recommendations, or artifact existence into Human authority.",
+  "design_scope": {
+    "included": [
+      "machine-readable artifact models",
+      "deterministic local validation hypothesis",
+      "action classification and authorization gates",
+      "append-only execution evidence",
+      "baseline and change integrity",
+      "true-holdout isolation representation"
+    ],
+    "excluded": [
+      "external action execution",
+      "credential access",
+      "workflow automation",
+      "deployment",
+      "modification of frozen baselines",
+      "modification or execution of sealed holdout cases"
+    ]
+  },
+  "canonicalization": {
+    "encoding": "UTF-8",
+    "json_keys": "sorted",
+    "separators": "comma_colon",
+    "newline": "single_LF",
+    "hash": "SHA-256"
+  },
+  "governing_invariants": [
+    "CAPABILITY_DOES_NOT_IMPLY_AUTHORITY",
+    "WORK_CONTRACT_DOES_NOT_EQUAL_HUMAN_AUTHORIZATION",
+    "MIRA_RECOMMENDATION_DOES_NOT_EQUAL_HUMAN_AUTHORIZATION",
+    "ARTIFACT_EXISTENCE_DOES_NOT_EQUAL_HUMAN_APPROVAL",
+    "EXECUTION_EVIDENCE_CANNOT_REWRITE_CONTRACT_OR_AUTHORIZATION",
+    "STRICTER_EXISTING_BOUNDARIES_PREVAIL",
+    "DEFAULT_FAIL_CLOSED"
+  ],
+  "actors": {
+    "HUMAN": {
+      "roles": [
+        "principal",
+        "normative_decision_authority",
+        "authorization_issuer"
+      ],
+      "capabilities": [
+        "request work",
+        "authorize bounded action",
+        "revoke or supersede authorization",
+        "decide Human-reserved matters"
+      ],
+      "decision_responsibility": [
+        "material normative decisions",
+        "acceptance of consequential external actions",
+        "approval of governed baseline changes"
+      ],
+      "execution_authority": "MUST_BE_EXPLICIT_AND_SCOPE_BOUND",
+      "evidence_responsibility": [
+        "authorization provenance",
+        "Human decision records where required"
+      ]
+    },
+    "MIRA": {
+      "roles": [
+        "analysis",
+        "recommendation",
+        "work-contract drafting",
+        "review"
+      ],
+      "capabilities": [
+        "analyze evidence",
+        "propose work and controls",
+        "draft machine-readable artifacts"
+      ],
+      "decision_responsibility": [
+        "preserve epistemic status",
+        "identify material uncertainty and Human decision points"
+      ],
+      "execution_authority": "NONE_BY_ROLE",
+      "evidence_responsibility": [
+        "separate observation, inference, assumption, recommendation, and unknown"
+      ]
+    },
+    "CODEX": {
+      "roles": [
+        "local executor",
+        "validator",
+        "evidence collector"
+      ],
+      "capabilities": [
+        "inspect repositories",
+        "make authorized local changes",
+        "run authorized tools",
+        "produce execution evidence"
+      ],
+      "decision_responsibility": [
+        "enforce work and authorization boundaries",
+        "stop on material mismatch",
+        "report unsupported claims as unknown"
+      ],
+      "execution_authority": "ONLY_FROM_VALID_BOUND_AUTHORIZATION",
+      "evidence_responsibility": [
+        "record performed and unperformed actions",
+        "record observable results, failures, counts, hashes, and git state"
+      ]
+    }
+  },
+  "actor_extension_rule": "Additional actors may be added with explicit role, capability, decision responsibility, execution authority, and evidence responsibility; no defaults inherit authority.",
+  "artifact_models": {
+    "WORK_CONTRACT": {
+      "purpose": "Describe requested work, intended value, constraints, and evidence requirements without itself proving Human approval.",
+      "required_fields": [
+        "artifact_type",
+        "protocol_version",
+        "work_contract_id",
+        "created_by",
+        "objective",
+        "value_intent",
+        "baseline_refs",
+        "scope",
+        "allowed_actions",
+        "forbidden_actions",
+        "network_budget",
+        "credential_policy",
+        "execution_mode",
+        "expected_evidence",
+        "stop_conditions",
+        "status"
+      ],
+      "status_values": [
+        "DRAFT",
+        "READY_FOR_HUMAN_REVIEW",
+        "AUTHORIZED",
+        "EXECUTING",
+        "EXECUTION_COMPLETE",
+        "BLOCKED",
+        "FAILED",
+        "HUMAN_VALIDATION_REQUIRED",
+        "SUPERSEDED"
+      ],
+      "integrity_rule": "Human Authorization binds the canonical SHA-256 of the complete Work Contract. Any material mutation invalidates that authorization.",
+      "authority_rule": "A MIRA-authored or Codex-authored Work Contract is a proposal unless separate valid Human Authorization exists. A verified Human-issued contract may directly authorize only the conditional Class 0 or Class 1 cases defined by the authorization matrix."
+    },
+    "HUMAN_AUTHORIZATION": {
+      "purpose": "Record explicit Human authorization separately from requested work and recommendations.",
+      "required_fields": [
+        "artifact_type",
+        "protocol_version",
+        "authorization_id",
+        "work_contract_id",
+        "work_contract_sha256",
+        "authorized_by",
+        "authorized_actions",
+        "explicitly_not_authorized",
+        "action_budgets",
+        "applicable_resource_scope",
+        "authorization_state",
+        "supersedes"
+      ],
+      "constraints": {
+        "authorized_by": "HUMAN",
+        "authorization_state_values": [
+          "ACTIVE",
+          "CONSUMED",
+          "REVOKED",
+          "SUPERSEDED",
+          "INVALIDATED"
+        ],
+        "scope_matching": "EXACT_OR_NARROWER_ONLY",
+        "action_matching": "EXACT_CLASS_PROVIDER_RESOURCE_AND_OPERATION",
+        "reuse": "FORBIDDEN_FOR_MATERIALLY_DIFFERENT_CONTRACT"
+      },
+      "authority_rule": "Authorization grants only listed actions within listed budgets and scope. Silence grants nothing."
+    },
+    "EXECUTION_EVIDENCE": {
+      "purpose": "Preserve append-only observable evidence for each execution attempt without modifying prior authority artifacts.",
+      "required_fields": [
+        "artifact_type",
+        "protocol_version",
+        "evidence_id",
+        "work_contract_id",
+        "work_contract_sha256",
+        "authorization_ref",
+        "executor",
+        "attempt_index",
+        "previous_evidence_ref",
+        "baseline_observed",
+        "actions_actually_performed",
+        "actions_not_performed",
+        "request_counts",
+        "files_changed",
+        "tests_and_checks",
+        "observed_results",
+        "failures",
+        "assumptions",
+        "unknowns",
+        "artifact_hashes",
+        "git_state",
+        "execution_state"
+      ],
+      "execution_state_values": [
+        "PRE_ACTION_GATE_FAILED",
+        "EXECUTING",
+        "PARTIAL",
+        "EXECUTION_COMPLETE",
+        "BLOCKED",
+        "FAILED",
+        "HUMAN_VALIDATION_REQUIRED"
+      ],
+      "claim_states": [
+        "OBSERVED",
+        "SUPPORTED_INFERENCE",
+        "ASSUMPTION",
+        "UNKNOWN",
+        "HUMAN_VALIDATION_REQUIRED"
+      ],
+      "append_only_rule": "A later attempt references earlier evidence and never replaces it.",
+      "unsupported_claim_rule": "A result without observable support is UNKNOWN or HUMAN_VALIDATION_REQUIRED, never silently PASS.",
+      "budget_rule": "A dispatched external request consumes budget even when the response state is unknown."
+    }
+  },
+  "authorization_matrix": {
+    "CLASS_0_READ_ANALYZE": {
+      "examples": [
+        "repository inspection",
+        "local analysis"
+      ],
+      "work_contract_alone": "YES_ONLY_IF_VERIFIABLY_HUMAN_ISSUED_AND_EXPLICIT",
+      "separate_human_authorization_required": "NO_UNLESS_STRICTER_BOUNDARY_APPLIES",
+      "pre_action_gate": [
+        "scope match",
+        "forbidden-path check",
+        "credential policy check"
+      ]
+    },
+    "CLASS_1_LOCAL_REVERSIBLE_CHANGE": {
+      "examples": [
+        "experiment-local file change",
+        "local tests"
+      ],
+      "work_contract_alone": "YES_ONLY_IF_VERIFIABLY_HUMAN_ISSUED_WITH_EXPLICIT_FILE_SCOPE",
+      "separate_human_authorization_required": "NO_UNLESS_GOVERNED_BASELINE_OR_STRICTER_BOUNDARY_REQUIRES_IT",
+      "pre_action_gate": [
+        "baseline match",
+        "permitted and forbidden path check",
+        "action reversibility check"
+      ]
+    },
+    "CLASS_2_EXTERNAL_BOUNDED_ACTION": {
+      "examples": [
+        "one OpenAI request",
+        "one Anthropic request"
+      ],
+      "work_contract_alone": "NO",
+      "separate_human_authorization_required": "YES",
+      "pre_action_gate": [
+        "exact Work Contract hash binding",
+        "authorization ACTIVE",
+        "exact provider, model, action, and resource match",
+        "request budget remaining",
+        "retry budget remaining",
+        "prohibited capability absent",
+        "required baseline and artifact hashes match"
+      ]
+    },
+    "CLASS_3_PERSISTENT_REPOSITORY_ACTION": {
+      "examples": [
+        "stage",
+        "commit"
+      ],
+      "work_contract_alone": "NO",
+      "separate_human_authorization_required": "YES",
+      "pre_action_gate": [
+        "exact Work Contract hash binding",
+        "authorized path allowlist",
+        "staged diff verification",
+        "baseline and branch match",
+        "secret and transient artifact scan"
+      ]
+    },
+    "CLASS_4_EXTERNAL_PERSISTENT_ACTION": {
+      "examples": [
+        "push",
+        "pull request creation",
+        "deployment",
+        "publishing"
+      ],
+      "work_contract_alone": "NO",
+      "separate_human_authorization_required": "YES",
+      "pre_action_gate": [
+        "all Class 3 gates where applicable",
+        "exact remote or destination match",
+        "non-force and reversibility policy check",
+        "external action budget remaining",
+        "final Human-authorized action match"
+      ]
+    }
+  },
+  "state_machine": {
+    "initial_state": "DRAFT",
+    "terminal_states": [
+      "EXECUTION_COMPLETE",
+      "FAILED",
+      "SUPERSEDED"
+    ],
+    "transitions": [
+      {
+        "from": "DRAFT",
+        "to": "READY_FOR_HUMAN_REVIEW",
+        "gate": "contract shape and local policy validation pass"
+      },
+      {
+        "from": "READY_FOR_HUMAN_REVIEW",
+        "to": "AUTHORIZED",
+        "gate": "valid Human authorization evidence or permitted verified Human-issued Class 0/1 contract"
+      },
+      {
+        "from": "AUTHORIZED",
+        "to": "EXECUTING",
+        "gate": "pre-action gate passes immediately before action"
+      },
+      {
+        "from": "EXECUTING",
+        "to": "EXECUTION_COMPLETE",
+        "gate": "append-only evidence records all actions, counts, and results"
+      },
+      {
+        "from": "DRAFT|READY_FOR_HUMAN_REVIEW|AUTHORIZED|EXECUTING",
+        "to": "BLOCKED",
+        "gate": "authorization, scope, budget, baseline, or integrity check fails"
+      },
+      {
+        "from": "EXECUTING",
+        "to": "FAILED",
+        "gate": "authorized action fails and failure evidence is preserved"
+      },
+      {
+        "from": "DRAFT|READY_FOR_HUMAN_REVIEW|AUTHORIZED|EXECUTING|BLOCKED",
+        "to": "HUMAN_VALIDATION_REQUIRED",
+        "gate": "material normative, authority, unsupported-evidence, or ambiguity boundary is reached"
+      },
+      {
+        "from": "DRAFT|READY_FOR_HUMAN_REVIEW|AUTHORIZED|BLOCKED|HUMAN_VALIDATION_REQUIRED",
+        "to": "SUPERSEDED",
+        "gate": "replacement contract or authorization explicitly references the superseded artifact"
+      }
+    ],
+    "forbidden_transitions": [
+      "READY_FOR_HUMAN_REVIEW_TO_AUTHORIZED_WITHOUT_HUMAN_AUTHORIZATION_EVIDENCE",
+      "MIRA_SELF_AUTHORIZATION",
+      "CODEX_CAPABILITY_TO_PERMISSION",
+      "BLOCKED_TO_EXECUTING_WITHOUT_NEW_VALID_GATE_EVIDENCE"
+    ]
+  },
+  "baseline_and_change_integrity": {
+    "required_contract_fields": [
+      "expected_baseline_commit_or_hash",
+      "authorized_delta",
+      "immutable_or_frozen_artifact_refs",
+      "files_permitted_to_change",
+      "files_forbidden_to_change"
+    ],
+    "pre_action_comparison": "EXPECTED_BASELINE_VS_OBSERVED_BASELINE",
+    "mismatch_result": "BLOCKED",
+    "evidence_chain": [
+      "BASELINE",
+      "AUTHORIZED_DELTA",
+      "OBSERVED_RESULT",
+      "APPEND_ONLY_EXECUTION_EVIDENCE"
+    ],
+    "reinterpretation_rule": "Approved or frozen content cannot be silently renamed, merged, omitted, weakened, strengthened, or expanded."
+  },
+  "holdout_isolation": {
+    "sealed_case_refs": "HASH_AND_PATH_REFERENCES_ONLY_IN_COORDINATION_ARTIFACTS",
+    "execution_authorization": "SEPARATE_PER_CASE_AND_PER_ACTION_BUDGET",
+    "model_request_budget": "EXACT_PROVIDER_AND_CASE_BOUND",
+    "semantic_agent_visibility": [
+      "allowed model input",
+      "registered vocabulary",
+      "contract schema"
+    ],
+    "semantic_agent_prohibited": [
+      "sealed expectation",
+      "expected route",
+      "expected triggers",
+      "expected diagnostics",
+      "evaluator result"
+    ],
+    "output_annotator_prohibited_before_annotation": [
+      "sealed expectation",
+      "evaluator result",
+      "desired correction"
+    ],
+    "unopened_cases": "REFERENCED_AS_SEALED_UNEXECUTED_WITHOUT_CONTENT_EXPANSION",
+    "evidence_rule": "Raw output is preserved before annotation and later layers reference hashes rather than rewriting earlier evidence."
+  },
+  "partial_execution_recovery": {
+    "attempt_identity_required": true,
+    "previous_evidence_reference_required_after_first_attempt": true,
+    "unknown_dispatch_result": "COUNT_AS_BUDGET_CONSUMED_AND_REQUIRE_HUMAN_VALIDATION",
+    "resume_rule": "Resume requires a fresh gate against current contract, authorization state, observed baseline, and remaining budget.",
+    "rewrite_prior_evidence": false
+  },
+  "counter_failures": {
+    "MC1": {
+      "condition": "MIRA-authored Work Contract requests one API call without Human Authorization",
+      "expected": "BLOCKED",
+      "control": "Class 2 requires a separate ACTIVE Human Authorization bound to the exact contract hash."
+    },
+    "MC2": {
+      "condition": "Codex has credentials or tool capability but authorization is absent",
+      "expected": "BLOCKED",
+      "control": "Capability and credential presence are excluded from authorization evidence."
+    },
+    "MC3": {
+      "condition": "One API request is authorized and a second is attempted",
+      "expected": "SECOND_ACTION_BLOCKED",
+      "control": "Append-only request count consumes the exact action budget at dispatch."
+    },
+    "MC4": {
+      "condition": "OpenAI request authorized and Anthropic request attempted",
+      "expected": "BLOCKED",
+      "control": "Provider and operation must match authorization exactly."
+    },
+    "MC5": {
+      "condition": "Local file change authorized and git push attempted",
+      "expected": "BLOCKED",
+      "control": "Class 1 authorization cannot satisfy Class 4."
+    },
+    "MC6": {
+      "condition": "Work Contract changes after authorization",
+      "expected": "AUTHORIZATION_INVALIDATED_AND_BLOCKED",
+      "control": "Authorization binds the canonical complete Work Contract hash."
+    },
+    "MC7": {
+      "condition": "Observed baseline differs from authorized baseline",
+      "expected": "BLOCKED",
+      "control": "Pre-action baseline comparison fails closed."
+    },
+    "MC8": {
+      "condition": "Execution Evidence claims an action without observable support",
+      "expected": "UNKNOWN_OR_HUMAN_VALIDATION_REQUIRED",
+      "control": "Evidence claims require observable source references and explicit claim state."
+    },
+    "MC9": {
+      "condition": "MIRA recommendation is treated as Human approval",
+      "expected": "BLOCKED",
+      "control": "MIRA has no execution authority by role and cannot issue Human Authorization."
+    },
+    "MC10": {
+      "condition": "Prior authorization is reused for a materially different Work Contract",
+      "expected": "BLOCKED",
+      "control": "Contract ID, canonical hash, action, budget, and resource scope must all match."
+    }
+  },
+  "minimum_implementation_hypothesis": {
+    "proposed_paths": [
+      "coordination/protocol/coordination_protocol_v0.1.json",
+      "coordination/schemas/work_contract.schema.json",
+      "coordination/schemas/human_authorization.schema.json",
+      "coordination/schemas/execution_evidence.schema.json",
+      "runner/coordination_protocol.py",
+      "runner/test_coordination_protocol.py"
+    ],
+    "implementation_characteristics": [
+      "deterministic",
+      "local",
+      "provider-independent",
+      "fail-closed",
+      "standard-library JSON only",
+      "no workflow engine",
+      "no external execution"
+    ],
+    "implementation_boundary": "The validator evaluates artifacts and proposed actions; a separate explicitly authorized executor remains responsible for any action."
+  },
+  "counter_challenges": {
+    "unnecessary_bureaucracy": "Use three core artifact types only; Class 0/1 may rely on a verifiably Human-issued explicit contract unless a stricter boundary applies.",
+    "mira_dependence": "The protocol is actor-extensible and provider-independent; MIRA may draft but is not an authorization dependency or authority source.",
+    "authorization_ambiguity": "Canonical contract hash, exact action class, provider, resource scope, and budget are matched fail-closed.",
+    "artifact_proliferation": "No event log, workflow engine, or per-role schema is proposed; attempts append one evidence artifact each.",
+    "stale_authorization_reuse": "Any contract mutation or material scope mismatch invalidates authorization.",
+    "evidence_laundering": "Evidence claims carry observable references and epistemic state; unsupported claims remain UNKNOWN or require Human validation.",
+    "holdout_contamination": "Visibility allowlists and prohibited expectation fields are role-specific and hash-bound.",
+    "partial_execution": "Each attempt records dispatch and budget state; uncertain dispatch consumes budget and blocks automatic retry."
+  },
+  "missing_design_decisions": [
+    {
+      "id": "HUMAN_AUTHENTICATION_MECHANISM",
+      "materiality": "BLOCKING_BEFORE_OPERATIONAL_IMPLEMENTATION",
+      "question": "What local evidence establishes that a Work Contract or Human Authorization was genuinely issued by the Human rather than merely authored with authorized_by set to HUMAN?",
+      "candidate_options": [
+        "trusted application provenance",
+        "Human signature",
+        "reviewed Git commit identity plus protected workflow",
+        "explicit out-of-band confirmation bound to artifact hash"
+      ]
+    },
+    {
+      "id": "ATOMIC_BUDGET_ENFORCEMENT",
+      "materiality": "BLOCKING_BEFORE_CONCURRENT_OR_MULTI_PROCESS_EXTERNAL_EXECUTION",
+      "question": "How will request and retry budgets be atomically reserved and consumed across concurrent executors?",
+      "candidate_options": [
+        "single-executor invariant for v0.1",
+        "local lock and append-only ledger",
+        "transactional external coordinator"
+      ]
+    }
+  ]
+}
