@@ -199,7 +199,10 @@ def test_er8_er9_request_boundary_and_registry_hash_regressions():
         capture_output=True,
         text=True,
     )
-    assert "PASS: OpenAI Semantic Judgment Adapter v0.1 dry-run tests" in completed.stdout
+    assert (
+        "PASS: OpenAI Semantic Judgment Adapter v0.2 candidate dry-run tests"
+        in completed.stdout
+    )
     assert hashlib.sha256(REGISTRY_PATH.read_bytes()).hexdigest() == REGISTRY_SHA256
 
 

@@ -20,6 +20,9 @@ from openai.types.shared_params.reasoning import Reasoning
 from pydantic import TypeAdapter
 
 from openai_semantic_adapter import (
+    OPENAI_INSTRUCTION_KERNEL,
+    SECONDARY_DIMENSION_CONTROL_VERSION,
+    SECONDARY_DIMENSION_POLICY,
     OpenAIAdapterConfig,
     OpenAIAdapterError,
     OpenAISDKTransport,
@@ -125,6 +128,7 @@ def test_oa4_request_contains_only_allowed_input_and_registry_context():
     assert set(payload) == {
         "semantic_judgment_input",
         "registered_semantics",
+        "secondary_dimension_policy",
         "output_requirement",
     }
     assert set(payload["semantic_judgment_input"]) == {
@@ -137,6 +141,28 @@ def test_oa4_request_contains_only_allowed_input_and_registry_context():
     assert "api_key" not in json.dumps(request).lower()
     assert metadata["credential_in_request"] is False
     assert metadata["network_call_performed"] is False
+
+
+def test_oa5_secondary_dimension_candidate_is_explicit_and_bounded():
+    request, metadata = make_adapter().build_request(adapter_input("R1"))
+    payload = json.loads(request["input"])
+    policy = payload["secondary_dimension_policy"]
+    assert policy == SECONDARY_DIMENSION_POLICY
+    assert set(policy) == {
+        "activation_threshold",
+        "exclusion_rule",
+        "preservation_rule",
+        "authority_boundary",
+    }
+    assert "omitting it would materially impair" in policy["activation_threshold"]
+    assert "merely because" in policy["exclusion_rule"]
+    assert "Preserve every" in policy["preservation_rule"]
+    assert "never select edges" in policy["authority_boundary"]
+    assert "Preserve all materially necessary" in OPENAI_INSTRUCTION_KERNEL
+    assert metadata["secondary_dimension_control"] == (
+        SECONDARY_DIMENSION_CONTROL_VERSION
+    )
+    assert make_adapter().adapter_id.endswith("v0.2-candidate")
 
 
 def test_oa5_structured_output_maps_to_contract_schema():
@@ -298,6 +324,7 @@ if __name__ == "__main__":
         test_oa2_dry_run_requires_no_api_key,
         test_oa3_missing_api_key_is_not_configured_without_network,
         test_oa4_request_contains_only_allowed_input_and_registry_context,
+        test_oa5_secondary_dimension_candidate_is_explicit_and_bounded,
         test_oa5_structured_output_maps_to_contract_schema,
         test_installed_sdk_accepts_request_types_locally,
         test_oa6_provider_output_still_passes_mira_validator,
@@ -310,4 +337,4 @@ if __name__ == "__main__":
     ]
     for test in tests:
         test()
-    print("PASS: OpenAI Semantic Judgment Adapter v0.1 dry-run tests (OA1-OA12)")
+    print("PASS: OpenAI Semantic Judgment Adapter v0.2 candidate dry-run tests (OA1-OA13)")
