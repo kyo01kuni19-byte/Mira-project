@@ -3,7 +3,7 @@
 **Status:** Active  
 **Current Phase:** Idea Validation  
 **Gate Status:** Mira Architecture G1 ✓ → G2 ● | Pilot A G2-ready candidate ✓ | Pilot B active  
-**Last Updated:** 2026-08-22  
+**Last Updated:** 2026-09-29
 **Purpose:** Mira開発における現在の理解・重要な決定・構造仮説・Evidence・未解決事項・次の検討地点を保持し、会話・時間・環境を越えて思考と仕事を継続できるようにする。
 
 ## 1. Development Method
@@ -295,3 +295,31 @@ Working Assumptionとして、少なくとも二軸を分けて扱う。
 - Validation Strategy自体がIdea Validationの重要Capability候補として発生
 
 **Next Reality Challenge:** 現在の `PROJECT_MEMORY.md` を **Knowledge Hierarchy × Continuity Hierarchy** のWorking Assumptionで分類し、現在の1ファイルに異なるContinuity Levelがどう混在しているかを見る。分類結果からRepository / Memory Architectureを決めるのであって、先にStorage Structureを設計しない。
+
+## 17. Portable MIRA v0.1 — Current Experimental Checkpoint
+
+**Status:** Experimental — not Approved MIRA / not production-ready
+
+2026-09-21までに、deterministic Runtime、Semantic Judgment Adapter、Anthropic Output Annotator、MIRA-Codex Coordination Protocol、および3件のHuman-authored true-holdout evidence chainをrepositoryへ固定した。
+
+3-case synthesisのbounded evidence：
+
+- Material Problem Findingとcausal restraintは3件でpositive evidence
+- forbidden behaviorは3件で未観測
+- deterministic Runtime handoffは適用3件でPASS
+- general Semantic Judgment capability、G4 intended-value validation、reliability、production readinessは未検証
+- secondary-dimension inflation candidateとimpact-inflation candidateは3件で反復
+
+Architecture change classification：
+
+- **Secondary-dimension activation discipline:** `CHANGE_JUSTIFIED_NOW` — prompt/contractのreversibleな実験候補。Baseline変更ではない
+- **Impact discipline / escalation timing / provider switching:** `FURTHER_EVIDENCE_NEEDED`
+- **Evidence-reference labeling / annotation output budget:** process-control scope
+
+2026-09-29に、material necessity thresholdを明示する
+`portable_mira.secondary_dimension_activation_discipline.v0.1-candidate`
+をOpenAI Adapter requestへ追加した。Semantic Judgment Contract v0.1a、
+deterministic Runtime、registry、historical evidence、frozen evaluationは変更していない。
+Local deterministic regressionは全19系列PASS。これはrequest constructionと既存互換性のEvidenceであり、provider complianceやsemantic quality improvementのEvidenceではない。
+
+**Next Reality Challenge:** prior adapter behaviorとcandidate controlを、新しいdevelopment casesまたは別途authorizeされたsealed casesで比較する。unsupported secondary dimensionsの減少と、materially required dimensionsの非欠落を同時に評価する。既存3件のfrozen holdoutをcandidate-control evidenceとして書き換えたり再利用したりしない。

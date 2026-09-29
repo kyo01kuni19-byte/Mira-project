@@ -13,11 +13,38 @@ from semantic_judgment import load_json
 from openai_provider_schema import load_provider_schema_artifact
 
 
+SECONDARY_DIMENSION_CONTROL_VERSION = (
+    "portable_mira.secondary_dimension_activation_discipline.v0.1-candidate"
+)
+SECONDARY_DIMENSION_POLICY = {
+    "activation_threshold": (
+        "Include a secondary dimension only when omitting it would materially impair "
+        "understanding of the problem, a decision boundary, or the deterministic "
+        "Runtime handoff."
+    ),
+    "exclusion_rule": (
+        "Do not include a dimension merely because it is mentioned, plausible, "
+        "contextually related, or potentially useful."
+    ),
+    "preservation_rule": (
+        "Preserve every secondary dimension that crosses the material-necessity "
+        "threshold; use an empty list when none does."
+    ),
+    "authority_boundary": (
+        "Secondary dimensions remain observational and never select edges, direct "
+        "traversal, authorize action, or require Human escalation by themselves."
+    ),
+}
+
 OPENAI_INSTRUCTION_KERNEL = """You are a Semantic Judgment Adapter. Produce only the supplied Semantic Judgment Contract JSON.
 Observe material semantic factors. Distinguish observable evidence references, inferences, assumptions, and uncertainty.
 Choose ROUTE, NO_ROUTE, or HUMAN_VALIDATION_REQUIRED. Use only the registered route and trigger semantics in the request.
 proposed_initial_route must be one registered initial route token, never an edge ID or compound route path.
-possible_secondary_dimensions are observational dimension candidates only; they do not select edges or direct traversal.
+For possible_secondary_dimensions, apply the supplied secondary_dimension_policy. Include a dimension only when omitting it
+would materially impair problem understanding, a decision boundary, or deterministic Runtime handoff. Do not include a
+dimension merely because it is mentioned, plausible, related, or potentially useful. Preserve all materially necessary
+dimensions and return an empty list when none qualifies. Secondary dimensions are observational only; they do not select
+edges, direct traversal, authorize action, or require Human escalation by themselves.
 Potential Inter-Entity Impact is observational only. Do not create authority, approve impact, execute actions, use tools,
 retrieve external information, browse, or provide hidden reasoning."""
 
@@ -215,7 +242,7 @@ class OpenAISDKTransport:
 
 
 class OpenAISemanticJudgmentAdapter:
-    adapter_id = "openai.semantic_judgment.v0.1"
+    adapter_id = "openai.semantic_judgment.v0.2-candidate"
 
     def __init__(
         self,
@@ -249,6 +276,7 @@ class OpenAISemanticJudgmentAdapter:
             {
                 "expected_registry_hash": self.expected_registry_hash,
                 "structured_output_contract": "portable_mira.semantic_judgment_contract.v0.1a",
+                "secondary_dimension_control": SECONDARY_DIMENSION_CONTROL_VERSION,
                 "tools_enabled": False,
                 "external_retrieval_enabled": False,
             }
@@ -316,6 +344,9 @@ class OpenAISemanticJudgmentAdapter:
         input_payload = {
             "semantic_judgment_input": adapter_input.to_dict(),
             "registered_semantics": registered_semantics,
+            "secondary_dimension_policy": copy.deepcopy(
+                SECONDARY_DIMENSION_POLICY
+            ),
             "output_requirement": "Return only Semantic Judgment Contract v0.1a JSON.",
         }
         request = {
